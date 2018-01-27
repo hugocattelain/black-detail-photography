@@ -1,0 +1,16 @@
+.navbar{
+  background-color: #ffffff;
+  border: none;
+}
+
+.navbar-brand{
+  background: url('../images/home_img.jpg') 50% 50% /contain;
+  background-repeat: no-repeat;
+  width: 170px;
+}
+
+ul.nav{
+  li{
+    text-transform: capitalize;
+  }
+}
