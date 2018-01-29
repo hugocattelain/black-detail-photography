@@ -8,10 +8,7 @@ var masonryOptions = {
 };
 
 class MasonryWall extends Component{
-  constructor(props) {
-		super(props);
-
-  }
+  
   state = {
     images:[]
   }
