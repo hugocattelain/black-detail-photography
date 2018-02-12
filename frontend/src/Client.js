@@ -1,27 +1,31 @@
+import Utils from "./Utils";
+
 /* eslint-disable no-undef */
-function search(query, cb) {
+function getAllImages(query, cb) {
   return fetch(`api/photos?q=${query}`, {
     accept: "application/json"
   })
-    .then(checkStatus)
-    .then(parseJSON)
+    .then(Utils.checkStatus)
+    .then(Utils.parseJSON)
     .then(cb);
 }
 
-function checkStatus(response) { 
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(`HTTP Error ${response.statusText}`);
-  error.status = response.statusText;
-  error.response = response;
-  console.log(error); // eslint-disable-line no-console
-  throw error;
+function postImage(data, cb) {
+  console.log('data client.js');
+  console.log(data);
+
+  return fetch(`api/photo`, {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body : JSON.stringify({data})
+  })
+    .then(Utils.checkStatus)
+    .then(Utils.parseJSON)
+    .then(cb);
 }
 
-function parseJSON(response) {
-  return response.json();
-}
-
-const Client = { search };
+const Client = { getAllImages, postImage };
 export default Client;

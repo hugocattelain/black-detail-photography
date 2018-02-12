@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+require('dotenv').config({path: '../../../.env'});
 
 const UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
 const UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
 
-class Admin extends Component {
-  constructor(props) {
-    super(props);
+console.log('process.env.CLOUDINARY_UPLOAD_URL');
+console.log(process.env.CLOUDINARY_UPLOAD_URL);
 
-    this.state = {
-      uploadedFileCloudinaryUrl: ''
-    };
-  }
+class Admin extends Component {
+
+  state = {
+    uploadedFileCloudinaryUrl: ''
+  };
 
   onImageDrop(files) {
     this.setState({

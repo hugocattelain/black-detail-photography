@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import MasonryWall from './MasonryWall';
+import { Switch, Route } from 'react-router-dom'
+//import MasonryWall from './MasonryWall';
 import '../styles/content.css';
+import Admin from './Admin';
+import MasonryWall from './MasonryWall';
 
-class Content extends Component {
+const Content = () => (
 
-  render() {
-    return (
-      <div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div className="container">
-          <MasonryWall category="portrait"/>
-        </div>
-      </div>
-    );
-  }
-}
+  <div>
+    <Switch>
+    <Route exact path='/' component={MasonryWall}/>
+      <Route exact path='/:category' component={MasonryWall}/>
+
+      <Route exact path='/admin' component={Admin}/>
+    </Switch>
+  </div>
+)
 
 export default Content;
