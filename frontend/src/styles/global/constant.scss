@@ -1,0 +1,15 @@
+$xs : "only screen and (max-width : 576px)";
+$s : "only screen and (max-width : 768px)";
+$m : "only screen and (max-width : 992px)";
+$l : "only screen and (max-width : 1200px)";
+$xl : "only screen and (min-width : 1200px)";
+
+$break-large: 992px;
+$break-medium: 768px;
+$break-small: 576px;
+
+$bdp-grey: #242424;
+
+h1, h2, h3, h4, h5, h6, a{
+  color: $bdp-grey !important;
+}

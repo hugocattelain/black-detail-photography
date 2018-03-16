@@ -1,35 +1,59 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import '../styles/header.css';
+import { slide as Menu } from 'react-burger-menu';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import SocialMedia from './SocialMedia';
+
+import '../styles/header.scss';
+
+const mql = window.matchMedia(`(min-width: 768px)`);
 
 class Header extends Component {
-  state = {
-    categories: [{id:1, title:"portrait", path:"portrait"}, {id:2, title:"architecture", path:"architecture"},{id:3, title:"black and white", path:"black-and-white"}]
+  constructor(props) {
+		super(props);
+
+		this.state = {
+			mql: mql,
+			menuIsOpen: false //Menu bugs out if set to true initial on push mode
+		}
+
+		this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
+	}
+
+  componentDidMount = () =>{
+    this.setState({ mql: mql, menuIsOpen: this.state.mql.matches });
   }
-  render() {
-    const categories = this.state.categories;
-    return (
-      <Router>
-        <nav className="navbar navbar-default">
-            <div className="container-fluid">
-                <div className="navbar-header">
-                    <a className="navbar-brand" href="#"></a>
-                </div>
-                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul className="nav navbar-nav">
 
-                        <li><Link to="/">Home</Link></li>
-                        {categories.map(category =>(
-                          <li><Link to={`/${category.path}`}>{category.title}</Link></li>
-                        ))}
+  componentWillMount = () => {
+    mql.addListener(this.mediaQueryChanged);
+  }
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-      </Router>
-    );
+  componentWillUnmount = () => {
+    this.state.mql.removeListener(this.mediaQueryChanged);
+  }
+
+  mediaQueryChanged = () => {
+    this.setState({ menuIsOpen: this.state.mql.matches });
+  }
+  render(){
+    return(
+      <Menu isOpen={this.state.menuIsOpen} noOverlay disableOverlayClick width={ '23%' } >
+        <div className="navbar-logo" onClick={e => {this.props.history.push('/')}}></div>
+        <ul className="menu-list">
+          <li className="menu-item"><Link to='/'>Home</Link></li>
+          <li className="menu-item"><Link to='/curves'>Curves</Link></li>
+          <li className="menu-item"><Link to='/black'>Black</Link></li>
+          <li className="menu-item"><Link to='/mask'>Mask</Link></li>
+          <li className="menu-item"><Link to='/wall'>Wall</Link></li>
+          <li className="menu-item"><Link to='/contact'>Contact</Link></li>
+        </ul>
+        <SocialMedia />
+        <div className="copyright">
+          Copyright © All rights <br/> reserved.
+        </div>
+      </Menu>
+    )
   }
 }
 
-export default Header;
+export default withRouter(Header);
