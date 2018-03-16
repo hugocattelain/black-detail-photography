@@ -1,0 +1,19 @@
+.ril-toolbar{
+  background-color: transparent;
+
+  &-right{
+    padding: 0;
+  }
+}
+
+.ril-close{
+  background: url('../images/cross.png') 50% 50% /contain !important;
+  background-repeat: no-repeat !important;
+  width: 25px;
+  width: 25px;
+  margin: 25px;
+}
+
+.ril-next-button:focus, .ril-prev-button:focus, .ril-next-button:active, .ril-prev-button:active{
+  border: none !important;
+}

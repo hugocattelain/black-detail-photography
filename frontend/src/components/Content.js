@@ -1,20 +1,25 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom'
-//import MasonryWall from './MasonryWall';
-import '../styles/content.css';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Admin from './Admin';
 import MasonryWall from './MasonryWall';
+import Lightbox from './Lightbox';
+import Contact from './Contact';
 
-const Content = () => (
+import '../styles/content.scss';
 
-  <div>
+const Content = () => {
+
+  return(
     <Switch>
-    <Route exact path='/' component={MasonryWall}/>
-      <Route exact path='/:category' component={MasonryWall}/>
 
-      <Route exact path='/admin' component={Admin}/>
+      <Route exact path='/' component={MasonryWall} />
+      <Route exact path='/admin' component={Admin} />
+      <Route exact path='/contact' component={Contact} />
+      <Route exact path='/:category' component={MasonryWall} />
+      <Route exact path='/:category/:id' component={Lightbox} />
+
     </Switch>
-  </div>
-)
+  );
+}
 
 export default Content;

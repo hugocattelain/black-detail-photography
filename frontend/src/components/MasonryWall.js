@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import Masonry from 'react-masonry-component';
+import { getCategoryName } from '../Utils';
 import Client from "../Client";
-import '../styles/masonry.css';
-
+import '../styles/masonry.scss';
 
 var masonryOptions = {
     transitionDuration: 0
@@ -13,34 +14,27 @@ class MasonryWall extends Component{
     super(props);
 
     this.state = {
-      images:[]
-    }
+      images:[],
+      photoIndex : 0,
+      lightboxIsOpen: false,
+    };
   }
 
+  componentDidMount = () => {
 
-  componentDidMount(){
-    const param = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category;
+    const param = getCategoryName(this.props.match.params.category);
     Client.getAllImages(param, images => {
       this.setState({
         images: images
       })
     });
-
-    const data = {src : 'testpost', title: 'pute'};
-    Client.postImage(data, images => {
-    //  images.push({src : 'testpost', title: 'pute'});
-      // this.setState({
-      //   images: images
-      // })
-    });
   }
 
-  componentWillReceiveProps(nextProps){
-    const nextCategory = nextProps.match.params.category;
-    const currentCategory = this.props.match.params.category;
+  componentWillReceiveProps = (nextProps) => {
+    const nextCategory = getCategoryName(nextProps.match.params.category);
+    const currentCategory = getCategoryName(this.props.match.params.category);
     if(nextCategory !== currentCategory){
-      const param = nextCategory === undefined ? 'home' : nextCategory;
-
+      const param = nextCategory;
       Client.getAllImages(param, images => {
         this.setState({
           images: images
@@ -48,33 +42,48 @@ class MasonryWall extends Component{
       });
     }
   }
+
+  openLightbox = (index) => {
+    const id = this.state.images[index].id;
+    const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category ;
+    this.props.history.push(`/${category}/${id}`);
+  }
+
   render() {
+    const images = this.state.images.map( image => {
+      return image.src;
+    });
+    const { photoIndex, lightboxIsOpen } = this.state;
     const childElements = this.state.images.map((item, key) => {
-        return(
-          <li key={key} className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-            <img src={item.src} />
-          </li>
-        );
+      const index = key;
+      return(
+        <li key={key} className="masonry-brick__container col-lg-3 col-md-4 col-sm-6 col-xs-6" onClick={() => this.openLightbox(index)}>
+          <img src={item.src} alt={item.title || 'Black Detail Photography'} className="masonry-brick__image"/>
+        </li>
+      );
     });
 
     return (
-      <div className="container">
-        <Masonry
-            className="masonry-wall row"
-            elementType="ul"
-            options={masonryOptions}
-            disableImagesLoaded={false}
-            updateOnEachImageLoad={false}
-        >
-            {childElements}
-        </Masonry>
+      <div className="outer__container">
+        <div className="container">
+          <Masonry
+              className="masonry-wall row"
+              elementType="ul"
+              options={masonryOptions}
+              disableImagesLoaded={false}
+              updateOnEachImageLoad={false}
+          >
+              {childElements}
+          </Masonry>
+          {/* <Diaporama images={images} />*/}
+        </div>
       </div>
     );
   }
 }
 
-MasonryWall.defaultProps = {
-  category: 'home',
-}
+// MasonryWall.defaultProps = {
+//   category: 'home',
+// }
 
-export default MasonryWall;
+export default withRouter(MasonryWall);

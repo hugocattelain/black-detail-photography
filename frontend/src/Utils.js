@@ -54,5 +54,28 @@ function parseJSON(response) {
   return response.json();
 }
 
-const Utils = { getIndexById, getElementById, updateElement, createElement, checkStatus, parseJSON };
+export function getCategoryName(alias){
+  switch(alias){
+    case 'curves':
+      return 'nsfw';
+    case 'black':
+      return 'bnw';
+    case 'mask':
+      return 'portrait';
+    case 'wall':
+      return 'architecture';
+    default:
+      return 'home';
+  }
+}
+
+const Utils = {
+  getIndexById,
+  getElementById,
+  updateElement,
+  createElement,
+  checkStatus,
+  parseJSON,
+};
+
 export default Utils;

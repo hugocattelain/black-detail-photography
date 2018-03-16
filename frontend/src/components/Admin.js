@@ -1,67 +1,55 @@
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
-import request from 'superagent';
-require('dotenv').config({path: '../../../.env'});
-
-const UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
-const UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
-
-console.log('process.env.CLOUDINARY_UPLOAD_URL');
-console.log(process.env.CLOUDINARY_UPLOAD_URL);
-
+import UploadPhoto from './UploadPhoto';
+import DeletePhoto from './DeletePhoto';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TextField from 'material-ui/TextField';
+import '../styles/admin.scss'
 class Admin extends Component {
 
   state = {
-    uploadedFileCloudinaryUrl: ''
+    adminPassword: '',
   };
 
-  onImageDrop(files) {
-    this.setState({
-      uploadedFile: files[0]
-    });
-
-    this.handleImageUpload(files[0]);
+  shouldComponentUpdate = (nextProps, nextState) => {
+      if (nextState.adminPassword !== this.state.adminPassword){
+        return true;
+      }
+      return false;
   }
 
-  handleImageUpload(file) {
-    let upload = request.post('https://api.cloudinary.com/v1_1/dmdkvle30/upload')
-                        .field('upload_preset', 'basicupload')
-                        .field('file', file);
-
-    upload.end((err, response) => {
-      if (err) {
-        console.error(err);
-      }
-
-      if (response.body.secure_url !== '') {
-        this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
-        });
-      }
-    });
+  setInputState = (event, name) => {
+    this.setState({ [name]: event.target.value});
   }
 
   render() {
+    const isAdmin = this.state.adminPassword === process.env.BDP_ADMIN_PASSWORD ? true : false;
     return (
-      <div>
-        <div className="FileUpload">
-          <Dropzone
-            multiple={false}
-            accept="image/*"
-            onDrop={this.onImageDrop.bind(this)}>
-            <p>Drop an image or click to select a file to upload.</p>
-          </Dropzone>
+      <div className="outer__container">
+        <div className="container">
+          {isAdmin ? (
+            <div className="row">
+              <div className="col-xs-12">
+                <UploadPhoto />
+              </div>
+              <div className=" col-xs-12">
+                <DeletePhoto />
+              </div>
+            </div>
+          ) : (
+            <MuiThemeProvider>
+              <TextField
+                floatingLabelText="Password"
+                type='password'
+                required={true}
+                value={ this.state.adminPassword }
+                onChange={(e) => this.setInputState(e, 'adminPassword')}
+              />
+            </MuiThemeProvider>
+          )
+          }
         </div>
-
-        <div>
-          {this.state.uploadedFileCloudinaryUrl === '' ? null :
-          <div>
-            <p>{this.state.uploadedFile.name}</p>
-            <img src={this.state.uploadedFileCloudinaryUrl} />
-          </div>}
-        </div>
-    </div>
-  );
+      </div>
+    );
   }
 }
 
