@@ -1,0 +1,47 @@
+.contact{
+  padding: 0 15px !important;
+
+  &__wrapper{
+    padding: 20px 30px;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  &__title{
+    font-size: 35px;
+    line-height: 0px;
+  }
+
+  &__subtitle{
+    font-size: 20px;
+    margin-top: 60px;
+  }
+
+  &__input{
+    &-email, &-subject, &-message{
+
+    }
+    &-email, &-subject{
+      width: calc(50% - 20px) !important;
+      margin: 0 5px;
+
+      @media #{$xs}{
+        display: block !important;
+        width: calc(100% - 30px) !important;
+      }
+    }
+    &-message{
+      display: block !important;
+      width: calc(100% - 30px) !important;
+      margin: 10px auto 20px;
+      //width: 100% !important;
+    }
+  }
+
+  &__button{
+    display: block !important;
+    max-width: 200px;
+    margin: 30px auto 20px;
+  }
+}

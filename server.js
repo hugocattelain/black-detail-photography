@@ -1,15 +1,21 @@
 require('dotenv').config();
-const express = require("express");
+const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const moment = require('moment');
 const nodemailer = require('nodemailer');
+const Client = require('./frontend/src/Client.js');
+const fs = require('fs');
+var EmailTemplate = require('email-templates').EmailTemplate;
+// const response_html = require("./frontend/src/Client/response");
 
 const app = express();
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3001);
 
-let photos = [];
+const message_sent_html = fs.readFileSync(__dirname + "/emails/message_sent.html", "utf8");
+
+
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
@@ -194,75 +200,166 @@ app.put("/api/photos/:id/:visibility", (req, res, next) => {
   });
 });
 
-
-
 app.post('/api/contact', function (req, res) {
   const data = req.body;
-  const response = {
-    subject:"Black Detail - Your message have been sent",
-    html:`
-      <p>
-        <h4>Thank you for your message !</h4>
-        <br/><br/>
-        <p>Here is a copy of your message : <br/>${data.text}</p>
-        <br/><br/>
-        <strong>Black Detail Photography</strong>
-        <a href="https://www.instagram.com/blck.dtl/"><img src="https://res.cloudinary.com/dmdkvle30/image/upload/v1520511863/basic/as4hmv5aty4dbdez4fu5.jpg"/>Instagram</a>
-        <br/>
-        <a href="https://www.facebook.com/blck.dtl/"><img src="https://res.cloudinary.com/dmdkvle30/image/upload/v1520511863/basic/as4hmv5aty4dbdez4fu5.jpg"/>Facebook</a>
-        <br/>
-      </p>`
+  let message_sent = message_sent_html.replace('{{ message }}', data.text);
+  message_sent = message_sent.replace('{{ notifications_url }}', data.from + '/1');
+  let transporter = nodemailer.createTransport({
+    host: process.env.MAILER_SERVER,
+    port: process.env.MAILER_PORT,
+    secure: false,
+    auth: {
+      user: process.env.MAILER_NAME,
+      pass: process.env.MAILER_PASSWORD
+    }
+  });
+
+
+  let message = {
+    from: process.env.MAILER_NAME,
+    to: 'blackdetailphotography@outlook.com',
+    subject: data.subject,
+    html: `<p>from: <b>${data.from}</b><br/><br/><p>${data.text}</p></p>`
   };
 
-  nodemailer.createTestAccount((err) => {
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAILER_SERVER,
-      port: process.env.MAILER_PORT,
-      secure: false,
-      auth: {
-        user: process.env.MAILER_NAME,
-        pass: process.env.MAILER_PASSWORD
+
+  let answer = {
+    from: process.env.MAILER_NAME,
+    to: data.from,
+    subject:"Black Detail - Message sent",
+    html:message_sent
+  };
+
+  transporter.sendMail(message, (error) => {
+    if (error) {
+      res.status(500).json(error);
+      return console.log(error);
+    }
+
+    transporter.sendMail(answer, (error) => {
+        if(error){
+          res.status(500).json(error);
+          return console.log(error);
+        }
+    });
+    res.status(201).json('Success');
+  });
+
+  transporter.close();
+});
+
+app.get("/api/emails", (req, res, next) => {
+
+  let instruction = 'select * from emails';
+
+  pool.getConnection(function(err,connection){
+    if (err) {
+      connection.release();
+      res.json({"code" : 100, "status" : "Error in connection database"});
+      return;
+    }
+
+    connection.query(instruction, (err,response) =>{
+      connection.release();
+      if(!err) {
+        res.json(response);
       }
     });
 
-    let poolConfig = {
-      pool: true,
-      from: process.env.MAILER_NAME,
-      to: 'blackdetailphotography@outlook.com',
-      subject: data.subject,
-      html: `<p>from: <b>${data.from}</b><br/><br/><p>${data.text}</p></p>`
-    };
+    connection.on('error', function(err) {
+      res.json({"code" : 100, "status" : "Error in connection database"});
+      return;
+    });
+  });
+});
 
-    let responseConfig = {
-      from: process.env.MAILER_NAME,
-      to: data.from,
-      subject: response.subject,
-      html: response.html
-    };
+app.get("/api/emails/:email", (req, res, next) => {
+  let values = req.params.email;
+  let instruction = 'select * from emails where email = ?';
 
-    // transporter.verify(function(error, success) {
-    //    if (error) {
-    //         console.log(error);
-    //    } else {
-    //         console.log('Server is ready to take our messages');
-    //    }
-    // });
-    // send mail with defined transport object
-    transporter.sendMail(poolConfig, (error) => {
-      if (error) {
-        res.status(500).json(error);
-        return console.log(error);
+  pool.getConnection(function(err,connection){
+    if (err) {
+      connection.release();
+      res.json({"code" : 100, "status" : "Error in connection database"});
+      return;
+    }
+
+    connection.query(instruction, [values], (err,response) =>{
+      connection.release();
+      if(!err) {
+        res.json(response);
       }
-      transporter.sendMail(responseConfig, (err) => {
-        if (err) {
+    });
+
+    connection.on('error', function(err) {
+      res.json({"code" : 100, "status" : "Error in connection database"});
+      return;
+    });
+  });
+});
+
+app.post("/api/emails", (req, res, next) => {
+  const data = req.body;
+  const values = {email:data.email, subscription_type:data.subscription_type};
+  const instruction = `INSERT INTO emails SET ?`;
+
+  pool.getConnection(function(err,connection){
+    if (err) {
+      connection.release();
+      res.json({"code" : 100, "status" : "Error in connection database"});
+      return;
+    }
+
+    connection.query(instruction, values ,function(err,result){
+        connection.release();
+        if(!err) {
+          res.status(201).json('Success');
+        }
+        else{
           res.status(500).json(err);
         }
-      });
-      res.status(201).json('Success');
+      }
+    );
+
+    connection.on('error', function(err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
     });
+  });
+});
 
-    transporter.close();
+app.put("/api/emails/:email/:pref", (req, res, next) => {
 
+  const email = req.params.email;
+  const pref = req.params.pref;
+  const instruction = `UPDATE emails
+    SET subscription_type = ?
+    WHERE email = ?;
+    `;
+  const values = [pref, email];
+
+  pool.getConnection(function(err,connection){
+    if (err) {
+      connection.release();
+      res.json({"code" : 100, "status" : "Error in connection database"});
+      return;
+    }
+
+    connection.query(instruction, values ,function(err,result){
+        connection.release();
+        if(!err) {
+          res.status(201).json('Success');
+        }
+        else{
+          res.status(500).json(err);
+        }
+      }
+    );
+
+    connection.on('error', function(err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+    });
   });
 });
 

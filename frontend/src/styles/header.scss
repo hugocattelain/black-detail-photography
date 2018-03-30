@@ -31,14 +31,104 @@
 /* Hamburger menu */
 
 /* Position and sizing of burger button */
-.bm-burger-button {
+
+$hamburger-padding-x                       : 15px;
+$hamburger-padding-y                       : 15px;
+$hamburger-layer-width                     : 40px;
+$hamburger-layer-height                    : 4px;
+$hamburger-layer-spacing                   : 6px;
+$hamburger-layer-color                     : #000;
+$hamburger-layer-border-radius             : 4px;
+$hamburger-hover-opacity                   : 0.7;
+$hamburger-hover-transition-duration       : 3s;
+$hamburger-hover-transition-timing-function: linear;
+
+@import "../../node_modules/hamburgers/_sass/hamburgers/hamburgers";
+.hamburger {
+  z-index: 300;
+  display: inline-block;
   position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 36px;
-  top: 36px;
-  @media screen and (min-width: $break-medium) {
-    display: none;
+  right: 18px;
+  top: 14px;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+  transition-timing-function: ease-in-out;
+  transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+
+  // @media #{$s} {
+  //   display: inline-block;
+  // }
+
+  &.gone{
+    // transform: translate3d(0, -250%, 0);
+    transform: translate3d(300%, 0, 0);
+  }
+  &:focus{
+    outline:none;
+  }
+}
+.bm-burger-button {
+  display: none;
+  position: fixed;
+  width: 24px;
+  height: 20px;
+  right: 36px;
+  top: 30px;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+
+  @media #{$s} {
+    //display: inline-block;
+  }
+
+  &.gone{
+    transform: translate3d(400%, 0, 0);
+  }
+}
+
+.mini-navbar{
+  // display: none;
+  display: block;
+  position: fixed;
+  background-color: #ffffff;
+  width: 100%;
+  height: 80px;
+  z-index: 200;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+  transition-timing-function: ease-in-out;
+  transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+
+  // @media #{$s} {
+  //   display: block;
+  // }
+
+  &.gone{
+    transform: translate3d(0, -100%, 0);
+  }
+
+  &__home-banner{
+    background: url('../images/home_banner.jpg') 0% 50% /contain;
+    background-repeat: no-repeat;
+    float: left;
+    z-index: 200;
+    width: 100%;
+    height: 60px;
+    left: 45px;
+    top: 12px;
+    position: absolute;
+    cursor:pointer;
+
+    @media #{$s}{
+      left: 25px;
+      top: 12px;
+    }
   }
 }
 
@@ -49,6 +139,7 @@
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
+  display: none;
   height: 24px;
   width: 24px;
   @media screen and (min-width: $break-medium) {
@@ -62,19 +153,14 @@
 }
 
 .bm-menu-wrap{
-  width:23%;
-  max-width: 250px;
-  @media screen and (max-width: $break-small) {
-    width: 80%;
-    min-width: 320px;
-  }
+  width: 275px !important;
 }
 /* General sidebar styles */
 .bm-menu {
   background: #ffffff;
-  padding: 3.5em 0.5em 0 2em;
+  padding: 80px 0.5em 0 2em;
   font-size: 1.15em;
-  opacity: 0.9;
+  //opacity: 0.9;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -95,31 +181,9 @@
 
 /* Social component */
 
-.social-wraper{
-  margin: 30px 0 20px 0;
-  text-align: left;
-}
-.social-item{
-  display:inline-block;
-  height: 15px;
-  width: 15px;
-  margin: 0 10px 0 0;
 
-  &.instagram{
-    background: url('../images/instagram-logo.png') 50% 50% /contain;
-    background-repeat: no-repeat;
-  }
-
-  &.facebook{
-    background: url('../images/fb-logo.png') 50% 50% /contain;
-    background-repeat: no-repeat;
-  }
-}
-
-.social__share-button{
-  margin-top: 10px;
-}
 .copyright{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   color:#838383;
   text-align: left;
   font-weight: bold;
@@ -161,5 +225,130 @@
 
   &-pinterest::before{
     background: url("../images/pinterest-logo.png") 50% 50% /contain;
+  }
+}
+
+.social{
+  &__wrapper{
+    margin: 30px 0 20px 0;
+    text-align: left;
+  }
+
+  &__share{
+    &__container{
+      padding: 20px 0;
+    }
+
+    &-button{
+      margin: 0 10px 0 0;
+      width: 150px;
+      //max-width: 150px;
+    }
+  }
+
+  &__item{
+    display:inline-block;
+    height: 30px;
+    line-height: 32px;
+    width: 22px;
+    margin: 0 10px 0 0;
+
+    &.instagram{
+      background: url('../images/instagram-logo.png') 50% 50% /contain;
+      background-repeat: no-repeat;
+    }
+
+    &.facebook{
+      background: url('../images/fb-logo.png') 50% 50% /contain;
+      background-repeat: no-repeat;
+    }
+
+    &.eyeem{
+      background: url('../images/eyeem-logo.png') 50% 50% /contain;
+      background-repeat: no-repeat;
+      width: 30px;
+    }
+  }
+
+  &__modal{
+    min-width: 350px !important;
+    @media #{$xs}{
+      width: 85% !important;
+    }
+
+    &__title{
+      text-align: center;
+      font-size: 35px !important;
+      line-height: 40px;
+    }
+
+    &__description{
+      background-color: $bdp-light-grey;
+      text-align: center;
+      padding:25px 15px;
+      @media #{$xs}, #{$s}{
+        padding:5px 15px 15px;
+        font-size: 13px;
+      }
+    }
+
+    &__input{
+        width: 175px !important;
+    }
+
+    &__actions{
+      text-align: center;
+      margin:15px 0;
+
+      .divider{
+        border-color: #000;
+        @media #{$xs}{
+          margin-left: 5px;
+          margin-left: 5px;
+        }
+      }
+
+      .or{
+        font-size: 45px;
+        line-height: 45px;
+        color: #000000;
+        font-family: Georgia, serif;
+        @media #{$s}{
+          font-size: 30px;
+          padding:0;
+        }
+        @media #{$xs}{
+          font-size: 21px;
+          padding:0;
+        }
+      }
+
+      &__button{
+        margin: 5px 45px;
+        width: 175px;
+        @media #{$xs}{
+          margin: 5px 0;
+        }
+      }
+
+      @media #{$xs}{
+        padding: 0 5px;
+      }
+    }
+
+    &__decline-button{
+      float:right;
+    }
+
+    &__footer{
+      margin: 10px 0 0 0;
+      padding-right: 0;
+    }
+  }
+  &__notifications-button{
+    height: 36px !important;
+    padding: 0 12px !important;
+    vertical-align: bottom;
+    color:#000;
   }
 }

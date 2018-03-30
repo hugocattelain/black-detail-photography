@@ -5,8 +5,9 @@ import Client from "../Client";
 import '../styles/lightbox.scss';
 import findIndex from 'lodash/findIndex';
 import { getCategoryName } from '../Utils';
+import $ from "jquery";
 
-class Lightbox2 extends Component {
+class Lightbox extends Component {
   state= {
       photoIndex:0,
       isOpen: false,
@@ -18,10 +19,9 @@ class Lightbox2 extends Component {
     const category = getCategoryName(this.props.match.params.category);
 
     Client.getImages(category, images => {
-
       this.setState({
         images: images,
-        photoIndex: findIndex(images, el => { return el.id === id}),
+        photoIndex: findIndex(images, el => { return el.id == id}), // eslint-disable-line
         isOpen: true
       })
     });
@@ -42,6 +42,8 @@ class Lightbox2 extends Component {
   }
 
   closeLightbox = () => {
+    $(".hamburger").removeClass("gone");
+    $(".mini-navbar").removeClass("gone");
     this.setState({ isOpen: false });
     const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category ;
     const route = category === 'home' ? '/' : `/${category}` ;
@@ -87,6 +89,8 @@ class Lightbox2 extends Component {
     if(images.length<1){return null;}
     const photoIndex = this.state.photoIndex;
     const isOpen = this.state.isOpen;
+    // console.log(photoIndex);
+    // console.log(images[photoIndex]);
     const src = images[photoIndex].src ;
     return (
       <div>
@@ -107,4 +111,4 @@ class Lightbox2 extends Component {
   }
 }
 
-export default withRouter(Lightbox2);
+export default withRouter(Lightbox);

@@ -2,8 +2,22 @@ import React, { Component } from 'react';
 import UploadPhoto from './UploadPhoto';
 import DeletePhoto from './DeletePhoto';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
-import '../styles/admin.scss'
+import '../styles/admin.scss';
+
+const muiBlack = getMuiTheme({
+  "palette": {
+    "primary1Color": "#212121",
+    "primary2Color": "#616161",
+    "accent1Color": "rgba(117, 117, 117, 0.51)",
+    "pickerHeaderColor": "#212121"
+  },
+  "textField": {
+    "errorColor": "#f44336"
+  },
+  "borderRadius": 2
+});
 class Admin extends Component {
 
   state = {
@@ -22,32 +36,30 @@ class Admin extends Component {
   }
 
   render() {
-    const isAdmin = this.state.adminPassword === process.env.BDP_ADMIN_PASSWORD ? true : false;
+    const isAdmin = this.state.adminPassword === process.env.REACT_APP_ADMIN_PASSWORD ? true : false;
     return (
-      <div className="outer__container">
-        <div className="container">
-          {isAdmin ? (
-            <div className="row">
-              <div className="col-xs-12">
-                <UploadPhoto />
-              </div>
-              <div className=" col-xs-12">
-                <DeletePhoto />
-              </div>
+      <div className="container admin">
+        {isAdmin ? (
+          <div className="row">
+            <div className="col-xs-12">
+              <UploadPhoto />
             </div>
-          ) : (
-            <MuiThemeProvider>
-              <TextField
-                floatingLabelText="Password"
-                type='password'
-                required={true}
-                value={ this.state.adminPassword }
-                onChange={(e) => this.setInputState(e, 'adminPassword')}
-              />
-            </MuiThemeProvider>
-          )
-          }
-        </div>
+            <div className=" col-xs-12">
+              <DeletePhoto />
+            </div>
+          </div>
+        ) : (
+          <MuiThemeProvider muiTheme={muiBlack}>
+            <TextField
+              floatingLabelText="Password"
+              type='password'
+              required={true}
+              value={ this.state.adminPassword }
+              onChange={(e) => this.setInputState(e, 'adminPassword')}
+            />
+          </MuiThemeProvider>
+        )
+        }
       </div>
     );
   }

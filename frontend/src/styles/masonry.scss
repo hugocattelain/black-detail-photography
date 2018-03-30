@@ -5,9 +5,13 @@
   padding: 0 30px 0 0;
 
   li{
-    padding: 5px;
+    padding: 7px;
     img{
       width:100%;
+    }
+
+    @media #{$xs}{
+      padding:4px;
     }
   }
 }
@@ -16,8 +20,10 @@
   transition: all .5s;
 
 }
-.masonry-brick__container:hover .masonry-brick__image,
-.masonry-brick__container:focus .masonry-brick__image {
-  transform: scale(1.015);
-  cursor:pointer;
+.masonry-brick__container:hover{
+  .masonry-brick__image {
+    transform: scale(1.015);
+    opacity:.5;
+    cursor:pointer;
+  }
 }
