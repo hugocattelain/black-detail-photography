@@ -1,36 +1,28 @@
 @import 'global/constant';
+@import 'contact';
+@import 'notification_preferences';
 
 .container{
+  padding: 80px 40px 0 40px;
+  margin: 0;
   width:100%;
-  padding:0;
+  height: 100%;
 
   .row{
     margin: 0;
     padding:0;
   }
-}
 
-.container{
-  padding: 10px 10px 0 10px;
-  //float: right;
-  margin: 0;
-  width:100%;
-  height: 100%;
+  @media #{$s}{
+    padding:80px 20px 0 20px;
+  }
 
-  @media screen and (min-width: $break-medium) {
-    //width: 77% !important;
-    padding: 70px 15px 50px 15px !important;
+  @media #{$xs}{
+    padding:80px 10px 0 10px;
   }
 }
 
-.outer__container{
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  @media screen and (min-width: $break-medium) {
-      padding: 0 0 0 250px;
-  }
-}
+
 
 .github-link__logo{
   position: absolute;

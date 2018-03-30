@@ -1,12 +1,12 @@
 // Return the index of an element in an array from its id
 // If the element is not found, return -1
-function getIndexById(id, array){
+exports.getIndexById = function(id, array){
   return(array.map( (el) => el.id ).indexOf(id));
 }
 
 // Find an element by its id and return it
 // If the element is not found, return undefined
-function getElementById(id, array){
+exports.getElementById = function(id, array){
   return(array.find( (el) => el.id === id));
 }
 
@@ -14,9 +14,9 @@ function getElementById(id, array){
 // The properties updated are the ones received on the props Object
 // Return the updated element
 // If the element is not found, an error is throw
-function updateElement(id, props, array){
+exports.updateElement = function(id, props, array){
   try {
-    const elementToUpdate = getElementById(id, array);
+    const elementToUpdate = this.getElementById(id, array);
     for (var prop in props) {
       elementToUpdate[prop] = props[prop];
     }
@@ -28,7 +28,7 @@ function updateElement(id, props, array){
 }
 
 // Create a new element with the properties contained in the props object
-function createElement(props){ // TODO : Check the elementType to validate the properties ?
+exports.createElement = function(props){ // TODO : Check the elementType to validate the properties ?
   const createdElement = {};
   for (var prop in props) {
     createdElement[prop] = props[prop];
@@ -39,7 +39,7 @@ function createElement(props){ // TODO : Check the elementType to validate the p
 // Check response status from a request
 // Return response if success status
 // Else throw error
-function checkStatus(response) {
+exports.checkStatus = function(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -50,11 +50,11 @@ function checkStatus(response) {
   throw error;
 }
 
-function parseJSON(response) {
+exports.parseJSON=function(response) {
   return response.json();
 }
 
-export function getCategoryName(alias){
+exports.getCategoryName = function(alias){
   switch(alias){
     case 'curves':
       return 'nsfw';
@@ -68,14 +68,3 @@ export function getCategoryName(alias){
       return 'home';
   }
 }
-
-const Utils = {
-  getIndexById,
-  getElementById,
-  updateElement,
-  createElement,
-  checkStatus,
-  parseJSON,
-};
-
-export default Utils;

@@ -1,3 +1,16 @@
+.admin{
+  text-align: center;
+
+  &__upload{
+    &__wrapper{
+      >div{
+        width: 100% !important;
+        height: 200px !important;
+      }
+    }
+  }
+}
+
 .image__thumbnail{
   height: 200px;
   float: left;
@@ -6,9 +19,6 @@
   background-repeat: no-repeat;
 }
 
-.FileUpload>div{
-  width: 100% !important;
-}
 
 .material-icons {
   font-family: 'Material Icons';

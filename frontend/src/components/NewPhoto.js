@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import { Card, CardMedia } from 'material-ui/Card';
@@ -12,6 +13,19 @@ const categories = [
   {name: 'Nude', tag: 'nsfw'},
   {name: 'Black and white', tag: 'bnw'},
 ];
+
+const muiBlack = getMuiTheme({
+  "palette": {
+    "primary1Color": "#212121",
+    "primary2Color": "#616161",
+    "accent1Color": "rgba(117, 117, 117, 0.51)",
+    "pickerHeaderColor": "#212121"
+  },
+  "textField": {
+    "errorColor": "#f44336"
+  },
+  "borderRadius": 2
+});
 
 class NewPhoto extends Component {
   constructor(props){
@@ -35,22 +49,22 @@ class NewPhoto extends Component {
     const index = this.props.index;
     const {data} = this.props;
     const src= this.props.url;
-    const style = {
-      backgroundImage: `url(${src})`
-    };
-    const thumbnail = <div className="image__thumbnail" style={{ style }}></div>;
+    // const style = {
+    //   backgroundImage: `url(${src})`
+    // };
+    // const thumbnail = <div className="image__thumbnail" style={{ style }}></div>;
     if(data.length === 0){
       return null;
     }
     return(
 
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiBlack}>
         <Card>
           <CardMedia>
             <div className="image__thumbnail" style={{backgroundImage: `url(${src})`}}></div>
           </CardMedia>
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={muiBlack}>
               <TextField
                 floatingLabelText="Title"
                 required={true}
@@ -58,7 +72,7 @@ class NewPhoto extends Component {
                 onChange={(e) => this.props.setInputState(e, 'title', index)}
               />
             </MuiThemeProvider>
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={muiBlack}>
               <SelectField
                 floatingLabelText="Category 1"
                 required={true}
@@ -70,7 +84,7 @@ class NewPhoto extends Component {
                 })}
               </SelectField>
             </MuiThemeProvider>
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={muiBlack}>
               <SelectField
                 floatingLabelText="Category 2"
                 value={data[index] ? data[index].tag_2 : ''}
@@ -81,7 +95,7 @@ class NewPhoto extends Component {
                 })}
               </SelectField>
             </MuiThemeProvider>
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={muiBlack}>
               <SelectField
                 floatingLabelText="Category 3"
                 value={data[index] ? data[index].tag_3 : ''}

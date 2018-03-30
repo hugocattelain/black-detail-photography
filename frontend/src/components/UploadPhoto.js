@@ -5,8 +5,22 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Client from '../Client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FlatButton from 'material-ui/FlatButton';
 import NewPhoto from './NewPhoto';
+
+const muiBlack = getMuiTheme({
+  "palette": {
+    "primary1Color": "#212121",
+    "primary2Color": "#616161",
+    "accent1Color": "rgba(117, 117, 117, 0.51)",
+    "pickerHeaderColor": "#212121"
+  },
+  "textField": {
+    "errorColor": "#f44336"
+  },
+  "borderRadius": 2
+});
 
 class UploadPhoto extends Component {
 
@@ -54,7 +68,7 @@ class UploadPhoto extends Component {
 
   initState = (src, index) => {
     const data= this.state.data;
-    data.push({src: src, title: '', tag_1: '',tag_2: '',tag_3: '', is_visible: 1});
+    data.push({src: src, title: 'Black Detail Photography', tag_1: '',tag_2: '',tag_3: '', is_visible: 1});
     this.setState({ data: data });
   }
 
@@ -105,17 +119,19 @@ class UploadPhoto extends Component {
           <div>
             <form onSubmit={this.handleSubmit}>
                 {newPhotos}
-                <MuiThemeProvider>
+                <MuiThemeProvider muiTheme={muiBlack}>
                   <FlatButton type="submit" label="Submit" />
                 </MuiThemeProvider>
             </form>
           </div>
         ) : (
-          <div className="FileUpload">
+          <div className="admin__upload__wrapper">
             <Dropzone
               multiple
               accept="image/*"
-              onDrop={this.onImageDrop.bind(this)}>
+              onDrop={this.onImageDrop.bind(this)}
+
+            >
               <h1>Upload</h1>
             </Dropzone>
           </div>

@@ -4,6 +4,7 @@ import Admin from './Admin';
 import MasonryWall from './MasonryWall';
 import Lightbox from './Lightbox';
 import Contact from './Contact';
+import NotificationPreferences from './NotificationPreferences';
 
 import '../styles/content.scss';
 
@@ -15,6 +16,7 @@ const Content = () => {
       <Route exact path='/' component={MasonryWall} />
       <Route exact path='/admin' component={Admin} />
       <Route exact path='/contact' component={Contact} />
+      <Route exact path='/notifications/:email/:subscriptionType' component={NotificationPreferences} />
       <Route exact path='/:category' component={MasonryWall} />
       <Route exact path='/:category/:id' component={Lightbox} />
 
