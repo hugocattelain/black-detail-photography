@@ -231,7 +231,7 @@ class SocialMedia extends Component {
                 <WebNotifications title="Congrats" body="You just activated web notifications !" timeout={4000}/>
               </div>
               <span>
-                Get notified when a new post come up<br/>You can subscribe to the newsletter and/or the web notifications
+                Get notified when a new post comes up<br/>You can subscribe to the newsletter and/or the web notifications
               </span>
               </div>
               <div className="social__modal__footer col-xs-12">

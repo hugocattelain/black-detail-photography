@@ -146,3 +146,21 @@ exports.updateEmail = function(email, pref, cb) {
     .then(response => response.data )
     .then(cb);
 }
+
+exports.postNewsletter = function(data, cb) {
+  const url = 'newsletter';
+  console.log(data);
+  return axiosInstance({
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    data: data,
+  })
+    //.then(Utils.checkStatus)
+    .then(response => response.data)
+    .then(cb);
+}

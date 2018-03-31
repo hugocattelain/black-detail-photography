@@ -1,20 +1,19 @@
 require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const moment = require('moment');
-const nodemailer = require('nodemailer');
-const Client = require('./frontend/src/Client.js');
-const fs = require('fs');
-var EmailTemplate = require('email-templates').EmailTemplate;
-// const response_html = require("./frontend/src/Client/response");
+var express = require('express');
+var bodyParser = require('body-parser');
+var mysql = require('mysql');
+var moment = require('moment');
+var nodemailer = require('nodemailer');
+var Client = require('./frontend/src/Client.js');
+var fs = require('fs');
+var mjmlToHtml = require('./emails/transformer/mjmlToHtml.js')
 
 const app = express();
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3001);
 
-const message_sent_html = fs.readFileSync(__dirname + "/emails/message_sent.html", "utf8");
-
+const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
+const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
@@ -202,8 +201,9 @@ app.put("/api/photos/:id/:visibility", (req, res, next) => {
 
 app.post('/api/contact', function (req, res) {
   const data = req.body;
+  const notifications_url= 'http://www.black-detail.com/notifications/' + data.from + '/1';
   let message_sent = message_sent_html.replace('{{ message }}', data.text);
-  message_sent = message_sent.replace('{{ notifications_url }}', data.from + '/1');
+  message_sent = message_sent.replace('{{ notifications_url }}', notifications_url);
   let transporter = nodemailer.createTransport({
     host: process.env.MAILER_SERVER,
     port: process.env.MAILER_PORT,
@@ -247,6 +247,58 @@ app.post('/api/contact', function (req, res) {
 
   transporter.close();
 });
+
+app.post('/api/newsletter', function (req, res, next) {
+  const data = req.body;
+  const emails = data.emails;
+  const images = data.images;
+  let errorCount = 0;
+  let transporter = nodemailer.createTransport({
+    host: process.env.MAILER_SERVER,
+    port: process.env.MAILER_PORT,
+    pool: true,
+    secure: false,
+    auth: {
+      user: process.env.MAILER_NAME,
+      pass: process.env.MAILER_PASSWORD
+    }
+  });
+
+  sendEmails(transporter, emails, images);
+
+  transporter.close();
+  res.status(201).json('Success');
+});
+
+async function sendEmails (transporter, emails, images) {
+  for(const email of emails){
+    let notifications_url= 'http://www.black-detail.com/notifications/' + email.email + '/' + email.subscription_type;
+    let new_image_mjml = newsletter_new_image.replace('{{ notifications_url }}', notifications_url);
+    let message = {
+      from: process.env.MAILER_NAME,
+      to: email.email,
+      subject:"Black Detail - New photo is online",
+      html: mjmlToHtml.convert(new_image_mjml, images),
+    };
+    await sendEmail(transporter, message);
+  }
+}
+
+function delay(){
+  return new Promise(resolve => setTimeout(resolve, 1000));
+}
+
+async function sendEmail(transporter, message){
+  await delay();
+  transporter.sendMail(message, (error) => {
+    if (error) {
+      console.log("error : ",error);
+    }
+    else{
+      console.log("email sent !");
+    }
+  });
+}
 
 app.get("/api/emails", (req, res, next) => {
 

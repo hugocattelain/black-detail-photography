@@ -68,3 +68,18 @@ exports.getCategoryName = function(alias){
       return 'home';
   }
 }
+
+exports.getCategoryAlias = function(category){
+  switch(category){
+    case 'nsfw':
+      return 'curves';
+    case 'bnw':
+      return 'black';
+    case 'portrait':
+      return 'mask';
+    case 'architecture':
+      return 'wall';
+    default:
+      return 'home';
+  }
+}

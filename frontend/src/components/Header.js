@@ -18,7 +18,6 @@ class Header extends Component {
     scrollDirection:'unset',
 	};
 
-
   componentWillMount = () => {
     //mql.addListener(this.mediaQueryChanged);
     window.addEventListener("scroll", this.toggleHeader, false);
@@ -33,13 +32,22 @@ class Header extends Component {
       this.setState({ menuIsOpen: false });
     });
   }
-
+	componentWillReceiveProps = (nextProps) => {
+		if(nextProps.location.pathname.match(/\d/i)){
+			$(".mini-navbar").addClass("gone");
+      $(".hamburger").addClass("gone");
+			this.setState({ menuIsOpen: false });
+		}
+	}
   componentWillUpdate = (nextProps, nextState) => {
-    if (this.state.scrollDirection !== nextState.scrollDirection){
-      $(".mini-navbar").toggleClass("gone");
-      $(".bm-burger-button").toggleClass("gone");
-      $(".hamburger").toggleClass("gone");
+    if (this.state.scrollDirection === "up"){
+      $(".mini-navbar").removeClass("gone");
+      $(".hamburger").removeClass("gone");
     }
+		else{
+			$(".mini-navbar").addClass("gone");
+      $(".hamburger").addClass("gone");
+		}
     if (this.state.menuIsOpen !== nextState.menuIsOpen){
       $(".hamburger").toggleClass("is-active");
     }

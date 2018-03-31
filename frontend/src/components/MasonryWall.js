@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Lightbox from './Lightbox';
 import { withRouter } from 'react-router';
 import Masonry from 'react-masonry-component';
 import { getCategoryName } from '../Utils';
@@ -54,29 +55,30 @@ class MasonryWall extends Component{
       this.setState({ loading: true });
       Client.getAllImages(param, images => {
         this.setState({
-          images: images.reverse(),
+          images: images,
           loading: false,
         })
       });
     }
   }
 
-  openLightbox = (index) => {
+  openLightbox = (id) => {
     $(".hamburger").addClass("gone");
     $(".mini-navbar").addClass("gone");
-    const id = this.state.images[index].id;
+    console.log("opening");
     const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category ;
-    this.props.history.push(`/${category}/${id}`);
+    this.props.history.push(`/${category}&${id}`);
   }
 
   render() {
-    // const images = this.state.images.map( image => {
-    //   return image.src;
-    // });
-    const childElements = this.state.images.map((item, key) => {
-      const index = key;
+    const images = this.state.images;
+    let id=this.props.match.params.id;
+
+
+    const childElements = images.map((item, key) => {
+      const id = item.id;
       return(
-        <li key={key} className="masonry-brick__container col-lg-4 col-md-4 col-sm-4 col-xs-6" onClick={() => this.openLightbox(index)}>
+        <li key={key} className="masonry-brick__container col-lg-4 col-md-4 col-sm-4 col-xs-6" onClick={() => this.openLightbox(id)}>
           <img src={item.src} alt={item.title || 'Black Detail Photography'} className="masonry-brick__image"/>
         </li>
       );
@@ -103,6 +105,9 @@ class MasonryWall extends Component{
           )}
         </div>
         {/* <Diaporama images={images} />*/}
+        {id>0 &&
+          <Lightbox images={images} id={Number(id)} />
+        }
       </div>
     );
   }

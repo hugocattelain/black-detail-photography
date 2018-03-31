@@ -6,7 +6,7 @@
 }
 
 .ril-close{
-  //background: url('../images/cross.png') 50% 50% /contain !important;
+  background: url('../images/cross-white.png') 50% 50% /contain !important;
   background-repeat: no-repeat !important;
   width: 25px;
   width: 25px;
@@ -19,18 +19,16 @@
 
 .ril-prev-button, .ril-next-button{
   top:50%;
-  margin: 0 5px;;
+  margin: 0 5px;
   width: 35px;
   height: 35px;
   padding: 30px 30px;
 }
 
-// .ril-prev-button{
-//   right:50%;
-//   left: unset;
-// }
-//
-// .ril-next-button{
-//   left:50%;
-//   right:unset;
-// }
+.ril-prev-button{
+
+}
+
+.ril-next-button{
+
+}

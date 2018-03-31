@@ -19,9 +19,7 @@ const muiBlack = getMuiTheme({
 });
 
 class WebNotifications extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
 
   showNotifications = () => {
     // If the Notifications API is supported by the browser
