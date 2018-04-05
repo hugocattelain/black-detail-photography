@@ -40,18 +40,19 @@ class NotificationPreferences extends Component {
     const email = this.state.email;
     const pref = this.state.subscriptionType;
     this.setState({ loading: true });
-    Client.updateEmail(email, pref, () => {
+    Client.updateEmail(email, pref)
+    .then((res) => {
       this.setState({
         status: 'done',
         loading: false,
       });
-      return;
+    })
+    .catch((err) => {
+      this.setState({
+        status: 'todo',
+        loading: false,
+      });
     });
-    // this.setState({
-    //   status: 'todo',
-    //   loading: false,
-    // });
-
   }
   render(){
     const loading = this.state.loading;

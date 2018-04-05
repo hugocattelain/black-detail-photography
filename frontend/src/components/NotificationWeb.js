@@ -19,7 +19,7 @@ const muiBlack = getMuiTheme({
 });
 
 class WebNotifications extends Component {
-  
+
 
   showNotifications = () => {
     // If the Notifications API is supported by the browser
@@ -34,6 +34,7 @@ class WebNotifications extends Component {
     // window.open("http://www.google.com")
 
     // Lastly, Close the notification
+    window.open(this.props.url);
     this.n.close(event.target.tag);
   }
 
@@ -73,7 +74,7 @@ WebNotifications.defaultProps = {
   body: "New photo. Check this out !",
   timeout:0,
   icon: "http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg",
-  url: "http://www.blackdetail.com/curves"
+  url: "http://www.black-detail.com/curves"
 };
 
 export default WebNotifications;

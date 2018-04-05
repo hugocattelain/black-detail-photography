@@ -6,6 +6,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import '../styles/admin.scss';
 
+const categories = [
+  {name: '', tag: ''},
+  {name: 'Architecture', tag: 'architecture'},
+  {name: 'Portrait', tag: 'portrait'},
+  {name: 'Nude', tag: 'nsfw'},
+  {name: 'Black and white', tag: 'bnw'},
+];
+
 const muiBlack = getMuiTheme({
   "palette": {
     "primary1Color": "#212121",
@@ -39,13 +47,13 @@ class Admin extends Component {
     const isAdmin = this.state.adminPassword === process.env.REACT_APP_ADMIN_PASSWORD ? true : false;
     return (
       <div className="container admin">
-        {isAdmin ? (
+         {isAdmin ? (
           <div className="row">
             <div className="col-xs-12">
-              <UploadPhoto />
+              <UploadPhoto categories={categories}/>
             </div>
             <div className=" col-xs-12">
-              <DeletePhoto />
+              <DeletePhoto categories={categories}/>
             </div>
           </div>
         ) : (

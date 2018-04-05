@@ -6,14 +6,6 @@ import SelectField from 'material-ui/SelectField';
 import { Card, CardMedia } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
 
-const categories = [
-  {name: '', tag: null},
-  {name: 'Architecture', tag: 'architecture'},
-  {name: 'Portrait', tag: 'portrait'},
-  {name: 'Nude', tag: 'nsfw'},
-  {name: 'Black and white', tag: 'bnw'},
-];
-
 const muiBlack = getMuiTheme({
   "palette": {
     "primary1Color": "#212121",
@@ -49,6 +41,7 @@ class NewPhoto extends Component {
     const index = this.props.index;
     const {data} = this.props;
     const src= this.props.url;
+    const categories = this.props.categories;
     // const style = {
     //   backgroundImage: `url(${src})`
     // };

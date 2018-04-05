@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
+import Snackbar from 'material-ui/Snackbar';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -39,6 +40,8 @@ class SocialMedia extends Component {
       modalIsOpen: false,
       userEmail: '',
       subscriptionProgress:'todo',
+      snackbarIsOpen: false,
+      message: "",
     };
   }
 
@@ -87,6 +90,13 @@ class SocialMedia extends Component {
     }
   }
 
+  handleSnackbarClose = () => {
+    this.setState({
+      message: "",
+      snackbarIsOpen: false,
+    });
+  }
+
   handleEmailNotifications = (e) => {
     e.preventDefault();
     this.setState({ subscriptionProgress: 'progress' });
@@ -94,15 +104,27 @@ class SocialMedia extends Component {
       email: this.state.userEmail,
       subscription_type: 1,
     };
-    Client.postEmail(data, () => {
-      this.setState({ subscriptionProgress: 'done' });
-    });
-    //TODO : CATCH ERROR
-    //this.setState({ subscriptionProgress: 'todo' });
+    Client.postEmail(data)
+    .then((res) => {
+      this.setState({
+        subscriptionProgress: 'done',
+        snackbarIsOpen: true,
+        message: "Yay ! You just subscribed to the Newsletter",
+       });
+     })
+     .catch((err) => {
+       this.setState({
+         subscriptionProgress: 'todo',
+         snackbarIsOpen: true,
+         message: "Oops, something went wrong. Sorry for that !",
+        });
+     });
   }
 
   handleWebNotifications = () => {
-    alert("web notif");
+    this.setState({
+      subscriptionProgress: 'done',
+    });
   }
 
   setInputState = (event, name) => {
@@ -115,12 +137,11 @@ class SocialMedia extends Component {
     const description = "Black Detail Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.";
     const media = "https://res.cloudinary.com/dmdkvle30/image/upload/v1520280571/basic/ffoukuuihxlkn9s5nlct.jpg";
     const hashtags = ['fineart', 'photography', 'nude', 'boudoir', 'portrait', 'blackandwhite', 'bnw'];
-    const actions = this.state.subscriptionProgress === 'done' ? [
+    const actions = [
       <FlatButton
-        label="Close"
+        label={this.state.subscriptionProgress === 'done' ? "Close" : "No, thank you"}
         onClick={this.handleCloseModal}
-      />,
-    ] : null;
+      /> ];
 
     return (
       <div>
@@ -201,6 +222,7 @@ class SocialMedia extends Component {
                       hintText="Email address"
                       className="social__modal__input"
                       required={true}
+                      type="email"
                       value={this.state.userEmail}
                       onChange={(e) => this.setInputState(e, 'userEmail')}
                     />
@@ -234,17 +256,20 @@ class SocialMedia extends Component {
                 Get notified when a new post comes up<br/>You can subscribe to the newsletter and/or the web notifications
               </span>
               </div>
-              <div className="social__modal__footer col-xs-12">
-                <MuiThemeProvider muiTheme={muiBlack}>
-                  <FlatButton className="social__modal__decline-button" label="No, thank you" onClick={this.handleCloseModal} />
-                </MuiThemeProvider>
-              </div>
               {this.state.subscriptionProgress === 'progress' && (
                 <MuiThemeProvider muiTheme={muiBlack}>
                   <CircularProgress className="global__progress-bar" size={30} thickness={2} />
                 </MuiThemeProvider>
               )}
             </Dialog>
+          </MuiThemeProvider>
+          <MuiThemeProvider>
+            <Snackbar
+              open={this.state.snackbarIsOpen}
+              message={this.state.message}
+              autoHideDuration={4000}
+              onRequestClose={this.handleSnackbarClose}
+            />
           </MuiThemeProvider>
         </div>
       </div>

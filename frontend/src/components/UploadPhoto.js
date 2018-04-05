@@ -103,14 +103,15 @@ class UploadPhoto extends Component {
       };
       Client.postNewsletter(notifications_data, response => {
         console.log("postNewsletter response",response);
-      })
-    })
+      });
+    });
   }
 
   render() {
     const uploadedFilesUrl = this.state.uploadedFilesUrl;
     const uploadEnded = this.state.endUpload;
     const loading = this.state.loading;
+    const categories = this.props.categories;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
       const index=key;
@@ -123,6 +124,7 @@ class UploadPhoto extends Component {
           setInputState={this.setInputState}
           setSelectState={this.setSelectState}
           initState={this.initState}
+          categories={categories}
         />);
     });
 

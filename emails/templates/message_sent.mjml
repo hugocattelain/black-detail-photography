@@ -113,7 +113,7 @@
     <mj-container>
       <mj-section padding-bottom="0">
         <mj-column>
-          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px"  src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521586229/home_banner_kmyegv.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" href="http://www.black-detail.com" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521586229/home_banner_kmyegv.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
           <mj-text align="center" padding-bottom="0">
             <a class="header-link" href="http://www.black-detail.com/" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">PORTFOLIO</font></span></a>
             <span>&nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; </span>
@@ -123,7 +123,7 @@
       </mj-section>
       <mj-section >
         <mj-column>
-          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521586127/mail_banner_yid8fv.jpg" title="Header Banner Black Detail" width="780px"></mj-image>
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" href="http://www.black-detail.com" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521586127/mail_banner_yid8fv.jpg" title="Header Banner Black Detail" width="780px"></mj-image>
         </mj-column>
       </mj-section>
       <mj-section>

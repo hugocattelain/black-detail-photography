@@ -8,7 +8,9 @@ import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import $ from "jquery";
+import '../Utils/unveil';
 import '../styles/masonry.scss';
+import spinner from "../images/spinner.gif";
 
 var masonryOptions = {
     transitionDuration: 0
@@ -25,6 +27,7 @@ const muiBlack = getMuiTheme({
   },
   "borderRadius": 2
 });
+
 
 class MasonryWall extends Component{
   constructor(props){
@@ -43,7 +46,17 @@ class MasonryWall extends Component{
       this.setState({
         images: images,
         loading: false,
-      })
+      });
+      $(window).on("load", function(){
+        $(".masonry-brick__image").unveil(100, function(){
+          $(this).on("load", function(){
+            $(this).addClass("veil");
+
+            console.log('veil')
+          });
+
+        })
+      });
     });
   }
 
@@ -57,7 +70,16 @@ class MasonryWall extends Component{
         this.setState({
           images: images,
           loading: false,
-        })
+        });
+
+          $(".masonry-brick__image").unveil(100, function(){
+            $(this).on("load", function(){
+              $(this).addClass("veil");
+
+            });
+
+          })
+
       });
     }
   }
@@ -65,7 +87,6 @@ class MasonryWall extends Component{
   openLightbox = (id) => {
     $(".hamburger").addClass("gone");
     $(".mini-navbar").addClass("gone");
-    console.log("opening");
     const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category ;
     this.props.history.push(`/${category}&${id}`);
   }
@@ -79,13 +100,12 @@ class MasonryWall extends Component{
       const id = item.id;
       return(
         <li key={key} className="masonry-brick__container col-lg-4 col-md-4 col-sm-4 col-xs-6" onClick={() => this.openLightbox(id)}>
-          <img src={item.src} alt={item.title || 'Black Detail Photography'} className="masonry-brick__image"/>
+          <img src={item.src} data-src={item.src} alt={item.title || 'Black Detail Photography'} className="masonry-brick__image"/>
         </li>
       );
     });
 
     return (
-      <div className="outer__container">
         <div className="container">
           {!this.state.loading ? (
             <Masonry
@@ -103,12 +123,13 @@ class MasonryWall extends Component{
               <CircularProgress className="global__progress-bar" size={30} thickness={2} />
             </MuiThemeProvider>
           )}
+          { id > 0 &&
+            <Lightbox images={images} id={Number(id)} />
+          }
+          {/* <Diaporama images={images} />*/}
         </div>
-        {/* <Diaporama images={images} />*/}
-        {id>0 &&
-          <Lightbox images={images} id={Number(id)} />
-        }
-      </div>
+
+
     );
   }
 }

@@ -114,6 +114,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "moment": "^2.22.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6"
   }
