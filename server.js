@@ -141,7 +141,8 @@ app.post("/api/photo", (req, res, next) => {
     connection.query(instruction, [values] ,function(err,result){
         connection.release();
         if(!err) {
-          res.status(201).json('Success');
+          console.log(values);
+          res.status(201).json(values[0]);
         }
         else{
           res.status(500).json(err);

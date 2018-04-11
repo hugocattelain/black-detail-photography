@@ -93,9 +93,13 @@ class Header extends Component {
             <li className="menu-item"><Link to='/contact'>Contact</Link></li>
           </ul>
           <SocialMedia />
-          <div className="copyright">
-            Copyright © All rights <br/> reserved.
-          </div>
+
+					<a href="//www.dmca.com/Protection/Status.aspx?ID=9b98059e-c870-4227-a6b0-13ea302f8127" title="DMCA.com Protection Status" className="dmca-badge" target="_blank" rel="noopener noreferrer">
+					<div className="copyright">
+						Copyright © All rights <br/> reserved.
+					</div>
+					</a>
+					<script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
         </Menu>
       </div>
     )

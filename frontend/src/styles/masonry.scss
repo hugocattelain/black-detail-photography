@@ -9,15 +9,7 @@
 
     img{
       width:100%;
-      transition: opacity 1s ease-in;
-      opacity: 0;
-      &.veil{
-        opacity: 1;
-        width:100%;
-      }
-      // &.moche{
-      //   height:500px
-      // }
+      transition: all .4s ease-in;
     }
 
     @media #{$xs}{
@@ -27,19 +19,49 @@
 }
 
 .masonry-brick__image{
-  //transition: all .5s;
-  //opacity: 0;
   transition: opacity .3s ease-in;
-
-  // .revealed{
-  //   opacity: 1;
-  // }
 
 }
 .masonry-brick__container:hover{
   .masonry-brick__image {
     transform: scale(1.015);
-    //opacity:.5;
     cursor:pointer;
   }
 }
+
+.lazyload,
+.lazyloading {
+	opacity: 0;
+}
+.lazyloaded {
+	opacity: 1;
+	transition: opacity .4s;
+}
+
+// -------------------------
+.masonry-layout {
+  list-style-type: none;
+  column-count: 3;
+  column-gap: 0;
+  padding: 0;
+
+  @media #{$s}{
+    column-count: 2;
+  }
+}
+.masonry-layout__panel {
+  break-inside: avoid;
+  padding: 5px;
+  //min-height: 200px;
+  cursor:pointer;
+  &:hover{
+    opacity: .95;
+  }
+}
+.masonry-layout__panel-content {
+  // padding: 10px;
+  // border-radius: 10px;
+  max-width: 100%;
+  overflow: hidden;
+}
+//-----------------------------

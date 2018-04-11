@@ -27,6 +27,10 @@ class WebNotifications extends Component {
     if(this.n.supported()) this.n.show();
   }
 
+  componentWillReceiveProps = (nextProps) => {
+      this.showNotifications();
+  }
+
   handleClick = (event) => {
     // Do something here such as
     // console.log("Notification Clicked") OR

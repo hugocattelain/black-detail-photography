@@ -8,12 +8,9 @@ import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import $ from "jquery";
-import lazysizes from 'lazysizes';
 import '../styles/masonry.scss';
+import lazysizes from 'lazysizes';
 
-var masonryOptions = {
-    transitionDuration: 500
-};
 const muiBlack = getMuiTheme({
   "palette": {
     "primary1Color": "#212121",
@@ -28,7 +25,7 @@ const muiBlack = getMuiTheme({
 });
 
 
-class MasonryWall extends Component{
+class Masonry2 extends Component{
   constructor(props){
     super(props);
 
@@ -46,30 +43,7 @@ class MasonryWall extends Component{
         images: images,
         loading: false,
       });
-
-      //$("img").on("load", this.updateLayout);
-
-      // console.log(document.styleSheets);
-      // $(".masonry-brick__image").map(item => {
-      //   return console.log($(".masonry-brick__image")[item].clientWidth/$(".masonry-brick__image")[item].clientHeight*100);
-      // });
-      $(window).on("load", function(){
-        // $(".masonry-brick__image").unveil(100, function(){
-        //   $(this).on("load", function(){
-        //     $(this).addClass("veil");
-        //
-        //     console.log('veil')
-        //   });
-        //
-        // });
-
-      });
     });
-  }
-
-  updateLayout = () => {
-    console.log(this.masonry);
-    this.masonry.layout();
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -83,15 +57,6 @@ class MasonryWall extends Component{
           images: images,
           loading: false,
         });
-
-          // $(".masonry-brick__image").unveil(100, function(){
-          //   $(this).on("load", function(){
-          //     $(this).addClass("veil");
-          //
-          //   });
-          //
-          // })
-
       });
     }
   }
@@ -111,50 +76,34 @@ class MasonryWall extends Component{
     const childElements = images.map((item, key) => {
       const id = item.id;
       return(
-        <li key={key} className="masonry-brick__container col-lg-4 col-md-4 col-sm-4 col-xs-6" onClick={() => this.openLightbox(id)}>
+        <li key={key} className="masonry-layout__panel" onClick={() => this.openLightbox(id)}>
           <img
+            src={item.src}
             data-expand="200"
             data-src={item.src}
             alt={item.title || 'Black Detail Photography'}
-            className="masonry-brick__image lazyload"
+            className="masonry-layout__panel-content lazyload"
           />
         </li>
       );
     });
 
     return (
-        <div className="container">
-          {!this.state.loading ? (
-            <Masonry
-                className="masonry-wall row"
-                ref={function(c) {this.masonry = this.masonry || c.masonry;}.bind(this)}
-                elementType="ul"
-                options={masonryOptions}
-                disableImagesLoaded={false}
-                updateOnEachImageLoad={true}
-                onLayoutComplete={laidOutItems => this.updateLayout(laidOutItems)}
-            >
-                {childElements}
-            </Masonry>
-
-          ) : (
-            <MuiThemeProvider muiTheme={muiBlack}>
-              <CircularProgress className="global__progress-bar" size={30} thickness={2} />
-            </MuiThemeProvider>
-          )}
-          { id > 0 &&
-            <Lightbox images={images} id={Number(id)} />
-          }
-          {/* <Diaporama images={images} />*/}
-        </div>
-
-
+      <div className="container">
+        {!this.state.loading ? (
+            <ul className="masonry-layout">{childElements}</ul>
+        ) : (
+          <MuiThemeProvider muiTheme={muiBlack}>
+            <CircularProgress className="global__progress-bar" size={30} thickness={2} />
+          </MuiThemeProvider>
+        )}
+        { id > 0 &&
+          <Lightbox images={images} id={Number(id)} />
+        }
+      </div>
     );
   }
 }
 
-// MasonryWall.defaultProps = {
-//   category: 'home',
-// }
 
-export default withRouter(MasonryWall);
+export default withRouter(Masonry2);

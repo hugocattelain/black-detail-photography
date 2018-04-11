@@ -9,6 +9,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import NewPhoto from './NewPhoto';
+import WebNotifications from './NotificationWeb';
+import { getCategoryAlias } from '../Utils';
 
 const muiBlack = getMuiTheme({
   "palette": {
@@ -63,6 +65,8 @@ class UploadPhoto extends Component {
         loading:false,
         endUpload: true,
         progress :100,
+        notification_data: {},
+        showNotification: false
       });
 
     });
@@ -92,19 +96,26 @@ class UploadPhoto extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    Client.postImage(this.state.data, response =>{
-      console.log("postImage response", response);
-    });
-    Client.getEmails((response) => {
-      const emails = response;
-      const notifications_data = {
-        emails: emails,
-        images: this.state.data
-      };
-      Client.postNewsletter(notifications_data, response => {
-        console.log("postNewsletter response",response);
+    Client.postImage(this.state.data)
+    .then(response => {
+      this.setState({
+        notification_data: response,
+        showNotification: true,
+      });
+      Client.getEmails()
+      .then(response => {
+        const emails = response;
+        const notifications_data = {
+          emails: emails,
+          images: this.state.data
+        };
+        Client.postNewsletter(notifications_data)
+        .then(response => {
+          console.log("postNewsletter response",response);
+        });
       });
     });
+
   }
 
   render() {
@@ -112,6 +123,7 @@ class UploadPhoto extends Component {
     const uploadEnded = this.state.endUpload;
     const loading = this.state.loading;
     const categories = this.props.categories;
+    let showNotification = this.state.showNotification;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
       const index=key;
@@ -172,6 +184,13 @@ class UploadPhoto extends Component {
           )}
           </MuiThemeProvider>
         }
+        {showNotification && (
+          <WebNotifications
+            title="New photo on Black Detail"
+            body="Come check this out !"
+            timeout={4000}
+            url={"http://www.black-detail.com/" + getCategoryAlias(this.state.notification_data.tag_1)}/>
+        )}
       </div>
     );
   }

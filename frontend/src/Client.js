@@ -53,7 +53,7 @@ exports.postImage = function(data) {
     },
     data: data,
   })
-    //.then(Utils.checkStatus)
+    .then(Utils.checkStatus)
     .then(response => response.data);
 }
 
@@ -115,7 +115,7 @@ exports.sendMessage = function(data, cb) {
     .then(cb);
 }
 
-exports.getEmails = function(cb) {
+exports.getEmails = function() {
   const url = 'emails';
 
   return axiosInstance({
@@ -123,9 +123,8 @@ exports.getEmails = function(cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
-    .then(response => response.data )
-    .then(cb);
+    .then(Utils.checkStatus)
+    .then(response => response.data );
 }
 
 exports.getEmail = function(email, cb) {

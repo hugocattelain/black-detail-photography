@@ -1,3 +1,5 @@
+@import 'global/constant';
+
 .ril-toolbar{
   background-color: transparent;
   &-right{
@@ -31,4 +33,17 @@
 
 .ril-next-button{
 
+}
+
+.ril-image-current{
+  max-height: 85%;
+  max-width: 70%;
+  outline: #fff solid 35px;
+  background-color: white;
+
+  @media #{$xs}{
+    max-height: 100%;
+    max-width: 85%;
+    outline: #fff solid 10px;
+  }
 }
