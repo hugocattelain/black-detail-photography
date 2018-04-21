@@ -9,6 +9,32 @@
       }
     }
   }
+
+  &__manage{
+    &__list{
+      &__item{
+        text-align: left;
+        &__input{
+          text-align: left;
+          width: 175px !important;
+          left: 40px
+        }
+        &__button{
+          position: relative;
+          bottom: 15px;
+          left: 20px;
+        }
+        &__icon{
+          top:30px !important;
+          width: 60px !important;
+          height: 60px !important;
+          &-delete{
+            top: 30px !important;
+          }
+        }
+      }
+    }
+  }
 }
 
 .image__thumbnail{

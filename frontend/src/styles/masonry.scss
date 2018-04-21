@@ -1,29 +1,35 @@
 @import 'global/constant';
 
-.masonry-wall{
+
+.lazyload,
+.lazyloading {
+  //filter: blur(4px);
+}
+.lazyloaded {
+  transition: .5s -webkit-filter ease-in-out;
+}
+
+// -------------------------
+.masonry-layout {
   list-style-type: none;
-  padding: 0 30px 0 0;
+  column-count: 3;
+  column-gap: 0;
+  padding: 0;
 
-  li{
-    padding: 7px;
-    img{
-      width:100%;
-    }
-
-    @media #{$xs}{
-      padding:4px;
-    }
+  @media #{$s}{
+    column-count: 2;
   }
 }
-
-.masonry-brick__image{
-  transition: all .5s;
-
-}
-.masonry-brick__container:hover{
-  .masonry-brick__image {
-    transform: scale(1.015);
-    opacity:.5;
-    cursor:pointer;
+.masonry-layout__panel {
+  break-inside: avoid;
+  padding: 5px;
+  cursor:pointer;
+  &:hover{
+    opacity: .95;
   }
 }
+.masonry-layout__panel-content {
+  width: 100%;
+  overflow: hidden;
+}
+//-----------------------------

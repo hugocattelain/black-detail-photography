@@ -4,6 +4,7 @@ import ReactNotifications from 'react-browser-notifications';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
+import isEqual from 'lodash/isEqual';
 import '../images/BDP_logo.jpg';
 const muiBlack = getMuiTheme({
   "palette": {
@@ -19,14 +20,25 @@ const muiBlack = getMuiTheme({
 });
 
 class WebNotifications extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   showNotifications = () => {
     // If the Notifications API is supported by the browser
     // then show the notification
     if(this.n.supported()) this.n.show();
+  }
+  componentDidMount = () => {
+    console.log(this.props);
+    this.showNotifications();
+  }
+  componentWillReceiveProps = (nextProps) => {
+    console.log(this.props);
+    console.log(nextProps);
+    if (!isEqual(this.props, nextProps)){
+      console.log(this.props);
+      console.log(nextProps);
+      this.showNotifications();
+    }
   }
 
   handleClick = (event) => {
@@ -36,6 +48,7 @@ class WebNotifications extends Component {
     // window.open("http://www.google.com")
 
     // Lastly, Close the notification
+    window.open(this.props.url);
     this.n.close(event.target.tag);
   }
 
@@ -53,9 +66,7 @@ class WebNotifications extends Component {
           onClick={event => this.handleClick(event)}
         />
 
-        <MuiThemeProvider muiTheme={muiBlack}>
-          <RaisedButton label="Web notifications" primary={true} onClick={this.showNotifications} />
-        </MuiThemeProvider>
+
 
       </div>
     )
@@ -75,7 +86,7 @@ WebNotifications.defaultProps = {
   body: "New photo. Check this out !",
   timeout:0,
   icon: "http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg",
-  url: "http://www.blackdetail.com/curves"
+  url: "http://www.black-detail.com/curves"
 };
 
 export default WebNotifications;

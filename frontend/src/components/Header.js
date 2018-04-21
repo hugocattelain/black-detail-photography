@@ -18,7 +18,6 @@ class Header extends Component {
     scrollDirection:'unset',
 	};
 
-
   componentWillMount = () => {
     //mql.addListener(this.mediaQueryChanged);
     window.addEventListener("scroll", this.toggleHeader, false);
@@ -33,13 +32,22 @@ class Header extends Component {
       this.setState({ menuIsOpen: false });
     });
   }
-
+	componentWillReceiveProps = (nextProps) => {
+		if(nextProps.location.pathname.match(/\d/i)){
+			$(".mini-navbar").addClass("gone");
+      $(".hamburger").addClass("gone");
+			this.setState({ menuIsOpen: false });
+		}
+	}
   componentWillUpdate = (nextProps, nextState) => {
-    if (this.state.scrollDirection !== nextState.scrollDirection){
-      $(".mini-navbar").toggleClass("gone");
-      $(".bm-burger-button").toggleClass("gone");
-      $(".hamburger").toggleClass("gone");
+    if (this.state.scrollDirection === "up"){
+      $(".mini-navbar").removeClass("gone");
+      $(".hamburger").removeClass("gone");
     }
+		else{
+			$(".mini-navbar").addClass("gone");
+      $(".hamburger").addClass("gone");
+		}
     if (this.state.menuIsOpen !== nextState.menuIsOpen){
       $(".hamburger").toggleClass("is-active");
     }
@@ -85,9 +93,13 @@ class Header extends Component {
             <li className="menu-item"><Link to='/contact'>Contact</Link></li>
           </ul>
           <SocialMedia />
-          <div className="copyright">
-            Copyright © All rights <br/> reserved.
-          </div>
+
+					<a href="//www.dmca.com/Protection/Status.aspx?ID=9b98059e-c870-4227-a6b0-13ea302f8127" title="DMCA.com Protection Status" className="dmca-badge" target="_blank" rel="noopener noreferrer">
+					<div className="copyright">
+						Copyright © All rights <br/> reserved.
+					</div>
+					</a>
+					<script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
         </Menu>
       </div>
     )

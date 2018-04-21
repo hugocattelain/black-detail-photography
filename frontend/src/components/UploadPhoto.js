@@ -6,8 +6,11 @@ import axios from 'axios';
 import Client from '../Client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import NewPhoto from './NewPhoto';
+// import WebNotifications from './NotificationWeb';
+import { getCategoryAlias } from '../Utils';
 
 const muiBlack = getMuiTheme({
   "palette": {
@@ -27,20 +30,17 @@ class UploadPhoto extends Component {
   state = {
     uploadedFilesUrl: [],
     endUpload: false,
+    loading:false,
+    progress:0,
     data:[],
   };
 
   onImageDrop = (files) => {
     this.setState({
-      uploadedFile: files
+      uploadedFile: files,
+      loading:true,
     });
     this.handleImageUpload(files);
-    // const fileURL=[''];
-    // this.setState({
-    //   uploadedFile: files,
-    //   uploadedFilesUrl: fileURL,
-    //   endUpload: true
-    // });
   }
 
   handleImageUpload = files => {
@@ -56,13 +56,19 @@ class UploadPhoto extends Component {
         const data=response.data;
         const fileURL = data.secure_url;
         filesURL.push(fileURL);
+        this.setState({ progress: filesURL.length/files.length*100 });
       });
     });
     axios.all(uploaders).then(() => {
       this.setState({
         uploadedFilesUrl: filesURL,
-        endUpload: true
+        loading:false,
+        endUpload: true,
+        progress :100,
+        notification_data: {},
+        showNotification: false
       });
+
     });
   }
 
@@ -89,15 +95,35 @@ class UploadPhoto extends Component {
   }
 
   handleSubmit = (event) => {
-    Client.postImage(this.state.data, () =>{
-      this.props.history.push('/');
-    });
     event.preventDefault();
+    Client.postImage(this.state.data)
+    .then(response => {
+      this.setState({
+        notification_data: response,
+        showNotification: true,
+      });
+      Client.getEmails()
+      .then(response => {
+        const emails = response;
+        const notifications_data = {
+          emails: emails,
+          images: this.state.data
+        };
+        Client.postNewsletter(notifications_data)
+        .then(response => {
+          console.log("postNewsletter response",response);
+        });
+      });
+    });
+
   }
 
   render() {
     const uploadedFilesUrl = this.state.uploadedFilesUrl;
     const uploadEnded = this.state.endUpload;
+    const loading = this.state.loading;
+    const categories = this.props.categories;
+    let showNotification = this.state.showNotification;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
       const index=key;
@@ -110,6 +136,7 @@ class UploadPhoto extends Component {
           setInputState={this.setInputState}
           setSelectState={this.setSelectState}
           initState={this.initState}
+          categories={categories}
         />);
     });
 
@@ -119,9 +146,13 @@ class UploadPhoto extends Component {
           <div>
             <form onSubmit={this.handleSubmit}>
                 {newPhotos}
-                <MuiThemeProvider muiTheme={muiBlack}>
-                  <FlatButton type="submit" label="Submit" />
-                </MuiThemeProvider>
+                <div className="row">
+                  <div className="col-xs-12">
+                    <MuiThemeProvider muiTheme={muiBlack}>
+                      <RaisedButton type="submit" label="Submit" primary={true} />
+                    </MuiThemeProvider>
+                  </div>
+                </div>
             </form>
           </div>
         ) : (
@@ -136,6 +167,33 @@ class UploadPhoto extends Component {
             </Dropzone>
           </div>
         )}
+        { loading &&
+          <MuiThemeProvider muiTheme={muiBlack}>
+          { this.state.uploadedFile.lenght>1 ? (
+            <CircularProgress
+              size={30}
+              thickness={2}
+              mode="determinate"
+              value={this.state.progress}
+            />
+          ) : (
+            <CircularProgress
+              size={30}
+              thickness={2}
+            />
+          )}
+          </MuiThemeProvider>
+        }
+        {/*
+
+          <WebNotifications
+            title="New photo on Black Detail"
+            body="Come check this out !"
+            timeout={4000}
+            url={"http://www.black-detail.com/" + getCategoryAlias(this.state.notification_data.tag_1)}/>
+
+        
+        */}
       </div>
     );
   }

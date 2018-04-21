@@ -40,18 +40,19 @@ class NotificationPreferences extends Component {
     const email = this.state.email;
     const pref = this.state.subscriptionType;
     this.setState({ loading: true });
-    Client.updateEmail(email, pref, () => {
+    Client.updateEmail(email, pref)
+    .then((res) => {
       this.setState({
         status: 'done',
         loading: false,
       });
-      return;
+    })
+    .catch((err) => {
+      this.setState({
+        status: 'todo',
+        loading: false,
+      });
     });
-    // this.setState({
-    //   status: 'todo',
-    //   loading: false,
-    // });
-
   }
   render(){
     const loading = this.state.loading;
@@ -63,15 +64,15 @@ class NotificationPreferences extends Component {
           <Paper zDepth={3} className="preferences__wrapper global__center">
           <div>
             <div className="row">
-              <div className="col-sm-4 col-xs-3">
+              <div className="col-xs-3">
                 <hr className="global__divider" />
               </div>
-              <div className="col-sm-4 col-xs-6">
+              <div className="col-xs-6">
                 <h1 className="preferences__title">
                   Notifications
                 </h1>
               </div>
-              <div className="col-sm-4 col-xs-3">
+              <div className="col-xs-3">
                 <hr className="global__divider" />
               </div>
             </div>

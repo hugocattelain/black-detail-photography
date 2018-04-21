@@ -1,0 +1,12 @@
+<mj-image
+  align="center"
+  border="none"
+  padding-top="10px"
+  padding-bottom="0px"
+  padding-left="0px"
+  padding-right="0px"
+  width="780px"
+  title="Black Detail"
+  src="{{ image_src }}" 
+  href="{{ image_url }}"
+/>

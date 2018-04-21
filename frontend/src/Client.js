@@ -53,7 +53,7 @@ exports.postImage = function(data) {
     },
     data: data,
   })
-    //.then(Utils.checkStatus)
+    .then(Utils.checkStatus)
     .then(response => response.data);
 }
 
@@ -65,6 +65,32 @@ exports.deleteImage = function(id, visibility, cb) {
     method: 'put',
     url: url,
     responseType: 'json',
+  })
+    //.then(Utils.checkStatus)
+    .then(response => response.data )
+    .then(cb);
+}
+
+exports.updateImage = function(image, cb) {
+  const id = image.id;
+  const data = {
+    tag_1: image.tag_1,
+    tag_2: image.tag_2,
+    tag_3: image.tag_3,
+    created_at: image.created_at,
+    is_visible: image.is_visible
+  }
+  const url = `/photos/${id}`;
+
+  return axiosInstance({
+    method: 'put',
+    url: url,
+    responseType: 'json',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    data: data,
   })
     //.then(Utils.checkStatus)
     .then(response => response.data )
@@ -89,7 +115,7 @@ exports.sendMessage = function(data, cb) {
     .then(cb);
 }
 
-exports.getEmails = function(cb) {
+exports.getEmails = function() {
   const url = 'emails';
 
   return axiosInstance({
@@ -97,9 +123,8 @@ exports.getEmails = function(cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
-    .then(response => response.data )
-    .then(cb);
+    .then(Utils.checkStatus)
+    .then(response => response.data );
 }
 
 exports.getEmail = function(email, cb) {
@@ -142,7 +167,23 @@ exports.updateEmail = function(email, pref, cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
-    .then(response => response.data )
-    .then(cb);
+    .then(Utils.checkStatus)
+    .then(response => response.data);
+}
+
+exports.postNewsletter = function(data) {
+  const url = 'newsletter';
+  return axiosInstance({
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    data: data,
+  })
+    .then(Utils.checkStatus)
+    .then(response => response.data);
+
 }
