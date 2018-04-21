@@ -34,6 +34,9 @@ class Contact extends Component {
 
   componentWillMount = () => {
       $('body').addClass('no-overflow');
+      $(".hamburger").removeClass("gone");
+      $(".mini-navbar").removeClass("gone");
+
   }
 
   componentWillUnmount = () => {
@@ -93,7 +96,7 @@ class Contact extends Component {
                 <hr className="global__divider" />
               </div>
               <h2 className="contact__subtitle">Drop me a message if you want to shoot or just to say Hi !</h2>
-              
+
               <form onSubmit={(e) => this.contactUs(e)}>
                 <MuiThemeProvider muiTheme={muiBlack}>
                   <TextField
@@ -166,9 +169,6 @@ class Contact extends Component {
           </MuiThemeProvider>
         </div>
       )}
-      <a className="github-link" href="https://github.com/hugocattelain" target="_blank" rel="noopener noreferrer">
-        <div className="github-link__logo"></div>
-      </a>
       </div>
     );
   }

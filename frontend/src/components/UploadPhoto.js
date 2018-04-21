@@ -9,7 +9,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import NewPhoto from './NewPhoto';
-import WebNotifications from './NotificationWeb';
+// import WebNotifications from './NotificationWeb';
 import { getCategoryAlias } from '../Utils';
 
 const muiBlack = getMuiTheme({
@@ -184,13 +184,16 @@ class UploadPhoto extends Component {
           )}
           </MuiThemeProvider>
         }
-        {showNotification && (
+        {/*
+
           <WebNotifications
             title="New photo on Black Detail"
             body="Come check this out !"
             timeout={4000}
             url={"http://www.black-detail.com/" + getCategoryAlias(this.state.notification_data.tag_1)}/>
-        )}
+
+        
+        */}
       </div>
     );
   }

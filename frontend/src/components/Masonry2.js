@@ -75,10 +75,11 @@ class Masonry2 extends Component{
 
     const childElements = images.map((item, key) => {
       const id = item.id;
+      const thumb = item.src.replace("upload", "upload/t_thumb");
       return(
         <li key={key} className="masonry-layout__panel" onClick={() => this.openLightbox(id)}>
           <img
-            src={item.src}
+            src={thumb}
             data-expand="200"
             data-src={item.src}
             alt={item.title || 'Black Detail Photography'}

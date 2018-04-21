@@ -4,6 +4,7 @@ import ReactNotifications from 'react-browser-notifications';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
+import isEqual from 'lodash/isEqual';
 import '../images/BDP_logo.jpg';
 const muiBlack = getMuiTheme({
   "palette": {
@@ -26,9 +27,18 @@ class WebNotifications extends Component {
     // then show the notification
     if(this.n.supported()) this.n.show();
   }
-
+  componentDidMount = () => {
+    console.log(this.props);
+    this.showNotifications();
+  }
   componentWillReceiveProps = (nextProps) => {
+    console.log(this.props);
+    console.log(nextProps);
+    if (!isEqual(this.props, nextProps)){
+      console.log(this.props);
+      console.log(nextProps);
       this.showNotifications();
+    }
   }
 
   handleClick = (event) => {
@@ -56,9 +66,7 @@ class WebNotifications extends Component {
           onClick={event => this.handleClick(event)}
         />
 
-        <MuiThemeProvider muiTheme={muiBlack}>
-          <RaisedButton label="Web notifications" primary={true} onClick={this.showNotifications} />
-        </MuiThemeProvider>
+
 
       </div>
     )

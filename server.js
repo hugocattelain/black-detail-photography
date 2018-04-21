@@ -7,8 +7,9 @@ var nodemailer = require('nodemailer');
 var Client = require('./frontend/src/Client.js');
 var fs = require('fs');
 var mjmlToHtml = require('./emails/transformer/mjmlToHtml.js')
-
+const path = require('path');
 const app = express();
+
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3001);
 
@@ -17,7 +18,7 @@ app.set("port", process.env.PORT || 3001);
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/build"));
+  app.use(express.static(path.join(__dirname, 'frontend/build')));
 }
 
 var pool = mysql.createPool({

@@ -1,4 +1,5 @@
 @import 'global/constant';
+
 .navbar{
   background-color: #ffffff;
   border: none;
@@ -278,8 +279,8 @@ $hamburger-hover-transition-timing-function: linear;
 
     &__title{
       text-align: center;
-      font-size: 35px !important;
-      line-height: 40px;
+      font-size: 35px;
+      line-height: 0;
     }
 
     &__description{

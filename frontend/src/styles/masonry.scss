@@ -1,41 +1,12 @@
 @import 'global/constant';
 
-.masonry-wall{
-  list-style-type: none;
-
-  li{
-    padding: 7px;
-    text-align: center;
-
-    img{
-      width:100%;
-      transition: all .4s ease-in;
-    }
-
-    @media #{$xs}{
-      padding:4px;
-    }
-  }
-}
-
-.masonry-brick__image{
-  transition: opacity .3s ease-in;
-
-}
-.masonry-brick__container:hover{
-  .masonry-brick__image {
-    transform: scale(1.015);
-    cursor:pointer;
-  }
-}
 
 .lazyload,
 .lazyloading {
-	opacity: 0;
+  //filter: blur(4px);
 }
 .lazyloaded {
-	opacity: 1;
-	transition: opacity .4s;
+  transition: .5s -webkit-filter ease-in-out;
 }
 
 // -------------------------
@@ -52,16 +23,13 @@
 .masonry-layout__panel {
   break-inside: avoid;
   padding: 5px;
-  //min-height: 200px;
   cursor:pointer;
   &:hover{
     opacity: .95;
   }
 }
 .masonry-layout__panel-content {
-  // padding: 10px;
-  // border-radius: 10px;
-  max-width: 100%;
+  width: 100%;
   overflow: hidden;
 }
 //-----------------------------
