@@ -192,7 +192,7 @@ class UploadPhoto extends Component {
             timeout={4000}
             url={"http://www.black-detail.com/" + getCategoryAlias(this.state.notification_data.tag_1)}/>
 
-        
+
         */}
       </div>
     );
