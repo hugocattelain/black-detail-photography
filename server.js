@@ -12,7 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3001);
-var port = process.env.port || 3001;
+var port = process.env.port || 5000;
 
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
 // const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
