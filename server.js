@@ -12,6 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3001);
+var port = process.env.port || 3001;
 
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
 // const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
@@ -408,6 +409,6 @@ app.put("/api/emails/:email/:pref", (req, res, next) => {
 });
 
 
-app.listen(app.get("port"),"0.0.0.0", () => {
+app.listen(port,"0.0.0.0", () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
 });
