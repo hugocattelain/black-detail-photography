@@ -1,1 +1,1 @@
-web: npm run install -p $PORT
+web: npm run install
