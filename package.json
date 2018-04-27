@@ -5,6 +5,7 @@
     "node": "7.7.1",
     "npm":"4.1.2"
   },
+  "main": "server.js",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
