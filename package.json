@@ -29,8 +29,8 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",
-    "install": "npm run server",
-    "heroku-postbuild": "cd frontend && npm install && npm run build ",
+    "install": "NODE_ENV=PRODUCTION && npm run server",
+    "postinstall": "cd frontend && npm install && npm run build ",
     "client": "node start-client.js",
     "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
     "lint": "eslint .",
