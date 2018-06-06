@@ -6,7 +6,6 @@
     "yarn":"1.7.0"
   },
   "private": true,
-  "homepage": "https://www.black-detail.com",
   "devDependencies": {
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.0.1",
