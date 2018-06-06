@@ -6,7 +6,7 @@
     "yarn":"1.7.0"
   },
   "private": true,
-  "homepage": "./frontend",
+  "homepage": "https://www.black-detail.com",
   "devDependencies": {
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.0.1",
@@ -14,7 +14,7 @@
     "eslint-plugin-flowtype": "2.39.1",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "7.4.0",
+    "eslint-plugin-react": "7.4.0"
   },
   "dependencies": {
     "aphrodite": "^1.2.5",
