@@ -2,7 +2,9 @@
   "name": "black-detail-photography-frontend",
   "version": "0.1.0",
   "engines": {
-    "node": "7.7.1"
+    "node": "7.7.1",
+    "npm":"4.1.2",
+    "yarn":"0.21.3"
   },
   "private": true,
   "devDependencies": {
