@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Lightbox from './Lightbox';
 import { withRouter } from 'react-router';
-import Masonry from 'react-masonry-component';
 import { getCategoryName } from '../Utils';
 import Client from "../Client";
 import CircularProgress from 'material-ui/CircularProgress';
