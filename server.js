@@ -11,6 +11,13 @@ const path = require('path');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 app.set("port", process.env.PORT || 3001);
 
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactNotifications from 'react-browser-notifications';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
 import isEqual from 'lodash/isEqual';
 import '../images/BDP_logo.jpg';
 const muiBlack = getMuiTheme({
