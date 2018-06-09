@@ -2,7 +2,7 @@
   "name": "black-detail-photography-server",
   "version": "0.0.1",
   "engines": {
-    "node": "7.7.1",
+    "node": "~7.7.1",
     "npm":"4.1.2",
     "yarn":"0.21.3"
   },
