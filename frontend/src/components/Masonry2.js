@@ -7,7 +7,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import $ from "jquery";
-import '../styles/masonry.scss';
+import '../styles/masonry.css';
 import lazysizes from 'lazysizes';
 
 const muiBlack = getMuiTheme({
