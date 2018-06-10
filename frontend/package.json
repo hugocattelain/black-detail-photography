@@ -80,9 +80,13 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "start-js": "node scripts/start.js",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "node scripts/build.js",
+    "build": "npm-run-all build-css build-js",
+    "test": "node scripts/test.js",
+    "build-css": "node-sass-chokidar --include-path ./src/styles --include-path ./node_modules src/styles -o src/styles",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src/styles --include-path ./node_modules src/styles -o src/styles --watch --recursive"
   },
   "proxy": "http://localhost:3001",
   "jest": {

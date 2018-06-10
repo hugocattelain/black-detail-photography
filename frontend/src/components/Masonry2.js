@@ -79,7 +79,7 @@ class Masonry2 extends Component{
         <li key={key} className="masonry-layout__panel" onClick={() => this.openLightbox(id)}>
           <img
             src={thumb}
-            data-expand="200"
+            data-expand="600"
             data-src={item.src}
             alt={item.title || 'Black Detail Photography'}
             className="masonry-layout__panel-content lazyload"

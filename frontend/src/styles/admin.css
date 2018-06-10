@@ -1,0 +1,54 @@
+.admin {
+  text-align: center; }
+  .admin__upload__wrapper > div {
+    width: 100% !important;
+    height: 200px !important; }
+  .admin__manage__list__item {
+    text-align: left; }
+    .admin__manage__list__item__input {
+      text-align: left;
+      width: 175px !important;
+      left: 40px; }
+    .admin__manage__list__item__button {
+      position: relative;
+      bottom: 15px;
+      left: 20px; }
+    .admin__manage__list__item__icon {
+      top: 30px !important;
+      width: 60px !important;
+      height: 60px !important; }
+      .admin__manage__list__item__icon-delete {
+        top: 30px !important; }
+
+.image__thumbnail {
+  height: 200px;
+  float: left;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat; }
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga'; }
+
+.disabled {
+  opacity: 0.5;
+  background-color: lightgrey; }
