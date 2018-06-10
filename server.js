@@ -19,9 +19,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/', function (req, res) {
+//  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 app.set("port", process.env.PORT || 3001);
 
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
