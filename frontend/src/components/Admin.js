@@ -4,7 +4,7 @@ import DeletePhoto from './DeletePhoto';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
-import '../styles/admin.scss';
+import '../styles/admin.css';
 
 const categories = [
   {name: '', tag: ''},

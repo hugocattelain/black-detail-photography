@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import SocialMedia from './SocialMedia';
 import $ from "jquery";
 
-import '../styles/header.scss';
+import '../styles/header.css';
 
 //const mql = window.matchMedia(`(min-width: 768px)`);
 let lastScrollPos = 0;

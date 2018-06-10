@@ -7,7 +7,7 @@ import Contact from './Contact';
 import NotificationPreferences from './NotificationPreferences';
 import { copyToClipboard } from '../Utils';
 import $ from "jquery";
-import '../styles/content.scss';
+import '../styles/content.css';
 
 class Content extends Component {
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import LB from 'lightbox-react';
-import '../styles/lightbox.scss';
+import '../styles/lightbox.css';
 import findIndex from 'lodash/findIndex';
 import $ from "jquery";
 

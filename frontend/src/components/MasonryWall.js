@@ -9,7 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import $ from "jquery";
 import lazysizes from 'lazysizes';
-import '../styles/masonry.scss';
+import '../styles/masonry.css';
 
 var masonryOptions = {
     transitionDuration: 500

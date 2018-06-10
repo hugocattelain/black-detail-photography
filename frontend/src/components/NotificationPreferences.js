@@ -7,7 +7,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Paper from 'material-ui/Paper';
 import Client from '../Client';
 import { withRouter } from 'react-router';
-import '../styles/content.scss';
+import '../styles/content.css';
 
 const muiBlack = getMuiTheme({
   "palette": {

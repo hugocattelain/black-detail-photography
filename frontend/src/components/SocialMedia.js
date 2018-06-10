@@ -16,7 +16,7 @@ import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton, TumblrShareButton } from 'react-share';
 
-import '../styles/content.scss';
+import '../styles/content.css';
 const muiBlack = getMuiTheme({
   "palette": {
     "primary1Color": "#212121",
