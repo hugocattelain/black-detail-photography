@@ -19,9 +19,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/*', function (req, res) {
- res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-});
+
 app.set("port", process.env.PORT || 3001);
 
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
@@ -30,7 +28,9 @@ app.set("port", process.env.PORT || 3001);
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, 'frontend/build')));
-  console.log(path.join(__dirname, 'frontend/build'));
+  app.get('/*', function (req, res) {
+   res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+  });
 }
 
 var pool = mysql.createPool({
