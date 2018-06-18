@@ -28,9 +28,10 @@ app.set("port", process.env.PORT || 3001);
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, 'frontend/build')));
-  app.get('/*', function (req, res) {
-   res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-  });
+  console.log("---------------------------------- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ PROD ENV ");
+  // app.get('/*', function (req, res) {
+  //  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+  // });
 }
 
 var pool = mysql.createPool({
