@@ -20,19 +20,28 @@ app.use(function(req, res, next) {
 });
 
 
-app.set("port", process.env.PORT || 3001);
+
 
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
 // const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
 
-// Express only serves static assets in production
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, 'frontend/build')));
-  console.log("---------------------------------- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ PROD ENV ");
-  // app.get('/*', function (req, res) {
-  //  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-  // });
+  app.set("port", process.env.PORT);
+  console.log("PORT ---------------------------",app.get("port"));
+
 }
+else {
+  app.set("port", process.env.PORT || 3001);
+}
+
+// Express only serves static assets in production
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Serving the unknown routes to index.html
+app.get('/*', function (req, res) {
+ res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 var pool = mysql.createPool({
     connectionLimit : 100, //important
