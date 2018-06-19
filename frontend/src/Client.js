@@ -3,11 +3,18 @@ const axios = require('axios');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
+
 const PORT =  process.env.PORT || 3000;
+var baseUrl = 'http://localhost:' + PORT + '/api/';
+
+if(process.env.NODE_ENV === "production"){
+  baseUrl = 'http://black-detail.com/' + PORT + '/api/';
+}
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:'+PORT+'/api/',
+  baseURL: baseUrl,
 });
 
+console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Client: PORT:", PORT, "ENV: ", process.env.NODE_ENV, "baseURL: ", baseUrl);
 
 // const mailInstance = axios.create({
 //   baseURL: '../emails/',
