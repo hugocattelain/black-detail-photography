@@ -72,7 +72,15 @@ app.get("/api/photos", (req, res, next) => {
       values = [param,param,param];
       break;
     }
-
+    //------------------------------------TO BE DELETED
+    console.log( 'host     :', process.env.DB_HOST,
+    'user     :', process.env.DB_USER,
+    'password :', process.env.DB_PASS,
+    'database :', process.env.DB_NAME,
+    'pool :', pool,
+    'instructions: ', instruction,
+    'values: ', values);
+    //-------------------------------------------------
     pool.getConnection(function(err,connection){
     if (err) {
       connection.release();
