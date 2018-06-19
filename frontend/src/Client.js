@@ -14,8 +14,6 @@ const axiosInstance = axios.create({
   baseURL: baseUrl,
 });
 
-console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Client: PORT:", PORT, "ENV: ", process.env.NODE_ENV, "baseURL: ", baseUrl);
-
 // const mailInstance = axios.create({
 //   baseURL: '../emails/',
 // });
