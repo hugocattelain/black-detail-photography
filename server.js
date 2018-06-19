@@ -25,23 +25,11 @@ app.use(function(req, res, next) {
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
 // const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
 
+app.set("port", process.env.PORT || 3001);
 
-if (process.env.NODE_ENV === "production") {
-  app.set("port", process.env.PORT);
-  console.log("PORT ---------------------------",app.get("port"));
-
-}
-else {
-  app.set("port", process.env.PORT || 3001);
-}
 
 // Express only serves static assets in production
 app.use(express.static(path.join(__dirname, 'frontend/build')));
-
-// Serving the unknown routes to index.html
-app.get('/*', function (req, res) {
- res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-});
 
 var pool = mysql.createPool({
     connectionLimit : 100, //important
@@ -427,6 +415,11 @@ app.put("/api/emails/:email/:pref", (req, res, next) => {
       }
     );
   });
+});
+
+// Serving the unknown routes to index.html
+app.get('*', function (req, res) {
+ res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 
 
