@@ -8,7 +8,7 @@ const PORT =  process.env.PORT || 3000;
 var baseUrl = 'http://localhost:' + PORT + '/api/';
 
 if(process.env.NODE_ENV === "production"){
-  baseUrl = 'http://www.black-detail.com:' + process.env.PORT + '/api/';
+  baseUrl = 'http://www.black-detail.com/api/';
 }
 const axiosInstance = axios.create({
   baseURL: baseUrl,
