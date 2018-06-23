@@ -93,16 +93,19 @@ class DeletePhoto extends Component {
 
   isFirstElement = (item) => {
     const images = this.state.images;
+    // eslint-disable-next-line
     return findIndex(images, el => { return el.id == item.id}) === 0;
   }
 
   isLastElement = (item) => {
     const images = this.state.images;
+    // eslint-disable-next-line
     return (findIndex(images, el => { return el.id == item.id}) === (images.length - 1));
   }
 
   updateCreationDate = (item, action) => {
     const images = this.state.images;
+    // eslint-disable-next-line
     const index = findIndex(images, el => { return el.id == item.id});
     let prevImage= images[index-1];
     let nextImage = images[index+1];
@@ -131,6 +134,9 @@ class DeletePhoto extends Component {
         nextImage.created_at = itemDate;
         item.created_at = nextDate;
         imagesToUpdate.push(item, nextImage);
+        break;
+      default:
+        console.log('unknown case');
         break;
     }
 
