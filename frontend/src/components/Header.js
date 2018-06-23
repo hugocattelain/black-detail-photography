@@ -33,11 +33,11 @@ class Header extends Component {
     });
   }
 	componentWillReceiveProps = (nextProps) => {
-		if(nextProps.location.pathname.match(/\d/i)){
-			$(".mini-navbar").addClass("gone");
-      $(".hamburger").addClass("gone");
+		//if(nextProps.location.pathname.match(/\d/i)){
+			$(".mini-navbar").removeClass("gone");
+      $(".hamburger").removeClass("gone");
 			this.setState({ menuIsOpen: false });
-		}
+		//}
 	}
   componentWillUpdate = (nextProps, nextState) => {
     if (this.state.scrollDirection === "up"){
@@ -63,12 +63,14 @@ class Header extends Component {
   // }
 
   toggleHeader= () => {
-    if(window.scrollY>lastScrollPos){
-      this.setState({ scrollDirection: 'down' });
-    }
-    else {
-      this.setState({ scrollDirection: 'up' });
-    }
+		if(window.scrollY>80){
+	    if(window.scrollY>lastScrollPos){
+	      this.setState({ scrollDirection: 'down' });
+	    }
+	    else {
+	      this.setState({ scrollDirection: 'up' });
+	    }
+		}
     lastScrollPos = window.scrollY;
   }
 
