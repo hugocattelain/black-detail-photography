@@ -52,6 +52,7 @@ class Admin extends Component {
             <div className="col-xs-12">
               <UploadPhoto categories={categories}/>
             </div>
+
             <div className=" col-xs-12">
               <DeletePhoto categories={categories}/>
             </div>
