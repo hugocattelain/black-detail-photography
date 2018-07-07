@@ -15,7 +15,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton, TumblrShareButton } from 'react-share';
-
+import email from '../images/email.png';
 import '../styles/content.css';
 const muiBlack = getMuiTheme({
   "palette": {
@@ -215,6 +215,11 @@ class SocialMedia extends Component {
               className="social__modal"
             >
               <div className="social__modal__description">
+              <img className="social__modal-icon" src={email} />
+              <div>
+                Subscribe to the newsletter to receive the latest updates. <br/>Get notified when a new post comes up.
+              </div>
+              {this.state.subscriptionProgress === 'todo' && (
               <div className="social__modal__actions col-xs-12">
                 <form onSubmit={(e) => this.handleEmailNotifications(e)}>
                   <MuiThemeProvider muiTheme={muiBlack}>
@@ -238,6 +243,7 @@ class SocialMedia extends Component {
                   </MuiThemeProvider>
                 </form>
               </div>
+            )}
             {/*  <div className="social__modal__actions col-xs-12">
                 <div className="col-xs-5">
                   <hr className="global__divider"/>
@@ -252,15 +258,17 @@ class SocialMedia extends Component {
               <div className="social__modal__actions col-xs-12">
                 <WebNotifications title="Congrats" body="You just activated web notifications !" timeout={4000}/>
               </div>*/}
-              <span>
-                Get notified when a new post comes up<br/>You can subscribe to the newsletter and/or the web notifications
-              </span>
+
               </div>
               {this.state.subscriptionProgress === 'progress' && (
                 <MuiThemeProvider muiTheme={muiBlack}>
                   <CircularProgress className="global__progress-bar" size={30} thickness={2} />
                 </MuiThemeProvider>
               )}
+
+                {this.state.subscriptionProgress === 'done' && (
+                  <div className="social__modal__success">Congratulations ! You subscribed to the newsletter. </div>
+                )}
             </Dialog>
           </MuiThemeProvider>
           <MuiThemeProvider>

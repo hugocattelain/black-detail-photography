@@ -9,15 +9,17 @@ var fs = require('fs');
 var mjmlToHtml = require('./emails/transformer/mjmlToHtml.js')
 const path = require('path');
 const app = express();
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*');
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", '*');
+//   res.header("Access-Control-Allow-Credentials", true);
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+//   next();
+// });
 
 
 
@@ -51,9 +53,9 @@ app.get("/api/photos", (req, res, next) => {
       instruction = `
         select * from photos
         where is_visible=1
-        and tag_1 not like ?
-        and tag_2 not like ?
-        and tag_3 not like ?
+        and tag_1 like ?
+        or tag_2 like ?
+        or tag_3 like ?
         order by created_at desc`;
         values = [exception,exception,exception];
       break;
@@ -275,7 +277,7 @@ app.post('/api/contact', function (req, res) {
 app.post('/api/newsletter', function (req, res, next) {
   const data = req.body;
   const emails = data.emails;
-  const images = data.images;
+  const images = data.images.map(image => image.src.replace("upload", "upload/t_thumb"));
   let errorCount = 0;
   let transporter = nodemailer.createTransport({
     host: process.env.MAILER_SERVER,
@@ -314,7 +316,7 @@ async function sendEmail(transporter, message){
   await delay();
   transporter.sendMail(message, (error) => {
     if (error) {
-      console.log("error : ",error);
+      console.log("error : ", error);
     }
     else{
       console.log("email sent !");
