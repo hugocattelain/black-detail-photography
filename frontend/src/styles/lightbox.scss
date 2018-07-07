@@ -36,14 +36,14 @@
 }
 
 .ril-image-current{
-  max-height: 85%;
-  max-width: 70%;
+  max-height: 85% !important;
+  max-width: 70% !important;
   outline: #fff solid 35px;
   background-color: white;
 
   @media #{$xs}{
-    max-height: 100%;
-    max-width: 85%;
+    max-height: 100% !important;
+    max-width: 85% !important;
     outline: #fff solid 10px;
   }
 }
