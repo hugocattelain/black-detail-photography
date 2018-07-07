@@ -27,7 +27,7 @@ const muiBlack = getMuiTheme({
   "borderRadius": 2
 });
 
-class DeletePhoto extends Component {
+class ManagePhoto extends Component {
 
   state = {
     images:[],
@@ -57,7 +57,6 @@ class DeletePhoto extends Component {
 
   updateCategory = (item, name, value) => {
     item[name] = this.props.categories[value].tag;
-    console.log(item);
     Client.updateImage(item, () => {
       Client.getAllImages(param, images => {
         this.setState({
@@ -68,7 +67,6 @@ class DeletePhoto extends Component {
   }
 
   sendNotification = (item) => {
-    console.log("sending email : ", item);
     Client.getEmails().then(response => {
       const emails = response;
       const notifications_data = {
@@ -77,7 +75,6 @@ class DeletePhoto extends Component {
       };
       Client.postNewsletter(notifications_data)
       .then(res => {
-        console.log("postNewsLetter response: ", res);
         this.setState({
           snackbarIsOpen: true,
           message: "Notification sent"
@@ -119,7 +116,7 @@ class DeletePhoto extends Component {
     const itemDate = moment(item.created_at).format("YYYY-MM-DD HH:mm:ss");
     const prevDate = moment(images[index-1].created_at).format("YYYY-MM-DD HH:mm:ss");
     const nextDate = moment(images[index+1].created_at).format("YYYY-MM-DD HH:mm:ss");
-    const lastDate = moment(images[images.length-1].created_at).format("YYYY-MM-DD HH:mm:ss");
+    //const lastDate = moment(images[images.length-1].created_at).format("YYYY-MM-DD HH:mm:ss");
     let imagesToUpdate = [];
 
     switch(action){
@@ -128,9 +125,7 @@ class DeletePhoto extends Component {
         imagesToUpdate.push(item);
         break;
       case 'bottom':
-        console.log(lastDate);
-        let d = moment(lastDate).add("1", "hour");
-        console.log(d);
+        //let d = moment(lastDate).add("1", "hour");
         break;
       case 'up':
         prevImage.created_at = itemDate;
@@ -171,7 +166,7 @@ class DeletePhoto extends Component {
 
                 <ListItem
                   key = {key}
-                  leftAvatar={<Avatar src={item.src} className="admin__manage__list__item__icon" />}
+                  leftAvatar={<Avatar src={item.src.replace('upload','upload/t_web_xs')} className="admin__manage__list__item__icon" />}
                   className={"admin__manage__list__item " + (item.is_visible === 0 ? 'disabled' : '')}
                 >
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'top') }}>arrow_upward</i>
@@ -249,4 +244,4 @@ class DeletePhoto extends Component {
 
 
 
-export default withRouter(DeletePhoto);
+export default withRouter(ManagePhoto);

@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import NewPhoto from './NewPhoto';
 // import WebNotifications from './NotificationWeb';
+// eslint-disable-next-line
 import { getCategoryAlias } from '../Utils';
 
 const muiBlack = getMuiTheme({
@@ -111,7 +112,6 @@ class UploadPhoto extends Component {
         };
         Client.postNewsletter(notifications_data)
         .then(response => {
-          console.log("postNewsletter response",response);
         });
       });
     });
@@ -123,7 +123,7 @@ class UploadPhoto extends Component {
     const uploadEnded = this.state.endUpload;
     const loading = this.state.loading;
     const categories = this.props.categories;
-    let showNotification = this.state.showNotification;
+    //let showNotification = this.state.showNotification;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
       const index=key;

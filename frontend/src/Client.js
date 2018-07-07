@@ -1,4 +1,3 @@
-const Utils = require("./Utils");
 const axios = require('axios');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');

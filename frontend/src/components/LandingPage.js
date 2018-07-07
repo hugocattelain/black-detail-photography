@@ -1,25 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { getCategoryName } from '../Utils';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import $ from "jquery";
 import '../styles/landing-page.css';
 import quotes from '../ressources/quotes.json';
-
-const muiBlack = getMuiTheme({
-  "palette": {
-    "primary1Color": "#212121",
-    "primary2Color": "#616161",
-    "accent1Color": "rgba(117, 117, 117, 0.51)",
-    "pickerHeaderColor": "#212121"
-  },
-  "textField": {
-    "errorColor": "#f44336"
-  },
-  "borderRadius": 2
-});
-
 
 const LandingPage = ( {category} ) => {
 

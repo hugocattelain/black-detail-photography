@@ -113,7 +113,7 @@
     <mj-container>
       <mj-section padding-bottom="0">
         <mj-column>
-          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px"  src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521586229/home_banner_kmyegv.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px"  src="https://res.cloudinary.com/dmdkvle30/image/upload/t_thumb/v1521586229/home_banner_kmyegv.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
           <mj-text align="center" padding-bottom="0">
             <a class="header-link" href="http://www.black-detail.com/" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">PORTFOLIO</font></span></a>
             <span>&nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; </span>
@@ -137,9 +137,8 @@
         <mj-column>
             <mj-text align="center">
               <a class="button" href="http://www.black-detail.com/wall" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">WALL</font></span></a>
-              <a class="button" href="http://www.black-detail.com/curves" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">CURVES</font></span></a>
+              <a class="button" href="http://www.black-detail.com" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">CURVES</font></span></a>
               <a class="button" href="http://www.black-detail.com/mask" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">MASK</font></span></a>
-              <a class="button" href="http://www.black-detail.com/black" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">BLACK</font></span></a>
             </mj-text>
             <mj-divider border-width="1px" padding-bottom="0" padding-top="30" border-style="solid" border-color="lightgrey" />
         </mj-column>

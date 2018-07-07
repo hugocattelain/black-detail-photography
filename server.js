@@ -277,7 +277,12 @@ app.post('/api/contact', function (req, res) {
 app.post('/api/newsletter', function (req, res, next) {
   const data = req.body;
   const emails = data.emails;
-  const images = data.images.map(image => image.src.replace("upload", "upload/t_thumb"));
+  console.log("c'est le server pd : DATAAAAAAAAAAAAAAAAAAAAAAAA", data);
+  const images = data.images;
+  for (let image of images){
+    image.src=image.src.replace("upload", "upload/t_thumb");
+  }
+  console.log("----------------------------- IMAGES -----------------------------", images);
   let errorCount = 0;
   let transporter = nodemailer.createTransport({
     host: process.env.MAILER_SERVER,
@@ -309,7 +314,7 @@ async function sendEmails (transporter, emails, images) {
 }
 
 function delay(){
-  return new Promise(resolve => setTimeout(resolve, 1000));
+  return new Promise(resolve => setTimeout(resolve, 2000));
 }
 
 async function sendEmail(transporter, message){
