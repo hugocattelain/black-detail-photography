@@ -7,7 +7,7 @@ import LandingPage from './LandingPage';
 import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// import CookieConsent from "react-cookie-consent";
+import CookieConsent from "react-cookie-consent";
 import $ from "jquery";
 import '../styles/masonry.css';
 import lazysizes from 'lazysizes';
@@ -104,7 +104,7 @@ class Masonry extends Component{
             <Lightbox images={images} id={Number(id)} />
           }
         </div>
-        {/*<CookieConsent
+        <CookieConsent
           location="bottom"
           buttonText="Ok"
           style={{ background: "#000" }}
@@ -112,7 +112,7 @@ class Masonry extends Component{
           expires={150}
       >
           This website uses cookies to enhance the user experience.{" "}
-      </CookieConsent>*/}
+      </CookieConsent>
       </div>
     );
   }
