@@ -5,8 +5,15 @@
 .lazyloading {
   //filter: blur(4px);
 }
+
 .lazyloaded {
   transition: .5s -webkit-filter ease-in-out;
+}
+
+.cookieConsent{
+  @media #{$s}{
+    display: grid !important;
+  }
 }
 
 // -------------------------

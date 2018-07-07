@@ -1,3 +1,5 @@
+@import 'global/constant.scss';
+
 .landing-page{
   &__container{
     padding-top: 80px;
@@ -13,6 +15,11 @@
     text-transform: capitalize;
     text-align: center;
     margin-top: 12rem;
+
+    @media #{$xs} {
+      margin-top: 7rem;
+      font-size: 3rem;
+    }
 
     &.faded{
       opacity: 1;
@@ -30,6 +37,12 @@
     opacity:.9;
     width: 45%;
     margin: 0 auto;
+
+    @media #{$xs} {
+      width: 75%;
+      margin: 0 auto;
+      font-size: 2rem;
+    }
   }
 
   &__icon{
