@@ -9,9 +9,9 @@ var fs = require('fs');
 var mjmlToHtml = require('./emails/transformer/mjmlToHtml.js')
 const path = require('path');
 const app = express();
-const cors = require('cors');
+// const cors = require('cors');
 
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", '*');
@@ -53,9 +53,9 @@ app.get("/api/photos", (req, res, next) => {
       instruction = `
         select * from photos
         where is_visible=1
-        and tag_1 like ?
+        and (tag_1 like ?
         or tag_2 like ?
-        or tag_3 like ?
+        or tag_3 like ?)
         order by created_at desc`;
         values = [exception,exception,exception];
       break;
