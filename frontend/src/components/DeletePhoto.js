@@ -68,7 +68,8 @@ class DeletePhoto extends Component {
   }
 
   sendNotification = (item) => {
-    Client.getEmails((response) => {
+    console.log("sending email : ", item);
+    Client.getEmails().then(response => {
       const emails = response;
       const notifications_data = {
         emails: emails,
@@ -76,7 +77,7 @@ class DeletePhoto extends Component {
       };
       Client.postNewsletter(notifications_data)
       .then(res => {
-        console.log(res);
+        console.log("postNewsLetter response: ", res);
         this.setState({
           snackbarIsOpen: true,
           message: "Notification sent"
@@ -87,6 +88,12 @@ class DeletePhoto extends Component {
           snackbarIsOpen: true,
           message: "Error"
         });
+      });
+    })
+    .catch(err => {
+      this.setState({
+        snackbarIsOpen: true,
+        message: "Error"
       });
     });
   }

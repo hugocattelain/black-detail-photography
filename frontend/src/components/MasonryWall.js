@@ -3,9 +3,11 @@ import Lightbox from './Lightbox';
 import { withRouter } from 'react-router';
 import { getCategoryName } from '../Utils';
 import Client from "../Client";
+import LandingPage from './LandingPage';
 import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import CookieConsent from "react-cookie-consent";
 import $ from "jquery";
 import '../styles/masonry.css';
 import lazysizes from 'lazysizes';
@@ -24,7 +26,7 @@ const muiBlack = getMuiTheme({
 });
 
 
-class Masonry2 extends Component{
+class Masonry extends Component{
   constructor(props){
     super(props);
 
@@ -35,6 +37,7 @@ class Masonry2 extends Component{
   }
 
   componentDidMount = () => {
+    $('.landing-page__title').addClass("faded");
     this.setState({ loading: true });
     const param = getCategoryName(this.props.match.params.category);
     Client.getAllImages(param, images => {
@@ -61,16 +64,14 @@ class Masonry2 extends Component{
   }
 
   openLightbox = (id) => {
-    $(".hamburger").addClass("gone");
-    $(".mini-navbar").addClass("gone");
-    const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category ;
+    const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category;
     this.props.history.push(`/${category}&${id}`);
   }
 
   render() {
     const images = this.state.images;
     let id=this.props.match.params.id;
-
+    const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category;
 
     const childElements = images.map((item, key) => {
       const id = item.id;
@@ -89,21 +90,33 @@ class Masonry2 extends Component{
     });
 
     return (
-      <div className="container">
-        {!this.state.loading ? (
-            <ul className="masonry-layout">{childElements}</ul>
-        ) : (
-          <MuiThemeProvider muiTheme={muiBlack}>
-            <CircularProgress className="global__progress-bar" size={30} thickness={2} />
-          </MuiThemeProvider>
-        )}
-        { id > 0 &&
-          <Lightbox images={images} id={Number(id)} />
-        }
+      <div>
+        <LandingPage category={category}/>
+        <div className="container">
+          {!this.state.loading ? (
+              <ul className="masonry-layout">{childElements}</ul>
+          ) : (
+            <MuiThemeProvider muiTheme={muiBlack}>
+              <CircularProgress className="global__progress-bar" size={30} thickness={2} />
+            </MuiThemeProvider>
+          )}
+          { id > 0 &&
+            <Lightbox images={images} id={Number(id)} />
+          }
+        </div>
+        <CookieConsent
+          location="bottom"
+          buttonText="Ok"
+          style={{ background: "#000" }}
+          buttonStyle={{ color: "#000", fontSize: "13px", background:"#fff" }}
+          expires={150}
+      >
+          This website uses cookies to enhance the user experience.{" "}
+      </CookieConsent>
       </div>
     );
   }
 }
 
 
-export default withRouter(Masonry2);
+export default withRouter(Masonry);

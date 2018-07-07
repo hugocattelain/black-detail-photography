@@ -58,16 +58,17 @@ $hamburger-hover-transition-timing-function: linear;
   transition-timing-function: ease-in-out;
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
-  // @media #{$s} {
-  //   display: inline-block;
-  // }
-
   &.gone{
-    // transform: translate3d(0, -250%, 0);
     transform: translate3d(300%, 0, 0);
   }
   &:focus{
     outline:none;
+  }
+  @media #{$s} {
+    right:10px;
+  }
+  @media #{$xs} {
+    right:0;
   }
 }
 .bm-burger-button {
@@ -82,17 +83,12 @@ $hamburger-hover-transition-timing-function: linear;
   -o-transition: all .4s;
   transition: all .4s;
 
-  @media #{$s} {
-    //display: inline-block;
-  }
-
   &.gone{
     transform: translate3d(400%, 0, 0);
   }
 }
 
 .mini-navbar{
-  // display: none;
   display: block;
   position: fixed;
   background-color: #ffffff;
@@ -105,10 +101,6 @@ $hamburger-hover-transition-timing-function: linear;
   transition: all .4s;
   transition-timing-function: ease-in-out;
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
-
-  // @media #{$s} {
-  //   display: block;
-  // }
 
   &.gone{
     transform: translate3d(0, -100%, 0);
@@ -277,24 +269,38 @@ $hamburger-hover-transition-timing-function: linear;
       width: 85% !important;
     }
 
+    &-icon{
+      width: 100px;
+      margin-bottom: 2rem;
+    }
+
     &__title{
       text-align: center;
-      font-size: 35px;
+      font-size: 3rem !important;
       line-height: 0;
     }
 
     &__description{
-      background-color: $bdp-light-grey;
+
       text-align: center;
-      padding:25px 15px;
+      padding:0 15px 25px 15px;
       @media #{$xs}, #{$s}{
         padding:5px 15px 15px;
         font-size: 13px;
       }
     }
 
+    &__success{
+      text-align: center;
+      color: black;
+      font-family: serif;
+      font-size: 2.3rem;
+    }
+
     &__input{
-        width: 175px !important;
+        width: 65% !important;
+        display: block;
+        margin: 0 auto;
     }
 
     &__actions{
@@ -326,7 +332,7 @@ $hamburger-hover-transition-timing-function: linear;
 
       &__button{
         margin: 5px 45px;
-        width: 175px;
+        width: 25%;
         @media #{$xs}{
           margin: 5px 0;
         }
@@ -334,6 +340,10 @@ $hamburger-hover-transition-timing-function: linear;
 
       @media #{$xs}{
         padding: 0 5px;
+      }
+
+      >form{
+        margin-top: 2rem;
       }
     }
 

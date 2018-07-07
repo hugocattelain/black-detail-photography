@@ -42,10 +42,6 @@ class NewPhoto extends Component {
     const {data} = this.props;
     const src= this.props.url;
     const categories = this.props.categories;
-    // const style = {
-    //   backgroundImage: `url(${src})`
-    // };
-    // const thumbnail = <div className="image__thumbnail" style={{ style }}></div>;
     if(data.length === 0){
       return null;
     }

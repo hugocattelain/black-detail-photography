@@ -54,16 +54,11 @@ class Header extends Component {
   }
 
   componentWillUnmount = () => {
-    //this.state.mql.removeListener(this.mediaQueryChanged);
     window.removeEventListener("scroll", this.toggleHeader, false);
   }
 
-  // mediaQueryChanged = () => {
-  //   this.setState({ menuIsOpen: this.state.mql.matches });
-  // }
-
   toggleHeader= () => {
-		if(window.scrollY>80){
+		if(window.scrollY>$('.mini-navbar').height() + window.innerHeight){
 	    if(window.scrollY>lastScrollPos){
 	      this.setState({ scrollDirection: 'down' });
 	    }
@@ -88,8 +83,8 @@ class Header extends Component {
           <div className="navbar-logo" onClick={e => {this.props.history.push('/')}}></div>
           <ul className="menu-list">
             <li className="menu-item"><Link to='/'>Home</Link></li>
-            <li className="menu-item"><Link to='/curves'>Curves</Link></li>
-            <li className="menu-item"><Link to='/black'>Black</Link></li>
+            {/*<li className="menu-item"><Link to='/curves'>Curves</Link></li>
+             <li className="menu-item"><Link to='/black'>Black</Link></li> */}
             <li className="menu-item"><Link to='/mask'>Mask</Link></li>
             <li className="menu-item"><Link to='/wall'>Wall</Link></li>
             <li className="menu-item"><Link to='/contact'>Contact</Link></li>

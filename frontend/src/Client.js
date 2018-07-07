@@ -28,8 +28,7 @@ exports.getAllImages = function(query, cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
-    .then(response => response.data )
+    .then(response => response.data)
     .then(cb);
 }
 
@@ -42,7 +41,6 @@ exports.getImages = function(category, cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
     .then(response => response.data )
     .then(cb);
 }
@@ -60,7 +58,6 @@ exports.postImage = function(data) {
     },
     data: data,
   })
-    .then(Utils.checkStatus)
     .then(response => response.data);
 }
 
@@ -73,7 +70,6 @@ exports.deleteImage = function(id, visibility, cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
     .then(response => response.data )
     .then(cb);
 }
@@ -99,7 +95,6 @@ exports.updateImage = function(image, cb) {
     },
     data: data,
   })
-    //.then(Utils.checkStatus)
     .then(response => response.data )
     .then(cb);
 }
@@ -117,7 +112,6 @@ exports.sendMessage = function(data, cb) {
     },
     data:data,
   })
-    .then(Utils.checkStatus)
     .then(response => response.data )
     .then(cb);
 }
@@ -130,7 +124,7 @@ exports.getEmails = function() {
     url: url,
     responseType: 'json',
   })
-    .then(Utils.checkStatus)
+
     .then(response => response.data );
 }
 
@@ -142,7 +136,7 @@ exports.getEmail = function(email, cb) {
     url: url,
     responseType: 'json',
   })
-    //.then(Utils.checkStatus)
+    //
     .then(response => response.data )
     .then(cb);
 }
@@ -160,7 +154,6 @@ exports.postEmail = function(data, cb) {
     },
     data: data,
   })
-    //.then(Utils.checkStatus)
     .then(response => response.data )
     .then(cb);
 }
@@ -174,7 +167,7 @@ exports.updateEmail = function(email, pref, cb) {
     url: url,
     responseType: 'json',
   })
-    .then(Utils.checkStatus)
+
     .then(response => response.data);
 }
 
@@ -190,7 +183,5 @@ exports.postNewsletter = function(data) {
     },
     data: data,
   })
-    .then(Utils.checkStatus)
     .then(response => response.data);
-
 }
