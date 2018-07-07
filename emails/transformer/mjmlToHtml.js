@@ -8,12 +8,11 @@ exports.fillNewsLetter = function (email, images){
   const mjml_image = fs.readFileSync(__dirname + "/../components/mjml_image.mjml", "utf8");
   var imageList=[];
   let final_file="";
-
   const notifications_url= 'http://www.black-detail.com/notifications/' + email.email + '/' + email.subscription_type;
   newsletter_mjml = newsletter_mjml.replace('{{ notifications_url }}', notifications_url);
-  for(var i=0; i<images.length; i++){
-    var url = "http://www.black-detail.com/" + Utils.getCategoryAlias(images[i].tag_1) +"&" + images[i].id;
-    var singleImage = mjml_image.replace("{{ image_src }}", images[i].src);
+  for(let image of images){
+    var url = "http://www.black-detail.com/" + Utils.getCategoryAlias(image.tag_1) +"&" + image.id;
+    var singleImage = mjml_image.replace("{{ image_src }}", image.src.replace('upload','upload/t_thumb'));
     singleImage = singleImage.replace("{{ image_url }}", url);
     imageList.push(singleImage);
   }

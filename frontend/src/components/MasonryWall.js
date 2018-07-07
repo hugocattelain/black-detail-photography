@@ -10,6 +10,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import CookieConsent from "react-cookie-consent";
 import $ from "jquery";
 import '../styles/masonry.css';
+// eslint-disable-next-line
 import lazysizes from 'lazysizes';
 
 const muiBlack = getMuiTheme({
@@ -81,7 +82,7 @@ class Masonry extends Component{
           <img
             src={thumb}
             data-expand="600"
-            data-src={item.src}
+            data-src={item.src.replace("upload", "upload/t_web_m")}
             alt={item.title || 'Black Detail Photography'}
             className="masonry-layout__panel-content lazyload"
           />

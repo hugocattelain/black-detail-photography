@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UploadPhoto from './UploadPhoto';
-import DeletePhoto from './DeletePhoto';
+import ManagePhoto from './ManagePhoto';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
@@ -54,7 +54,7 @@ class Admin extends Component {
             </div>
 
             <div className=" col-xs-12">
-              <DeletePhoto categories={categories}/>
+              <ManagePhoto categories={categories}/>
             </div>
           </div>
         ) : (

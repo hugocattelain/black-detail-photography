@@ -12,7 +12,7 @@ class Content extends Component {
 
   componentDidMount = () => {
     $(window).on("keyup", function(e){
-      if(e.keyCode == 44){
+      if(e.keyCode === 44){
         copyToClipboard();
       }
     });

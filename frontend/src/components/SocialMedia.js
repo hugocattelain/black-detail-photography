@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import WebNotifications from './NotificationWeb';
+//import WebNotifications from './NotificationWeb';
 import Client from "../Client";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -215,7 +215,7 @@ class SocialMedia extends Component {
               className="social__modal"
             >
               <div className="social__modal__description">
-              <img className="social__modal-icon" src={email} />
+              <img className="social__modal-icon" src={email} alt="Newsletter_Icon"/>
               <div>
                 Subscribe to the newsletter to receive the latest updates. <br/>Get notified when a new post comes up.
               </div>
