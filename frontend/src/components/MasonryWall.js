@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import Lightbox from './Lightbox';
 import { withRouter } from 'react-router';
-import { getCategoryName } from '../Utils';
-import Client from "../Client";
-import LandingPage from './LandingPage';
 import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import CookieConsent from "react-cookie-consent";
 import $ from "jquery";
-import '../styles/masonry.css';
 // eslint-disable-next-line
 import lazysizes from 'lazysizes';
+
+import Lightbox from './Lightbox';
+import { getCategoryName } from '../Utils';
+import Client from "../Client";
+import LandingPage from './LandingPage';
+import '../styles/masonry.css';
+
 
 const muiBlack = getMuiTheme({
   "palette": {

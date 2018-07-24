@@ -2,15 +2,27 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import LB from 'lightbox-react';
-import '../styles/lightbox.css';
 import findIndex from 'lodash/findIndex';
 import $ from "jquery";
+
+import '../styles/lightbox.css';
 
 class Lightbox extends Component {
   state= {
       photoIndex:0,
       isOpen: false,
       images: [],
+  }
+
+  static propTypes = {
+    images: PropTypes.array.isRequired,
+    id: PropTypes.number
+
+  }
+
+  static defaultProps = {
+    images: [],
+    id: 0,
   }
 
   componentDidMount = () => {
@@ -86,10 +98,8 @@ class Lightbox extends Component {
   }
 
   render() {
-    const images = this.state.images;
+    const { images, photoIndex, isOpen } = this.state;
     if(images.length<1){return null;}
-    const photoIndex = this.state.photoIndex;
-    const isOpen = this.state.isOpen;
     const src = images[photoIndex].src ;
     return (
       <div>
@@ -98,9 +108,9 @@ class Lightbox extends Component {
             mainSrc={src}
             nextSrc={images[(photoIndex + 1) % images.length]}
             prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => this.closeLightbox()}
-            onMovePrevRequest={() => this.prevPhoto()}
-            onMoveNextRequest={() => this.nextPhoto()}
+            onCloseRequest={this.closeLightbox}
+            onMovePrevRequest={this.prevPhoto}
+            onMoveNextRequest={this.nextPhoto}
             discourageDownloads={true}
             enableZoom={false}
           />
@@ -109,16 +119,5 @@ class Lightbox extends Component {
     );
   }
 }
-
-Lightbox.propTypes = {
-  images: PropTypes.array.isRequired,
-  id: PropTypes.number,
-
-};
-
-Lightbox.defaultProps = {
-  images: [],
-  id: 0,
-};
 
 export default withRouter(Lightbox);

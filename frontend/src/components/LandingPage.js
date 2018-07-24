@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from "jquery";
+
 import '../styles/landing-page.css';
 import quotes from '../ressources/quotes.json';
 
 const LandingPage = ( {category} ) => {
+
+  LandingPage.propTypes = {
+    category: PropTypes.string,
+  };
+
+  LandingPage.defaultProps = {
+    category: "fine art nude",
+  };
 
   const getTitle = (category) => {
     switch(category){
@@ -47,13 +56,4 @@ const LandingPage = ( {category} ) => {
   );
 
 }
-
-LandingPage.propTypes = {
-  category: PropTypes.string
-};
-
-LandingPage.defaultProps = {
-  category: "fine art nude"
-}
-
 export default LandingPage;

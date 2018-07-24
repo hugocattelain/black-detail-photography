@@ -8,6 +8,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
+import Checkbox from 'material-ui/Checkbox';
+import Snackbar from 'material-ui/Snackbar';
 import NewPhoto from './NewPhoto';
 // import WebNotifications from './NotificationWeb';
 // eslint-disable-next-line
@@ -34,6 +36,9 @@ class UploadPhoto extends Component {
     loading:false,
     progress:0,
     data:[],
+    sendNewsletter: false,
+    snackbarIsOpen: false,
+    message: '',
   };
 
   onImageDrop = (files) => {
@@ -67,7 +72,7 @@ class UploadPhoto extends Component {
         endUpload: true,
         progress :100,
         notification_data: {},
-        showNotification: false
+        //showNotification: false
       });
 
     });
@@ -95,34 +100,54 @@ class UploadPhoto extends Component {
     this.setState({ data: data });
   }
 
+  handleSnackbarClose = () => {
+    this.setState({
+      message: "",
+      snackbarIsOpen: false,
+    });
+  }
+
+  handleCheckboxChange = (event, name) => {
+    console.log(event, name);
+    this.setState({ [name]: event.target.checked });
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     Client.postImage(this.state.data)
     .then(response => {
       this.setState({
         notification_data: response,
-        showNotification: true,
+        //showNotification: true,
+        message: "Success",
+        snackbarIsOpen: true,
+        uploadEnded:false,
       });
-      Client.getEmails()
-      .then(response => {
-        const emails = response;
-        const notifications_data = {
-          emails: emails,
-          images: this.state.data
-        };
-        Client.postNewsletter(notifications_data)
+      if(this.state.sendNewsletter){
+        Client.getEmails()
         .then(response => {
+          const emails = response;
+          const notifications_data = {
+            emails: emails,
+            images: this.state.data
+          };
+          Client.postNewsletter(notifications_data)
+          .then(response => {
+          })
+          .catch(err => {
+            this.setState({
+              message: "Error while sending newsletter: " + err,
+              snackbarIsOpen: true,
+            });
+          });
         });
-      });
+      }
     });
-
   }
 
   render() {
-    const uploadedFilesUrl = this.state.uploadedFilesUrl;
-    const uploadEnded = this.state.endUpload;
-    const loading = this.state.loading;
-    const categories = this.props.categories;
+    const { uploadedFilesUrl, uploadEnded, loading} = this.state;
+    const { categories } = this.props;
     //let showNotification = this.state.showNotification;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
@@ -145,14 +170,22 @@ class UploadPhoto extends Component {
         {uploadEnded ? (
           <div>
             <form onSubmit={this.handleSubmit}>
-                {newPhotos}
-                <div className="row">
-                  <div className="col-xs-12">
-                    <MuiThemeProvider muiTheme={muiBlack}>
-                      <RaisedButton type="submit" label="Submit" primary={true} />
-                    </MuiThemeProvider>
-                  </div>
+            <MuiThemeProvider muiTheme={muiBlack}>
+              <Checkbox
+                checked={this.state.sendNewsletter}
+                onCheck={(e) => this.handleCheckboxChange(e,'sendNewsletter')}
+                label="Send newsletter"
+                className="admin__upload__checkbox"
+              />
+            </MuiThemeProvider>
+              {newPhotos}
+              <div className="row">
+                <div className="col-xs-12">
+                  <MuiThemeProvider muiTheme={muiBlack}>
+                    <RaisedButton type="submit" label="Submit" primary={true} />
+                  </MuiThemeProvider>
                 </div>
+              </div>
             </form>
           </div>
         ) : (
@@ -161,13 +194,12 @@ class UploadPhoto extends Component {
               multiple
               accept="image/*"
               onDrop={this.onImageDrop.bind(this)}
-
             >
               <h1>Upload</h1>
             </Dropzone>
           </div>
         )}
-        { loading &&
+        { loading && (
           <MuiThemeProvider muiTheme={muiBlack}>
           { this.state.uploadedFile.lenght>1 ? (
             <CircularProgress
@@ -183,7 +215,7 @@ class UploadPhoto extends Component {
             />
           )}
           </MuiThemeProvider>
-        }
+        )}
         {/*
 
           <WebNotifications
@@ -194,6 +226,14 @@ class UploadPhoto extends Component {
 
 
         */}
+        <MuiThemeProvider>
+          <Snackbar
+            open={this.state.snackbarIsOpen}
+            message={this.state.message}
+            autoHideDuration={4000}
+            onRequestClose={this.handleSnackbarClose}
+          />
+        </MuiThemeProvider>
       </div>
     );
   }

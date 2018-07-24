@@ -11,7 +11,10 @@ exports.fillNewsLetter = function (email, images){
   const notifications_url= 'http://www.black-detail.com/notifications/' + email.email + '/' + email.subscription_type;
   newsletter_mjml = newsletter_mjml.replace('{{ notifications_url }}', notifications_url);
   for(let image of images){
-    var url = "http://www.black-detail.com/" + Utils.getCategoryAlias(image.tag_1) +"&" + image.id;
+    var url = "http://www.black-detail.com/" + Utils.getCategoryAlias(image.tag_1);
+    if (image.id && image.id !== undefined){
+      url = url + "&" + image.id;
+    }
     var singleImage = mjml_image.replace("{{ image_src }}", image.src.replace('upload','upload/t_thumb'));
     singleImage = singleImage.replace("{{ image_url }}", url);
     imageList.push(singleImage);

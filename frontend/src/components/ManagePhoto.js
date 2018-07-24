@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import Client from '../Client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Avatar from 'material-ui/Avatar';
@@ -12,6 +11,8 @@ import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import moment from 'moment';
 import findIndex from 'lodash/findIndex';
+
+import Client from '../Client';
 
 const param = 'all';
 const muiBlack = getMuiTheme({

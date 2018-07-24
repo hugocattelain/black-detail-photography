@@ -3,6 +3,8 @@
   .admin__upload__wrapper > div {
     width: 100% !important;
     height: 200px !important; }
+  .admin__upload__checkbox {
+    margin: 15px 0; }
   .admin__manage__list__item {
     text-align: left; }
     .admin__manage__list__item__input {
