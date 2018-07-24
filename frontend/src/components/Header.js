@@ -2,29 +2,25 @@ import React, { Component } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import SocialMedia from './SocialMedia';
 import $ from "jquery";
 
+import SocialMedia from './SocialMedia';
 import '../styles/header.css';
 
-//const mql = window.matchMedia(`(min-width: 768px)`);
 let lastScrollPos = 0;
 
 class Header extends Component {
 
 	state = {
-		//mql: mql,
 		menuIsOpen: false, //Menu bugs out if set to true initial on push mode
     scrollDirection:'unset',
 	};
 
   componentWillMount = () => {
-    //mql.addListener(this.mediaQueryChanged);
     window.addEventListener("scroll", this.toggleHeader, false);
   }
 
   componentDidMount = () =>{
-    //this.setState({ mql: mql, menuIsOpen: this.state.mql.matches });
     $(".hamburger").on("click", () => {
       this.setState({ menuIsOpen: !this.state.menuIsOpen });
     });
@@ -33,11 +29,9 @@ class Header extends Component {
     });
   }
 	componentWillReceiveProps = (nextProps) => {
-		//if(nextProps.location.pathname.match(/\d/i)){
 			$(".mini-navbar").removeClass("gone");
       $(".hamburger").removeClass("gone");
 			this.setState({ menuIsOpen: false });
-		//}
 	}
   componentWillUpdate = (nextProps, nextState) => {
     if (this.state.scrollDirection === "up"){

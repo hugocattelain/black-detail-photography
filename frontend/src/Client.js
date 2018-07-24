@@ -123,7 +123,6 @@ exports.getEmails = function() {
     url: url,
     responseType: 'json',
   })
-
     .then(response => response.data );
 }
 
@@ -135,7 +134,6 @@ exports.getEmail = function(email, cb) {
     url: url,
     responseType: 'json',
   })
-    //
     .then(response => response.data )
     .then(cb);
 }
@@ -157,7 +155,7 @@ exports.postEmail = function(data, cb) {
     .then(cb);
 }
 
-exports.updateEmail = function(email, pref, cb) {
+exports.updateEmail = function(email, pref) {
 
   const url = `/emails/${email}/${pref}`;
 
@@ -166,7 +164,6 @@ exports.updateEmail = function(email, pref, cb) {
     url: url,
     responseType: 'json',
   })
-
     .then(response => response.data);
 }
 

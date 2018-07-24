@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 //import WebNotifications from './NotificationWeb';
-import Client from "../Client";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Divider from 'material-ui/Divider';
@@ -15,8 +14,11 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton, TumblrShareButton } from 'react-share';
+
+import Client from "../Client";
 import email from '../images/email.png';
 import '../styles/content.css';
+
 const muiBlack = getMuiTheme({
   "palette": {
     "primary1Color": "#212121",

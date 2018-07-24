@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import ReactNotifications from 'react-browser-notifications';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import isEqual from 'lodash/isEqual';
+
 import '../images/BDP_logo.jpg';
+
 const muiBlack = getMuiTheme({
   "palette": {
     "primary1Color": "#212121",
