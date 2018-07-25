@@ -45,7 +45,7 @@ class Admin extends Component {
   }
 
   render() {
-    const isAdmin = true /*this.state.adminPassword === process.env.REACT_APP_ADMIN_PASSWORD ? true : false*/;
+    const isAdmin = this.state.adminPassword === process.env.REACT_APP_ADMIN_PASSWORD ? true : false;
     return (
       <div className="container admin">
          {isAdmin ? (
