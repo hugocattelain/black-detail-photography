@@ -3,8 +3,8 @@ import { withRouter } from 'react-router';
 import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import CookieConsent from "react-cookie-consent";
-import $ from "jquery";
+//import CookieConsent from 'react-cookie-consent';
+import $ from 'jquery';
 // eslint-disable-next-line
 import lazysizes from 'lazysizes';
 
