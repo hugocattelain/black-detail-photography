@@ -105,9 +105,9 @@ class Lightbox extends Component {
       <div>
         {isOpen &&
           <LB
-            mainSrc={src}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            mainSrc={src.replace("upload", "upload/t_web_m")}
+            nextSrc={images[(photoIndex + 1) % images.length].src.replace("upload", "upload/t_web_m")}
+            prevSrc={images[(photoIndex + images.length - 1) % images.length].src.replace("upload", "upload/t_web_m")}
             onCloseRequest={this.closeLightbox}
             onMovePrevRequest={this.prevPhoto}
             onMoveNextRequest={this.nextPhoto}
