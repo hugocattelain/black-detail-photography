@@ -12,13 +12,11 @@ exports.getElementById = function(id, array){
 
 exports.getCategoryName = function(alias){
   switch(alias){
-    case 'curves':
+    case 'fine-art-nude':
       return 'nsfw';
-    case 'black':
-      return 'bnw';
-    case 'mask':
+    case 'portrait':
       return 'portrait';
-    case 'wall':
+    case 'architecture':
       return 'architecture';
     default:
       return 'home';
@@ -28,13 +26,11 @@ exports.getCategoryName = function(alias){
 exports.getCategoryAlias = function(category){
   switch(category){
     case 'nsfw':
-      return 'curves';
-    case 'bnw':
-      return 'black';
+      return 'fine-art-nude';
     case 'portrait':
-      return 'mask';
+      return 'portrait';
     case 'architecture':
-      return 'wall';
+      return 'architecture';
     default:
       return 'home';
   }

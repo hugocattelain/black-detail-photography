@@ -78,13 +78,13 @@ class Masonry extends Component{
 
     const childElements = images.map((item, key) => {
       const id = item.id;
-      const thumb = item.src.replace("upload", "upload/t_thumb");
+      const thumb = item.src.replace("upload", "upload/t_web_small");
       return(
         <li key={key} className="masonry-layout__panel" onClick={() => this.openLightbox(id)}>
           <img
             src={thumb}
             data-expand="600"
-            data-src={item.src.replace("upload", "upload/t_web_m")}
+            data-src={item.src.replace("upload", "upload/t_web_large")}
             alt={item.title || 'Black Detail Photography'}
             className="masonry-layout__panel-content lazyload"
           />
@@ -107,15 +107,6 @@ class Masonry extends Component{
             <Lightbox images={images} id={Number(id)} />
           }
         </div>
-        {/*<CookieConsent
-          location="bottom"
-          buttonText="Ok"
-          style={{ background: "#000" }}
-          buttonStyle={{ color: "#000", fontSize: "13px", background:"#fff" }}
-          expires={150}
-      >
-          This website uses cookies to enhance the user experience.{" "}
-        </CookieConsent>*/}
       </div>
     );
   }

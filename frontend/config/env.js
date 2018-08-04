@@ -76,6 +76,7 @@ function getClientEnvironment(publicUrl) {
         CLOUDINARY_UPLOAD_PRESET : process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
         CLOUDINARY_UPLOAD_URL : process.env.REACT_APP_CLOUDINARY_UPLOAD_URL,
         ADMIN_PASSWORD : process.env.REACT_APP_ADMIN_PASSWORD,
+        MAINTENANCE_MODE : process.env.REACT_APP_MAINTENANCE_MODE
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

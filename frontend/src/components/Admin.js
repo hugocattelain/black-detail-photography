@@ -12,7 +12,6 @@ const categories = [
   {name: 'Architecture', tag: 'architecture'},
   {name: 'Portrait', tag: 'portrait'},
   {name: 'Nude', tag: 'nsfw'},
-  {name: 'Black and white', tag: 'bnw'},
 ];
 
 const muiBlack = getMuiTheme({

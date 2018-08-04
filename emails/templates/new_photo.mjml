@@ -113,11 +113,11 @@
     <mj-container>
       <mj-section padding-bottom="0">
         <mj-column>
-          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px"  src="https://res.cloudinary.com/dmdkvle30/image/upload/t_thumb/v1521586229/home_banner_kmyegv.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px"  src="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
           <mj-text align="center" padding-bottom="0">
-            <a class="header-link" href="http://www.black-detail.com/" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">PORTFOLIO</font></span></a>
+            <a class="header-link" href="https://www.black-detail.com/" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">PORTFOLIO</font></span></a>
             <span>&nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; </span>
-            <a class="header-link" href="http://www.black-detail.com/contact" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">CONTACT</font></span></a>
+            <a class="header-link" href="https://www.black-detail.com/contact" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">CONTACT</font></span></a>
           </mj-text>
         </mj-column>
       </mj-section>
@@ -136,9 +136,9 @@
       <mj-section padding-bottom="0px" padding-top="20px">
         <mj-column>
             <mj-text align="center">
-              <a class="button" href="http://www.black-detail.com/wall" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">WALL</font></span></a>
-              <a class="button" href="http://www.black-detail.com" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">CURVES</font></span></a>
-              <a class="button" href="http://www.black-detail.com/mask" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">MASK</font></span></a>
+              <a class="button" href="https://www.black-detail.com/architecture" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">ARCHITECTURE</font></span></a>
+              <a class="button" href="https://www.black-detail.com" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">FINE ART NUDE</font></span></a>
+              <a class="button" href="https://www.black-detail.com/portrait" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">PORTRAITS</font></span></a>
             </mj-text>
             <mj-divider border-width="1px" padding-bottom="0" padding-top="30" border-style="solid" border-color="lightgrey" />
         </mj-column>
@@ -146,14 +146,14 @@
       <mj-section background-color="#f8f8f8" padding-top="0" >
         <mj-column>
           <mj-text align="center" padding-top="20" padding-bottom="15">
-            <a class="center" href="https://www.instagram.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589598/instagram-logo_ninrnz.png"/></a>
+            <a class="center" href="https://www.instagram.com/blck.dtl/"><img class="social-icon" src="httpss://res.cloudinary.com/dmdkvle30/image/upload/v1521589598/instagram-logo_ninrnz.png"/></a>
             <span>&nbsp; &nbsp;</span>
-            <a class="center" href="https://www.facebook.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589593/fb-logo_o5b5kd.png"/></a>
+            <a class="center" href="https://www.facebook.com/blck.dtl/"><img class="social-icon" src="httpss://res.cloudinary.com/dmdkvle30/image/upload/v1521589593/fb-logo_o5b5kd.png"/></a>
             <span>&nbsp; &nbsp;</span>
-            <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521648019/eyeem-logo_qzznzc.png"/></a>
+            <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="httpss://res.cloudinary.com/dmdkvle30/image/upload/v1521648019/eyeem-logo_qzznzc.png"/></a>
           </mj-text>
           <mj-text padding-left="25" padding-right="25" padding-bottom="15">
-            <p class="conditions center">© Black Detail 2018. Berlin - Paris.<br>Visit <a class="link" href="http://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
+            <p class="conditions center">© Black Detail 2018. Berlin - Paris.<br>Visit <a class="link" href="https://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
             <br>You received this message because you subscribed to the newsletter. <a class="link" href="{{ notifications_url }}">Unsubscribe</a></p>
           </mj-text>
         </mj-column>

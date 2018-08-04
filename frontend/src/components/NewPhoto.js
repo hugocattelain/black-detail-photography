@@ -51,7 +51,7 @@ class NewPhoto extends Component {
       <MuiThemeProvider muiTheme={muiBlack}>
         <Card>
           <CardMedia>
-            <div className="image__thumbnail" style={{backgroundImage: `url(${src})`}}></div>
+            <div className="image__thumbnail" style={{backgroundImage: `url(${src.replace("upload", "upload/t_web_small")})`}}></div>
           </CardMedia>
             <MuiThemeProvider muiTheme={muiBlack}>
               <TextField
