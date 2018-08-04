@@ -146,7 +146,7 @@ class UploadPhoto extends Component {
   }
 
   render() {
-    const { uploadedFilesUrl, uploadEnded, loading} = this.state;
+    const { uploadedFilesUrl, endUpload, loading} = this.state;
     const { categories } = this.props;
     //let showNotification = this.state.showNotification;
 
@@ -167,7 +167,7 @@ class UploadPhoto extends Component {
 
     return (
       <div>
-        {uploadEnded ? (
+        {endUpload ? (
           <div>
             <form onSubmit={this.handleSubmit}>
             <MuiThemeProvider muiTheme={muiBlack}>

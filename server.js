@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 // const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
 // const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
 
-app.set("port", process.env.PORT || 3001);
+const PORT = process.env.PORT || 3001;
 
 
 // Express only serves static assets in production
@@ -277,10 +277,9 @@ app.post('/api/contact', function (req, res) {
 app.post('/api/newsletter', function (req, res, next) {
   const data = req.body;
   const emails = data.emails;
-  console.log("c'est le server pd : DATAAAAAAAAAAAAAAAAAAAAAAAA", data);
   const images = data.images;
   for (let image of images){
-    image.src=image.src.replace("upload", "upload/t_thumb");
+    image.src=image.src.replace("upload", "upload/t_web_large");
   }
   console.log("----------------------------- IMAGES -----------------------------", images);
   let errorCount = 0;
@@ -430,6 +429,6 @@ app.get('*', function (req, res) {
 });
 
 
-app.listen(app.get("port"), () => {
-  console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
+app.listen(PORT, () => {
+  console.log(`Find the server at: http://localhost:${PORT}/`); // eslint-disable-line no-console
 });

@@ -167,7 +167,7 @@ class ManagePhoto extends Component {
 
                 <ListItem
                   key = {key}
-                  leftAvatar={<Avatar src={item.src.replace('upload','upload/t_web_xs')} className="admin__manage__list__item__icon" />}
+                  leftAvatar={<Avatar src={item.src.replace('upload','upload/t_web_thumb')} className="admin__manage__list__item__icon" />}
                   className={"admin__manage__list__item " + (item.is_visible === 0 ? 'disabled' : '')}
                 >
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'top') }}>arrow_upward</i>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import NotificationPreferences from './NotificationPreferences';
 import $ from "jquery";
+import HttpsRedirect from 'react-https-redirect';
 
+import NotificationPreferences from './NotificationPreferences';
 import Admin from './Admin';
 import Masonry from './MasonryWall';
 import Contact from './Contact';
@@ -20,15 +21,17 @@ class Content extends Component {
   }
 
   render(){
-    return(
-      <Switch>
-        <Route exact path='/' component={Masonry} />
-        <Route exact path='/admin' component={Admin} />
-        <Route exact path='/contact' component={Contact} />
-        <Route exact path='/notifications/:email/:subscriptionType' component={NotificationPreferences} />
-        <Route path='/:category&:id' component={Masonry} />
-        <Route path='/:category' component={Masonry} />
-      </Switch>
+    return (
+      <HttpsRedirect>
+        <Switch>
+          <Route exact path='/' component={Masonry} />
+          <Route exact path='/admin' component={Admin} />
+          <Route exact path='/contact' component={Contact} />
+          <Route exact path='/notifications/:email/:subscriptionType' component={NotificationPreferences} />
+          <Route path='/:category&:id' component={Masonry} />
+          <Route path='/:category' component={Masonry} />
+        </Switch>
+      </HttpsRedirect>
     );
   }
 }

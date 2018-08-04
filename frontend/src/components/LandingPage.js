@@ -18,13 +18,13 @@ const LandingPage = ( {category} ) => {
   const getTitle = (category) => {
     switch(category){
       case "home":
-        return "erotic portraits";
-      case "mask":
+        return "fine art nude";
+      case "portrait":
         return "portraits";
-      case "wall":
+      case "architecture":
         return "architecture";
       default:
-        return "erotic portraits";
+        return "fine art nude";
     }
   }
 
@@ -33,10 +33,10 @@ const LandingPage = ( {category} ) => {
     switch(category){
       case "home":
         return quotes.home[rand];
-      case "mask":
-        return quotes.mask[rand];
-      case "wall":
-        return quotes.wall[rand];
+      case "portrait":
+        return quotes.portrait[rand];
+      case "architecture":
+        return quotes.architecture[rand];
       default:
         return quotes.home[rand];
     }

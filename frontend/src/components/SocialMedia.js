@@ -134,10 +134,10 @@ class SocialMedia extends Component {
   }
 
   render() {
-    const url = 'http://www.black-detail.com';
+    const url = 'https://www.black-detail.com';
     const title = 'Black Detail - Portfolio';
     const description = "Black Detail Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.";
-    const media = "https://res.cloudinary.com/dmdkvle30/image/upload/v1520280571/basic/ffoukuuihxlkn9s5nlct.jpg";
+    const media = "https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg";
     const hashtags = ['fineart', 'photography', 'nude', 'boudoir', 'portrait', 'blackandwhite', 'bnw'];
     const actions = [
       <FlatButton

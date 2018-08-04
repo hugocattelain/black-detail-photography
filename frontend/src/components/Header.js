@@ -76,11 +76,11 @@ class Header extends Component {
         <Menu isOpen={this.state.menuIsOpen} noOverlay disableOverlayClick >
           <div className="navbar-logo" onClick={e => {this.props.history.push('/')}}></div>
           <ul className="menu-list">
-            <li className="menu-item"><Link to='/'>Home</Link></li>
+            <li className="menu-item"><Link to='/'>Fine art nude</Link></li>
             {/*<li className="menu-item"><Link to='/curves'>Curves</Link></li>
              <li className="menu-item"><Link to='/black'>Black</Link></li> */}
-            <li className="menu-item"><Link to='/mask'>Mask</Link></li>
-            <li className="menu-item"><Link to='/wall'>Wall</Link></li>
+            <li className="menu-item"><Link to='/portrait'>Portrait</Link></li>
+            <li className="menu-item"><Link to='/architecture'>Architecture</Link></li>
             <li className="menu-item"><Link to='/contact'>Contact</Link></li>
           </ul>
           <SocialMedia />
