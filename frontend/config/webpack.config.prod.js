@@ -148,9 +148,10 @@ module.exports = {
           {
             test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
+            exclude: /(node_modules|bower_components)/,
             loader: require.resolve('babel-loader'),
             options: {
-
+              presets: ['@babel/preset-env'],
               compact: true,
             },
           },
