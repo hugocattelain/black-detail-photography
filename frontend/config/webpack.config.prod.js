@@ -151,7 +151,6 @@ module.exports = {
             exclude: /(node_modules|bower_components)/,
             loader: require.resolve('babel-loader'),
             options: {
-              presets: ['@babel/preset-env'],
               compact: true,
             },
           },
