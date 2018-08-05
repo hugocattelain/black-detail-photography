@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 //import WebNotifications from './NotificationWeb';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
-import Dialog from 'material-ui/Dialog';
-import Snackbar from 'material-ui/Snackbar';
-import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import CircularProgress from 'material-ui/CircularProgress';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import Snackbar from '@material-ui/core/Snackbar';
+import Popover, {PopoverAnimationVertical} from '@material-ui/core/Popover';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton, TumblrShareButton } from 'react-share';
 
 import Client from "../Client";
 import email from '../images/email.png';
 import '../styles/content.css';
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -140,7 +139,7 @@ class SocialMedia extends Component {
     const media = "https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg";
     const hashtags = ['fineart', 'photography', 'nude', 'boudoir', 'portrait', 'blackandwhite', 'bnw'];
     const actions = [
-      <FlatButton
+      <Button
         label={this.state.subscriptionProgress === 'done' ? "Close" : "No, thank you"}
         onClick={this.handleCloseModal}
       /> ];
@@ -154,7 +153,8 @@ class SocialMedia extends Component {
 
           <div className="social__share__container col-xs-12">
             <MuiThemeProvider muiTheme={muiBlack}>
-              <RaisedButton
+              <Button
+                variant="contained"
                 onClick={this.handleClick}
                 label="Share"
                 className="social__share-button"
@@ -235,7 +235,8 @@ class SocialMedia extends Component {
                     />
                   </MuiThemeProvider>
                   <MuiThemeProvider muiTheme={muiBlack}>
-                    <RaisedButton
+                    <Button
+                      variant="contained"
                       className="social__modal__actions__button"
                       label="OK"
                       primary={true}

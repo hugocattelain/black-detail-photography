@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Avatar from 'material-ui/Avatar';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import Snackbar from 'material-ui/Snackbar';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import {List, ListItem} from '@material-ui/core/List';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
 import moment from 'moment';
 import findIndex from 'lodash/findIndex';
 
 import Client from '../Client';
+import { Input, InputLabel } from '@material-ui/core';
 
 const param = 'all';
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -161,7 +161,7 @@ class ManagePhoto extends Component {
 
         <MuiThemeProvider muiTheme={muiBlack}>
           <List className="admin__manage__list">
-            <Subheader><h1>Manage {/*<i className="material-icons" onClick={ () => { this.fillWithDate() }}>healing</i>*/}</h1></Subheader>
+            <h1>Manage {/*<i className="material-icons" onClick={ () => { this.fillWithDate() }}>healing</i>*/}</h1>
             {images.map((item, key) => {
               return(
 
@@ -175,41 +175,44 @@ class ManagePhoto extends Component {
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'up') }}>arrow_drop_up</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isLastElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'down') }}>arrow_drop_down</i>
                   <MuiThemeProvider muiTheme={muiBlack}>
-                    <SelectField
-                      floatingLabelText="Category 1"
+                  <InputLabel htmlFor="select-cat-1">Category 1</InputLabel>
+                    <Select
+                      input={<Input id="select-cat-1" />}
                       required={true}
                       value={item.tag_1}
                       className="admin__manage__list__item__input"
                       onChange={(name,value) => this.updateCategory(item, 'tag_1', value)}
                     >
                       {categories.map((item, key) => {
-                        return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
+                        return(<MenuItem key = {key} value={item.tag} >{item.name}</MenuItem>);
                       })}
-                    </SelectField>
+                    </Select>
                   </MuiThemeProvider>
                   <MuiThemeProvider muiTheme={muiBlack}>
-                    <SelectField
-                      floatingLabelText="Category 2"
+                  <InputLabel htmlFor="select-cat-2">Category 2</InputLabel>
+                    <Select
+                      input={<Input id="select-cat-2" />}
                       value={item.tag_2}
                       className="admin__manage__list__item__input"
                       onChange={(name,value) => this.updateCategory(item, 'tag_2', value)}
                     >
                       {categories.map((item, key) => {
-                        return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
+                        return(<MenuItem key = {key} value={item.tag}>{item.name}</MenuItem>);
                       })}
-                    </SelectField>
+                    </Select>
                   </MuiThemeProvider>
                   <MuiThemeProvider muiTheme={muiBlack}>
-                    <SelectField
-                      floatingLabelText="Category 3"
+                  <InputLabel htmlFor="select-cat-3">Category 3</InputLabel>
+                    <Select
+                      input={<Input id="select-cat-3" />}
                       value={item.tag_3}
                       className="admin__manage__list__item__input"
                       onChange={(name,value) => this.updateCategory(item, 'tag_3', value)}
                     >
-                      {categories.map((category, key) => {
-                        return(<MenuItem key = {key} value={category.tag} primaryText={category.name} />);
+                      {categories.map((item, key) => {
+                        return(<MenuItem key = {key} value={item.tag}>{item.name}</MenuItem>);
                       })}
-                    </SelectField>
+                    </Select>
                   </MuiThemeProvider>
 
                   <MuiThemeProvider muiTheme={muiBlack}>

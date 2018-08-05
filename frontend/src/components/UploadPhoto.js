@@ -4,18 +4,18 @@ import { withRouter } from 'react-router';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Client from '../Client';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
-import CircularProgress from 'material-ui/CircularProgress';
-import Checkbox from 'material-ui/Checkbox';
-import Snackbar from 'material-ui/Snackbar';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Checkbox from '@material-ui/core/Checkbox';
+import Snackbar from '@material-ui/core/Snackbar';
 import NewPhoto from './NewPhoto';
 // import WebNotifications from './NotificationWeb';
 // eslint-disable-next-line
 import { getCategoryAlias } from '../Utils';
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -182,7 +182,11 @@ class UploadPhoto extends Component {
               <div className="row">
                 <div className="col-xs-12">
                   <MuiThemeProvider muiTheme={muiBlack}>
-                    <RaisedButton type="submit" label="Submit" primary={true} />
+                    <Button 
+                      variant="contained"
+                      type="submit" 
+                      label="Submit" 
+                      prSimary={true} />
                   </MuiThemeProvider>
                 </div>
               </div>

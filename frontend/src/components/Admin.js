@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import UploadPhoto from './UploadPhoto';
 import ManagePhoto from './ManagePhoto';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import TextField from 'material-ui/TextField';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import TextField from '@material-ui/core/TextField';
 import '../styles/admin.css';
 
 const categories = [
@@ -14,7 +14,7 @@ const categories = [
   {name: 'Nude', tag: 'nsfw'},
 ];
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",

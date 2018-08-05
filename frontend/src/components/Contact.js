@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 import Client from '../Client';
 import $ from "jquery";
 import { withRouter } from 'react-router';
 
 import '../styles/content.css';
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -140,7 +140,8 @@ class Contact extends Component {
                   />
                 </MuiThemeProvider>
                 <MuiThemeProvider muiTheme={muiBlack}>
-                  <RaisedButton
+                  <Button
+                    variant="contained"
                     type="submit"
                     label="Send"
                     primary={true}
@@ -162,7 +163,8 @@ class Contact extends Component {
           <h1 className="contact__title">Thank you for your message.</h1>
           <h4 className="contact__subtitle">You will receive an answer as soon as possible.</h4>
           <MuiThemeProvider muiTheme={muiBlack}>
-            <RaisedButton
+            <Button
+            variant="contained"
               onClick={e => {this.props.history.push('/')}}
               label="Back to Home"
               className="contact__button"
