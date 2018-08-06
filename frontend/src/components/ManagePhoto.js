@@ -159,7 +159,7 @@ class ManagePhoto extends Component {
     return (
       <div>
 
-        <MuiThemeProvider muiTheme={muiBlack}>
+        <MuiThemeProvider theme={muiBlack}>
           <List className="admin__manage__list">
             <h1>Manage {/*<i className="material-icons" onClick={ () => { this.fillWithDate() }}>healing</i>*/}</h1>
             {images.map((item, key) => {
@@ -174,7 +174,7 @@ class ManagePhoto extends Component {
                   <i className={"material-icons admin__manage__list__item__button " + (this.isLastElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'bottom') }}>arrow_downward</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'up') }}>arrow_drop_up</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isLastElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'down') }}>arrow_drop_down</i>
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                   <InputLabel htmlFor="select-cat-1">Category 1</InputLabel>
                     <Select
                       input={<Input id="select-cat-1" />}
@@ -188,7 +188,7 @@ class ManagePhoto extends Component {
                       })}
                     </Select>
                   </MuiThemeProvider>
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                   <InputLabel htmlFor="select-cat-2">Category 2</InputLabel>
                     <Select
                       input={<Input id="select-cat-2" />}
@@ -201,7 +201,7 @@ class ManagePhoto extends Component {
                       })}
                     </Select>
                   </MuiThemeProvider>
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                   <InputLabel htmlFor="select-cat-3">Category 3</InputLabel>
                     <Select
                       input={<Input id="select-cat-3" />}
@@ -215,13 +215,13 @@ class ManagePhoto extends Component {
                     </Select>
                   </MuiThemeProvider>
 
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                     <IconButton className="admin__manage__list__item__button" onClick={this.handleOpenModal}>
                       <i className="shake shake-rorate material-icons" onClick={ () => { this.sendNotification(item) }}>notifications</i>
                     </IconButton>
                   </MuiThemeProvider>
 
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                     <IconButton className="admin__manage__list__item__button" onClick={this.handleOpenModal}>
                       <i className="material-icons" onClick={ () => { this.deleteOrRestore(item.id, item.is_visible) }}>{item.is_visible === 0 ? 'restore' : 'delete'}</i>
                     </IconButton>
@@ -238,7 +238,7 @@ class ManagePhoto extends Component {
             open={this.state.snackbarIsOpen}
             message={this.state.message}
             autoHideDuration={4000}
-            onRequestClose={this.handleSnackbarClose}
+            onClose={this.handleSnackbarClose}
           />
         </MuiThemeProvider>
       </div>

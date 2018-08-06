@@ -170,7 +170,7 @@ class UploadPhoto extends Component {
         {endUpload ? (
           <div>
             <form onSubmit={this.handleSubmit}>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Checkbox
                 checked={this.state.sendNewsletter}
                 onCheck={(e) => this.handleCheckboxChange(e,'sendNewsletter')}
@@ -181,12 +181,12 @@ class UploadPhoto extends Component {
               {newPhotos}
               <div className="row">
                 <div className="col-xs-12">
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                     <Button 
                       variant="contained"
                       type="submit" 
-                      label="Submit" 
-                      prSimary={true} />
+                      prSimary={true}
+                    >Submit</Button>
                   </MuiThemeProvider>
                 </div>
               </div>
@@ -204,7 +204,7 @@ class UploadPhoto extends Component {
           </div>
         )}
         { loading && (
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
           { this.state.uploadedFile.lenght>1 ? (
             <CircularProgress
               size={30}
@@ -235,7 +235,7 @@ class UploadPhoto extends Component {
             open={this.state.snackbarIsOpen}
             message={this.state.message}
             autoHideDuration={4000}
-            onRequestClose={this.handleSnackbarClose}
+            onClose={this.handleSnackbarClose}
           />
         </MuiThemeProvider>
       </div>

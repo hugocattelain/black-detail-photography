@@ -58,7 +58,7 @@ class Admin extends Component {
             </div>
           </div>
         ) : (
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
             <TextField
               floatingLabelText="Password"
               type='password'

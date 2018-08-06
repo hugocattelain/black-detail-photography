@@ -99,7 +99,7 @@ class Masonry extends Component{
           {!this.state.loading ? (
               <ul className="masonry-layout">{childElements}</ul>
           ) : (
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <CircularProgress className="global__progress-bar" size={30} thickness={2} />
             </MuiThemeProvider>
           )}

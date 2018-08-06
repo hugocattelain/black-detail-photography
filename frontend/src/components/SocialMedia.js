@@ -17,6 +17,7 @@ import { FacebookShareButton, TwitterShareButton, PinterestShareButton, TumblrSh
 import Client from "../Client";
 import email from '../images/email.png';
 import '../styles/content.css';
+import { DialogTitle } from '@material-ui/core';
 
 const muiBlack = createMuiTheme({
   "palette": {
@@ -38,6 +39,7 @@ class SocialMedia extends Component {
 
     this.state = {
       open: false,
+      anchorEl:null,
       modalIsOpen: false,
       userEmail: '',
       subscriptionProgress:'todo',
@@ -133,6 +135,7 @@ class SocialMedia extends Component {
   }
 
   render() {
+    const { anchorEl, open } = this.state;
     const url = 'https://www.black-detail.com';
     const title = 'Black Detail - Portfolio';
     const description = "Black Detail Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.";
@@ -140,9 +143,8 @@ class SocialMedia extends Component {
     const hashtags = ['fineart', 'photography', 'nude', 'boudoir', 'portrait', 'blackandwhite', 'bnw'];
     const actions = [
       <Button
-        label={this.state.subscriptionProgress === 'done' ? "Close" : "No, thank you"}
         onClick={this.handleCloseModal}
-      /> ];
+      >{this.state.subscriptionProgress === 'done' ? "Close" : "No, thank you"}</Button> ];
 
     return (
       <div>
@@ -152,32 +154,35 @@ class SocialMedia extends Component {
           <a href="https://www.eyeem.com/u/blck_dtl" target="_blank" rel="noopener noreferrer"><div className="social__item eyeem"></div></a>
 
           <div className="social__share__container col-xs-12">
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Button
                 variant="contained"
                 onClick={this.handleClick}
-                label="Share"
                 className="social__share-button"
-              />
+              >Share</Button>
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Popover
                 open={this.state.open}
                 anchorEl={this.state.anchorEl}
                 anchorOrigin={{horizontal: 'right', vertical: 'center'}}
-                targetOrigin={{horizontal: 'left', vertical: 'center'}}
-                onRequestClose={this.handleRequestClose}
+                transformOrigin={{horizontal: 'left', vertical: 'center'}}
+                onClose={this.handleRequestClose}
                 animation={PopoverAnimationVertical}
               >
-                <Menu className="share__menu">
-                  <FacebookShareButton url={url}><MenuItem className="share__button-facebook" primaryText="Share on Facebook" /></FacebookShareButton>
+                <Menu 
+                  className="share__menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                >
+                  <FacebookShareButton url={url}><MenuItem className="share__button-facebook">Share on Facebook</MenuItem></FacebookShareButton>
                   <Divider />
                   <TwitterShareButton
                     url = {url}
                     title = {title}
                     hashtags = {hashtags}
                   >
-                    <MenuItem className="share__button-twitter" primaryText="Share on Twitter" />
+                    <MenuItem className="share__button-twitter">Share on Twitter</MenuItem>
                   </TwitterShareButton>
                   <Divider />
                   <TumblrShareButton
@@ -186,7 +191,7 @@ class SocialMedia extends Component {
                     tags = {hashtags}
                     caption={description}
                   >
-                    <MenuItem className="share__button-tumblr" primaryText="Post on Tumblr" />
+                    <MenuItem className="share__button-tumblr">Post on Tumblr</MenuItem>
                   </TumblrShareButton>
                   <Divider />
                   <PinterestShareButton
@@ -194,28 +199,29 @@ class SocialMedia extends Component {
                     description = {title}
                     media = {media}
                     >
-                    <MenuItem className="share__button-pinterest" primaryText="Pin on Pinterest" />
+                    <MenuItem className="share__button-pinterest">Pin on Pinterest</MenuItem>
                   </PinterestShareButton>
 
                 </Menu>
               </Popover>
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <IconButton className="social__notifications-button" onClick={this.handleOpenModal}>
                 <i className="shake shake-rorate material-icons">notifications</i>
               </IconButton>
             </MuiThemeProvider>
           </div>
 
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
             <Dialog
               title="Notifications"
               actions={actions}
               modal={true}
               open={this.state.modalIsOpen}
-              titleClassName="social__modal__title"
+              aria-labelledby="social__modal__title"
               className="social__modal"
             >
+            <DialogTitle id="social__modal__title">{"Use Google's location service?"}</DialogTitle>
               <div className="social__modal__description">
               <img className="social__modal-icon" src={email} alt="Newsletter_Icon"/>
               <div>
@@ -224,7 +230,7 @@ class SocialMedia extends Component {
               {this.state.subscriptionProgress === 'todo' && (
               <div className="social__modal__actions col-xs-12">
                 <form onSubmit={(e) => this.handleEmailNotifications(e)}>
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                     <TextField
                       hintText="Email address"
                       className="social__modal__input"
@@ -234,15 +240,14 @@ class SocialMedia extends Component {
                       onChange={(e) => this.setInputState(e, 'userEmail')}
                     />
                   </MuiThemeProvider>
-                  <MuiThemeProvider muiTheme={muiBlack}>
+                  <MuiThemeProvider theme={muiBlack}>
                     <Button
                       variant="contained"
                       className="social__modal__actions__button"
-                      label="OK"
-                      primary={true}
+                      color="primary"
                       type="submit"
                       disabled={this.state.subscriptionProgress === 'progress'}
-                    />
+                    >OK</Button>
                   </MuiThemeProvider>
                 </form>
               </div>
@@ -264,7 +269,7 @@ class SocialMedia extends Component {
 
               </div>
               {this.state.subscriptionProgress === 'progress' && (
-                <MuiThemeProvider muiTheme={muiBlack}>
+                <MuiThemeProvider theme={muiBlack}>
                   <CircularProgress className="global__progress-bar" size={30} thickness={2} />
                 </MuiThemeProvider>
               )}
@@ -274,12 +279,12 @@ class SocialMedia extends Component {
                 )}
             </Dialog>
           </MuiThemeProvider>
-          <MuiThemeProvider>
+          <MuiThemeProvider theme={muiBlack}>
             <Snackbar
               open={this.state.snackbarIsOpen}
               message={this.state.message}
               autoHideDuration={4000}
-              onRequestClose={this.handleSnackbarClose}
+              onClose={this.handleSnackbarClose}
             />
           </MuiThemeProvider>
         </div>

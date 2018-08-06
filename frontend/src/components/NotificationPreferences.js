@@ -63,7 +63,7 @@ class NotificationPreferences extends Component {
     return(
       <div className="container preferences">
         {status === 'todo' ? (
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
           <Paper zDepth={3} className="preferences__wrapper global__center">
           <div>
             <div className="row">
@@ -81,7 +81,7 @@ class NotificationPreferences extends Component {
             </div>
             <h2 className="preferences__subtitle">I want to get notified :</h2>
             <form onSubmit={(e) => this.savePreferences(e)}>
-              <MuiThemeProvider muiTheme={muiBlack}>
+              <MuiThemeProvider theme={muiBlack}>
                 <RadioGroup
                   name="subscriptionType"
                   defaultSelected={String(this.state.subscriptionType)}
@@ -110,19 +110,18 @@ class NotificationPreferences extends Component {
                   />
                 </RadioGroup>
               </MuiThemeProvider>
-              <MuiThemeProvider muiTheme={muiBlack}>
+              <MuiThemeProvider theme={muiBlack}>
                 <Button
                   variant="contained"
                   type="submit"
-                  label="OK"
                   disabled={loading}
-                  primary={true}
+                  color="primary"
                   className="preferences__button"
-                />
+                >OK</Button>
               </MuiThemeProvider>
             </form>
             {loading && (
-              <MuiThemeProvider muiTheme={muiBlack}>
+              <MuiThemeProvider theme={muiBlack}>
                 <CircularProgress size={30} thickness={2} />
               </MuiThemeProvider>
             )}
@@ -130,17 +129,16 @@ class NotificationPreferences extends Component {
           </Paper>
           </MuiThemeProvider>
         ) : (
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
           <Paper zDepth={3} className="preferences__wrapper global__center">
           <div>
             <h2 className="preferences__subtitle">Your notification preferences have been updated.</h2>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Button
                 variant="contained"
                 onClick={e => {this.props.history.push('/')}}
-                label="Back to Home"
                 className="preferences__button"
-              />
+              >Back to Home</Button>
             </MuiThemeProvider>
           </div>
           </Paper>

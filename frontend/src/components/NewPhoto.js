@@ -48,12 +48,12 @@ class NewPhoto extends Component {
     return(
 
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <MuiThemeProvider muiTheme={muiBlack}>
+      <MuiThemeProvider theme={muiBlack}>
         <Card>
           <CardMedia>
             <div className="image__thumbnail" style={{backgroundImage: `url(${src.replace("upload", "upload/t_web_small")})`}}></div>
           </CardMedia>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <TextField
                 floatingLabelText="Title"
                 required={true}
@@ -61,7 +61,7 @@ class NewPhoto extends Component {
                 onChange={(e) => this.props.setInputState(e, 'title', index)}
               />
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Select
                 floatingLabelText="Category 1"
                 required={true}
@@ -73,7 +73,7 @@ class NewPhoto extends Component {
                 })}
               </Select>
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Select
                 floatingLabelText="Category 2"
                 value={data[index] ? data[index].tag_2 : ''}
@@ -84,7 +84,7 @@ class NewPhoto extends Component {
                 })}
               </Select>
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <Select
                 floatingLabelText="Category 3"
                 value={data[index] ? data[index].tag_3 : ''}
