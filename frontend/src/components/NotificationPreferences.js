@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import Paper from 'material-ui/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
+import Paper from '@material-ui/core/Paper';
 import Client from '../Client';
 import { withRouter } from 'react-router';
 
 import '../styles/content.css';
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -61,7 +63,7 @@ class NotificationPreferences extends Component {
     return(
       <div className="container preferences">
         {status === 'todo' ? (
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
           <Paper zDepth={3} className="preferences__wrapper global__center">
           <div>
             <div className="row">
@@ -79,47 +81,47 @@ class NotificationPreferences extends Component {
             </div>
             <h2 className="preferences__subtitle">I want to get notified :</h2>
             <form onSubmit={(e) => this.savePreferences(e)}>
-              <MuiThemeProvider muiTheme={muiBlack}>
-                <RadioButtonGroup
+              <MuiThemeProvider theme={muiBlack}>
+                <RadioGroup
                   name="subscriptionType"
                   defaultSelected={String(this.state.subscriptionType)}
                   onChange={(evt, value) => this.setInputState('subscriptionType', value)}
                   className="preferences__radio-group"
                 >
-                  <RadioButton
+                  <Radio
                     value="1"
                     label="For every new photo coming up"
                   />
-                  <RadioButton
+                  <Radio
                     value="2"
                     label="Once a week"
                   />
-                  <RadioButton
+                  <Radio
                     value="3"
                     label="Once a month"
                   />
-                  <RadioButton
+                  <Radio
                     value="4"
                     label="Only for important updates about Black Detail"
                   />
-                  <RadioButton
+                  <Radio
                     value="0"
                     label="Never"
                   />
-                </RadioButtonGroup>
+                </RadioGroup>
               </MuiThemeProvider>
-              <MuiThemeProvider muiTheme={muiBlack}>
-                <RaisedButton
+              <MuiThemeProvider theme={muiBlack}>
+                <Button
+                  variant="contained"
                   type="submit"
-                  label="OK"
                   disabled={loading}
-                  primary={true}
+                  color="primary"
                   className="preferences__button"
-                />
+                >OK</Button>
               </MuiThemeProvider>
             </form>
             {loading && (
-              <MuiThemeProvider muiTheme={muiBlack}>
+              <MuiThemeProvider theme={muiBlack}>
                 <CircularProgress size={30} thickness={2} />
               </MuiThemeProvider>
             )}
@@ -127,16 +129,16 @@ class NotificationPreferences extends Component {
           </Paper>
           </MuiThemeProvider>
         ) : (
-          <MuiThemeProvider muiTheme={muiBlack}>
+          <MuiThemeProvider theme={muiBlack}>
           <Paper zDepth={3} className="preferences__wrapper global__center">
           <div>
             <h2 className="preferences__subtitle">Your notification preferences have been updated.</h2>
-            <MuiThemeProvider muiTheme={muiBlack}>
-              <RaisedButton
+            <MuiThemeProvider theme={muiBlack}>
+              <Button
+                variant="contained"
                 onClick={e => {this.props.history.push('/')}}
-                label="Back to Home"
                 className="preferences__button"
-              />
+              >Back to Home</Button>
             </MuiThemeProvider>
           </div>
           </Paper>

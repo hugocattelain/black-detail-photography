@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 import Client from '../Client';
 import $ from "jquery";
 import { withRouter } from 'react-router';
 
 import '../styles/content.css';
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -99,7 +100,7 @@ class Contact extends Component {
               <h2 className="contact__subtitle">Drop me a message if you want to shoot or just to say Hi !</h2>
 
               <form onSubmit={(e) => this.contactUs(e)}>
-                <MuiThemeProvider muiTheme={muiBlack}>
+                <MuiThemeProvider theme={muiBlack}>
                   <TextField
                     id="subject"
                     hintText="Subject"
@@ -111,7 +112,7 @@ class Contact extends Component {
                     onBlur={(e) => this.onBlur(e, 'subjectError')}
                   />
                 </MuiThemeProvider>
-                <MuiThemeProvider muiTheme={muiBlack}>
+                <MuiThemeProvider theme={muiBlack}>
                   <TextField
                     id="email"
                     type="email"
@@ -124,7 +125,7 @@ class Contact extends Component {
                     onBlur={(e) => this.onBlur(e, 'mailError')}
                   />
                 </MuiThemeProvider>
-                <MuiThemeProvider muiTheme={muiBlack}>
+                <MuiThemeProvider theme={muiBlack}>
                   <TextField
                     id="message"
                     hintText="Message"
@@ -139,18 +140,18 @@ class Contact extends Component {
                     onBlur={(e) => this.onBlur(e, 'messageError')}
                   />
                 </MuiThemeProvider>
-                <MuiThemeProvider muiTheme={muiBlack}>
-                  <RaisedButton
+                <MuiThemeProvider theme={muiBlack}>
+                  <Button
+                    variant="contained"
                     type="submit"
-                    label="Send"
-                    primary={true}
+                    color="primary"
                     className="contact__button"
                     disabled={this.state.messageSent === 'progress'}
-                  />
+                  >Send</Button>
                 </MuiThemeProvider>
               </form>
               {messageSent === 'progress' && (
-                <MuiThemeProvider muiTheme={muiBlack}>
+                <MuiThemeProvider theme={muiBlack}>
                   <CircularProgress size={30} thickness={2} />
                 </MuiThemeProvider>
               )}
@@ -161,12 +162,12 @@ class Contact extends Component {
         <div className="contact__wrapper global__center">
           <h1 className="contact__title">Thank you for your message.</h1>
           <h4 className="contact__subtitle">You will receive an answer as soon as possible.</h4>
-          <MuiThemeProvider muiTheme={muiBlack}>
-            <RaisedButton
+          <MuiThemeProvider theme={muiBlack}>
+            <Button
+              variant="contained"
               onClick={e => {this.props.history.push('/')}}
-              label="Back to Home"
               className="contact__button"
-            />
+            >Back to Home</Button>
           </MuiThemeProvider>
         </div>
       )}

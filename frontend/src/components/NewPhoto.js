@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import { Card, CardMedia } from 'material-ui/Card';
-import MenuItem from 'material-ui/MenuItem';
 
-const muiBlack = getMuiTheme({
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import { Card, CardMedia } from '@material-ui/core/Card';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -48,12 +48,12 @@ class NewPhoto extends Component {
     return(
 
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <MuiThemeProvider muiTheme={muiBlack}>
+      <MuiThemeProvider theme={muiBlack}>
         <Card>
           <CardMedia>
             <div className="image__thumbnail" style={{backgroundImage: `url(${src.replace("upload", "upload/t_web_small")})`}}></div>
           </CardMedia>
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <TextField
                 floatingLabelText="Title"
                 required={true}
@@ -61,8 +61,8 @@ class NewPhoto extends Component {
                 onChange={(e) => this.props.setInputState(e, 'title', index)}
               />
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
-              <SelectField
+            <MuiThemeProvider theme={muiBlack}>
+              <Select
                 floatingLabelText="Category 1"
                 required={true}
                 value={data[index] ? data[index].tag_1 : ''}
@@ -71,10 +71,10 @@ class NewPhoto extends Component {
                 {categories.map((item, key) => {
                   return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
                 })}
-              </SelectField>
+              </Select>
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
-              <SelectField
+            <MuiThemeProvider theme={muiBlack}>
+              <Select
                 floatingLabelText="Category 2"
                 value={data[index] ? data[index].tag_2 : ''}
                 onChange={(evt, newIndex, value) => this.props.setSelectState('tag_2', value, index)}
@@ -82,10 +82,10 @@ class NewPhoto extends Component {
                 {categories.map((item, key) => {
                   return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
                 })}
-              </SelectField>
+              </Select>
             </MuiThemeProvider>
-            <MuiThemeProvider muiTheme={muiBlack}>
-              <SelectField
+            <MuiThemeProvider theme={muiBlack}>
+              <Select
                 floatingLabelText="Category 3"
                 value={data[index] ? data[index].tag_3 : ''}
                 onChange={(evt, newIndex, value) => this.props.setSelectState('tag_3', value, index)}
@@ -93,7 +93,7 @@ class NewPhoto extends Component {
                 {categories.map((item, key) => {
                   return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
                 })}
-              </SelectField>
+              </Select>
             </MuiThemeProvider>
           </Card>
         </MuiThemeProvider>

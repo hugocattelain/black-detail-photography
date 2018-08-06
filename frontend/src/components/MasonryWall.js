@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import CircularProgress from 'material-ui/CircularProgress';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 //import CookieConsent from 'react-cookie-consent';
 import $ from 'jquery';
 // eslint-disable-next-line
@@ -15,7 +15,7 @@ import LandingPage from './LandingPage';
 import '../styles/masonry.css';
 
 
-const muiBlack = getMuiTheme({
+const muiBlack = createMuiTheme({
   "palette": {
     "primary1Color": "#212121",
     "primary2Color": "#616161",
@@ -99,7 +99,7 @@ class Masonry extends Component{
           {!this.state.loading ? (
               <ul className="masonry-layout">{childElements}</ul>
           ) : (
-            <MuiThemeProvider muiTheme={muiBlack}>
+            <MuiThemeProvider theme={muiBlack}>
               <CircularProgress className="global__progress-bar" size={30} thickness={2} />
             </MuiThemeProvider>
           )}
