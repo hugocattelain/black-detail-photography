@@ -13,7 +13,7 @@
     "sass-loader": "^6.0.6"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.56",
+    "@babel/runtime": "7.0.0-beta.55",
     "@material-ui/core": "^1.4.3",
     "aphrodite": "^1.2.5",
     "autoprefixer": "7.1.6",
