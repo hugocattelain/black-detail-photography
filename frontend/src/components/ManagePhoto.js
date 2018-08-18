@@ -16,16 +16,12 @@ import { Input, InputLabel } from '@material-ui/core';
 
 const param = 'all';
 const muiBlack = createMuiTheme({
-  "palette": {
-    "primary1Color": "#212121",
-    "primary2Color": "#616161",
-    "accent1Color": "rgba(117, 117, 117, 0.51)",
-    "pickerHeaderColor": "#212121"
+  palette: {
+    primary: {
+      main:"#212121"},
+    secondary:{ 
+      main:"#616161"},
   },
-  "textField": {
-    "errorColor": "#f44336"
-  },
-  "borderRadius": 2
 });
 
 class ManagePhoto extends Component {
@@ -160,8 +156,8 @@ class ManagePhoto extends Component {
       <div>
 
         <MuiThemeProvider theme={muiBlack}>
-          <List className="admin__manage__list">
             <h1>Manage {/*<i className="material-icons" onClick={ () => { this.fillWithDate() }}>healing</i>*/}</h1>
+          <List className="admin__manage__list">
             {images.map((item, key) => {
               return(
 
@@ -233,7 +229,7 @@ class ManagePhoto extends Component {
           }
           </List>
         </MuiThemeProvider>
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={muiBlack}>
           <Snackbar
             open={this.state.snackbarIsOpen}
             message={this.state.message}
