@@ -13,16 +13,12 @@ import { withRouter } from 'react-router';
 import '../styles/content.css';
 
 const muiBlack = createMuiTheme({
-  "palette": {
-    "primary1Color": "#212121",
-    "primary2Color": "#616161",
-    "accent1Color": "rgba(117, 117, 117, 0.51)",
-    "pickerHeaderColor": "#212121"
+  palette: {
+    primary: {
+      main:"#212121"},
+    secondary:{ 
+      main:"#616161"},
   },
-  "textField": {
-    "errorColor": "#f44336"
-  },
-  "borderRadius": 2
 });
 
 class NotificationPreferences extends Component {

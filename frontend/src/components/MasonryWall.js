@@ -16,16 +16,12 @@ import '../styles/masonry.css';
 
 
 const muiBlack = createMuiTheme({
-  "palette": {
-    "primary1Color": "#212121",
-    "primary2Color": "#616161",
-    "accent1Color": "rgba(117, 117, 117, 0.51)",
-    "pickerHeaderColor": "#212121"
+  palette: {
+    primary: {
+      main:"#212121"},
+    secondary:{ 
+      main:"#616161"},
   },
-  "textField": {
-    "errorColor": "#f44336"
-  },
-  "borderRadius": 2
 });
 
 
@@ -40,6 +36,7 @@ class Masonry extends Component{
   }
 
   componentDidMount = () => {
+    window.scrollTo(0, 0);
     $('.landing-page__title').addClass("faded");
     this.setState({ loading: true });
     const param = getCategoryName(this.props.match.params.category);
@@ -51,10 +48,13 @@ class Masonry extends Component{
     });
   }
 
+  
+
   componentWillReceiveProps = (nextProps) => {
     const nextCategory = getCategoryName(nextProps.match.params.category);
     const currentCategory = getCategoryName(this.props.match.params.category);
     if(nextCategory !== currentCategory){
+      window.scrollTo(0, 0);
       const param = nextCategory;
       this.setState({ loading: true });
       Client.getAllImages(param, images => {

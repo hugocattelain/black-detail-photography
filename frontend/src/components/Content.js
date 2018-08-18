@@ -23,6 +23,7 @@ class Content extends Component {
 
   render(){
     return (
+      <HttpsRedirect>
         <Switch>
           <Route exact path='/' component={Masonry} />
           <Route exact path='/admin' component={Admin} />
@@ -31,6 +32,7 @@ class Content extends Component {
           <Route path='/:category&:id' component={Masonry} />
           <Route path='/:category' component={Masonry} />
         </Switch>
+      </HttpsRedirect>
     );
   }
 }

@@ -11,18 +11,15 @@ import $ from "jquery";
 import { withRouter } from 'react-router';
 
 import '../styles/content.css';
+import { FormHelperText } from '@material-ui/core';
 
 const muiBlack = createMuiTheme({
-  "palette": {
-    "primary1Color": "#212121",
-    "primary2Color": "#616161",
-    "accent1Color": "rgba(117, 117, 117, 0.51)",
-    "pickerHeaderColor": "#212121"
+  palette: {
+    primary: {
+      main:"#212121"},
+    secondary:{ 
+      main:"#616161"},
   },
-  "textField": {
-    "errorColor": "#f44336"
-  },
-  "borderRadius": 2
 });
 
 class Contact extends Component {
@@ -84,8 +81,8 @@ class Contact extends Component {
       <div className="container contact">
       {messageSent !== 'sent'? (
         <div>
-          <MuiThemeProvider>
-            <Paper zDepth={3} className="contact__wrapper global__center">
+          <MuiThemeProvider theme={muiBlack}>
+            <Paper elevation={3} className="contact__wrapper global__center">
               <div className="col-sm-4 col-xs-3">
                 <hr className="global__divider" />
               </div>
@@ -103,42 +100,45 @@ class Contact extends Component {
                 <MuiThemeProvider theme={muiBlack}>
                   <TextField
                     id="subject"
-                    hintText="Subject"
+                    label="Subject"
                     required
                     className="contact__input-subject"
                     value={this.state.subject}
                     onChange={(e) => this.setInputState(e, 'subject')}
-                    errorText={this.state.subjectError}
-                    onBlur={(e) => this.onBlur(e, 'subjectError')}
+/*                     errorText={this.state.subjectError}
+ */                    onBlur={(e) => this.onBlur(e, 'subjectError')}
                   />
+                  <FormHelperText id="subject-error-text">{this.state.subjectError}</FormHelperText>
                 </MuiThemeProvider>
                 <MuiThemeProvider theme={muiBlack}>
                   <TextField
                     id="email"
                     type="email"
-                    hintText="Email"
+                    label="Email"
                     required
                     className="contact__input-email"
                     value={this.state.mail}
                     onChange={(e) => this.setInputState(e, 'mail')}
-                    errorText={this.state.mailError}
-                    onBlur={(e) => this.onBlur(e, 'mailError')}
+/*                     errorText={this.state.mailError}
+ */                    onBlur={(e) => this.onBlur(e, 'mailError')}
                   />
+                  <FormHelperText id="email-error-text">{this.state.mailError}</FormHelperText>
                 </MuiThemeProvider>
                 <MuiThemeProvider theme={muiBlack}>
                   <TextField
                     id="message"
-                    hintText="Message"
+                    label="Message"
                     required
                     className="contact__input-message"
                     value={this.state.message}
                     onChange={(e) => this.setInputState(e, 'message')}
-                    multiLine={true}
-                    rows={5}
-                    rowsMax={10}
-                    errorText={this.state.messageError}
-                    onBlur={(e) => this.onBlur(e, 'messageError')}
+                    multiline
+                    rows="4"
+                    rowsMax="10"
+/*                     errorText={this.state.messageError}
+ */                    onBlur={(e) => this.onBlur(e, 'messageError')}
                   />
+                  <FormHelperText id="message-error-text">{this.state.messageError}</FormHelperText>
                 </MuiThemeProvider>
                 <MuiThemeProvider theme={muiBlack}>
                   <Button

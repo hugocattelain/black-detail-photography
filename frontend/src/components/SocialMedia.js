@@ -17,19 +17,15 @@ import { FacebookShareButton, TwitterShareButton, PinterestShareButton, TumblrSh
 import Client from "../Client";
 import email from '../images/email.png';
 import '../styles/content.css';
-import { DialogTitle } from '@material-ui/core';
+import { DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@material-ui/core';
 
 const muiBlack = createMuiTheme({
-  "palette": {
-    "primary1Color": "#212121",
-    "primary2Color": "#616161",
-    "accent1Color": "rgba(117, 117, 117, 0.51)",
-    "pickerHeaderColor": "#212121"
+  palette: {
+    primary: {
+      main:"#212121"},
+    secondary:{ 
+      main:"#616161"},
   },
-  "textField": {
-    "errorColor": "#f44336"
-  },
-  "borderRadius": 2
 });
 
 class SocialMedia extends Component {
@@ -38,8 +34,8 @@ class SocialMedia extends Component {
     super(props);
 
     this.state = {
-      open: false,
       anchorEl:null,
+      popoverIsOpen: false,
       modalIsOpen: false,
       userEmail: '',
       subscriptionProgress:'todo',
@@ -65,26 +61,26 @@ class SocialMedia extends Component {
     }
   }
 
-  handleClick = (event) => {
+  handleClickShare = (event) => {
     // This prevents ghost click.
     event.preventDefault();
 
     this.setState({
-      open: true,
+      popoverIsOpen: true,
       anchorEl: event.currentTarget,
     });
   }
 
-  handleRequestClose = () => {
+  handleClosePopover = () => {
     this.setState({
-      open: false,
+      popoverIsOpen: false,
     });
   }
 
   handleOpenModal = () => {
     this.setState({modalIsOpen: true});
   }
-
+  // TODO : replace local storage by cookie and add cokie consent disclaimer
   handleCloseModal = () => {
     this.setState({modalIsOpen: false});
     if(window.localStorage.firstVisit !== 'false'){
@@ -135,16 +131,12 @@ class SocialMedia extends Component {
   }
 
   render() {
-    const { anchorEl, open } = this.state;
+    const { anchorEl, open, modalIsOpen, popoverIsOpen } = this.state;
     const url = 'https://www.black-detail.com';
     const title = 'Black Detail - Portfolio';
     const description = "Black Detail Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.";
     const media = "https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg";
     const hashtags = ['fineart', 'photography', 'nude', 'boudoir', 'portrait', 'blackandwhite', 'bnw'];
-    const actions = [
-      <Button
-        onClick={this.handleCloseModal}
-      >{this.state.subscriptionProgress === 'done' ? "Close" : "No, thank you"}</Button> ];
 
     return (
       <div>
@@ -157,53 +149,63 @@ class SocialMedia extends Component {
             <MuiThemeProvider theme={muiBlack}>
               <Button
                 variant="contained"
-                onClick={this.handleClick}
+                onClick={this.handleClickShare}
                 className="social__share-button"
               >Share</Button>
             </MuiThemeProvider>
             <MuiThemeProvider theme={muiBlack}>
-              <Popover
-                open={this.state.open}
+              {/* <Popover
+                open={popoverIsOpen}
                 anchorEl={this.state.anchorEl}
                 anchorOrigin={{horizontal: 'right', vertical: 'center'}}
                 transformOrigin={{horizontal: 'left', vertical: 'center'}}
-                onClose={this.handleRequestClose}
+                onClose={this.handleClosePopover}
                 animation={PopoverAnimationVertical}
               >
-                <Menu 
+              <Typography> */}
+              <Menu 
                   className="share__menu"
                   anchorEl={anchorEl}
-                  open={open}
+                  getContentAnchorEl={null}
+                  open={popoverIsOpen}
+                  anchorOrigin={{horizontal: 'right', vertical: 'center'}}
+                  transformOrigin={{horizontal: 'left', vertical: 'center'}}
+                  onClose={this.handleClosePopover}
                 >
-                  <FacebookShareButton url={url}><MenuItem className="share__button-facebook">Share on Facebook</MenuItem></FacebookShareButton>
+                  <MenuItem className="share__button-facebook" onClick={this.handleClosePopover}><FacebookShareButton url={url}>Share on Facebook</FacebookShareButton></MenuItem>
                   <Divider />
+                  <MenuItem className="share__button-twitter" onClick={this.handleClosePopover}>
                   <TwitterShareButton
                     url = {url}
                     title = {title}
                     hashtags = {hashtags}
                   >
-                    <MenuItem className="share__button-twitter">Share on Twitter</MenuItem>
-                  </TwitterShareButton>
-                  <Divider />
+                    Share on Twitter
+                  </TwitterShareButton></MenuItem>
+                  <Divider />                    
+                  <MenuItem className="share__button-tumblr" onClick={this.handleClosePopover}>
                   <TumblrShareButton
                     url = {url}
                     title = {title}
                     tags = {hashtags}
                     caption={description}
-                  >
-                    <MenuItem className="share__button-tumblr">Post on Tumblr</MenuItem>
+                  >Post on Tumblr
                   </TumblrShareButton>
+                  </MenuItem>
                   <Divider />
+                  <MenuItem className="share__button-pinterest" onClick={this.handleClosePopover}>
                   <PinterestShareButton
                     url = {url}
                     description = {title}
                     media = {media}
                     >
-                    <MenuItem className="share__button-pinterest">Pin on Pinterest</MenuItem>
+                    Pin on Pinterest
                   </PinterestShareButton>
-
+                  </MenuItem>
                 </Menu>
-              </Popover>
+              {/* </Typography>
+                
+              </Popover> */}
             </MuiThemeProvider>
             <MuiThemeProvider theme={muiBlack}>
               <IconButton className="social__notifications-button" onClick={this.handleOpenModal}>
@@ -214,25 +216,28 @@ class SocialMedia extends Component {
 
           <MuiThemeProvider theme={muiBlack}>
             <Dialog
-              title="Notifications"
-              actions={actions}
-              modal={true}
-              open={this.state.modalIsOpen}
+              /* actions={actions} 
+              modal={modalIsOpen.toString()}*/
+              open={modalIsOpen}
+              onClose={this.handleCloseModal}
               aria-labelledby="social__modal__title"
               className="social__modal"
             >
-            <DialogTitle id="social__modal__title">{"Use Google's location service?"}</DialogTitle>
-              <div className="social__modal__description">
+            <form onSubmit={(e) => this.handleEmailNotifications(e)}>
+            <DialogTitle id="social__modal__title">Notifications</DialogTitle>
+            <DialogContent>
+              {/* <div className="social__modal__description"> */}
               <img className="social__modal-icon" src={email} alt="Newsletter_Icon"/>
-              <div>
+              <DialogContentText>
                 Subscribe to the newsletter to receive the latest updates. <br/>Get notified when a new post comes up.
-              </div>
+              </DialogContentText>
+              
               {this.state.subscriptionProgress === 'todo' && (
               <div className="social__modal__actions col-xs-12">
-                <form onSubmit={(e) => this.handleEmailNotifications(e)}>
                   <MuiThemeProvider theme={muiBlack}>
                     <TextField
-                      hintText="Email address"
+                      label="Email"
+                      placeholder="Email address"
                       className="social__modal__input"
                       required={true}
                       type="email"
@@ -240,16 +245,6 @@ class SocialMedia extends Component {
                       onChange={(e) => this.setInputState(e, 'userEmail')}
                     />
                   </MuiThemeProvider>
-                  <MuiThemeProvider theme={muiBlack}>
-                    <Button
-                      variant="contained"
-                      className="social__modal__actions__button"
-                      color="primary"
-                      type="submit"
-                      disabled={this.state.subscriptionProgress === 'progress'}
-                    >OK</Button>
-                  </MuiThemeProvider>
-                </form>
               </div>
             )}
             {/*  <div className="social__modal__actions col-xs-12">
@@ -267,7 +262,7 @@ class SocialMedia extends Component {
                 <WebNotifications title="Congrats" body="You just activated web notifications !" timeout={4000}/>
               </div>*/}
 
-              </div>
+              {/* </div> */}
               {this.state.subscriptionProgress === 'progress' && (
                 <MuiThemeProvider theme={muiBlack}>
                   <CircularProgress className="global__progress-bar" size={30} thickness={2} />
@@ -277,6 +272,20 @@ class SocialMedia extends Component {
                 {this.state.subscriptionProgress === 'done' && (
                   <div className="social__modal__success">Congratulations ! You subscribed to the newsletter. </div>
                 )}
+                </DialogContent>
+                <DialogActions>
+                <Button
+                  variant="contained"
+                  className="social__modal__actions__button"
+                  color="primary"
+                  type="submit"
+                  disabled={this.state.subscriptionProgress === 'progress'}
+                >OK</Button>
+                <Button onClick={this.handleCloseModal}>
+                  {this.state.subscriptionProgress === 'done' ? "Close" : "No, thank you"}
+                </Button>
+                </DialogActions>
+                </form>
             </Dialog>
           </MuiThemeProvider>
           <MuiThemeProvider theme={muiBlack}>
