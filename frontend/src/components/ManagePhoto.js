@@ -3,7 +3,8 @@ import { withRouter } from 'react-router';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import {List, ListItem} from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +13,7 @@ import moment from 'moment';
 import findIndex from 'lodash/findIndex';
 
 import Client from '../Client';
-import { Input, InputLabel } from '@material-ui/core';
+import { Input, InputLabel, ListItemText } from '@material-ui/core';
 
 const param = 'all';
 const muiBlack = createMuiTheme({
@@ -155,17 +156,18 @@ class ManagePhoto extends Component {
     return (
       <div>
 
-        <MuiThemeProvider theme={muiBlack}>
             <h1>Manage {/*<i className="material-icons" onClick={ () => { this.fillWithDate() }}>healing</i>*/}</h1>
+        <MuiThemeProvider theme={muiBlack}>
           <List className="admin__manage__list">
             {images.map((item, key) => {
               return(
-
+                
                 <ListItem
                   key = {key}
-                  leftAvatar={<Avatar src={item.src.replace('upload','upload/t_web_thumb')} className="admin__manage__list__item__icon" />}
                   className={"admin__manage__list__item " + (item.is_visible === 0 ? 'disabled' : '')}
                 >
+                <Avatar src={item.src.replace('upload','upload/t_web_thumb')} className="admin__manage__list__item__icon" />
+                <ListItemText>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'top') }}>arrow_upward</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isLastElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'bottom') }}>arrow_downward</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'up') }}>arrow_drop_up</i>
@@ -222,6 +224,7 @@ class ManagePhoto extends Component {
                       <i className="material-icons" onClick={ () => { this.deleteOrRestore(item.id, item.is_visible) }}>{item.is_visible === 0 ? 'restore' : 'delete'}</i>
                     </IconButton>
                   </MuiThemeProvider>
+                  </ListItemText>
                 </ListItem>
 
               );
