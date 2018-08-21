@@ -148,6 +148,9 @@ $hamburger-hover-transition-timing-function: linear;
 
 .bm-menu-wrap{
   width: 275px !important;
+  @media #{$s}{
+    width: 70vw !important;
+  }
 }
 /* General sidebar styles */
 .bm-menu {

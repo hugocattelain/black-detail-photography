@@ -54,6 +54,10 @@ class Header extends Component {
         $(".hamburger").toggleClass("is-active");
       }
     }
+    else{
+      $(".mini-navbar").addClass("gone");
+        $(".hamburger").addClass("gone");
+    }
   }
 
   componentWillUnmount = () => {
@@ -68,6 +72,7 @@ class Header extends Component {
     else{ 
       this.setState({ menuIsOpen: true });
       $(".mini-navbar").addClass("gone");
+      $(".hamburger").addClass("gone");
     }
   }
 
