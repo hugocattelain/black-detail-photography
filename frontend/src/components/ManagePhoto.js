@@ -1,57 +1,99 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import React, { Component } from "react";
+import { withRouter } from "react-router";
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import moment from 'moment';
-import findIndex from 'lodash/findIndex';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
-import Client from '../Client';
-import { Input, InputLabel, ListItemText } from '@material-ui/core';
+import moment from "moment";
+import findIndex from "lodash/findIndex";
+import $ from "jquery";
 
-const param = 'all';
+import Client from "../Client";
+import {
+  Input,
+  InputLabel,
+  ListItemText,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  Checkbox
+} from "@material-ui/core";
+
+const param = "all";
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main:"#212121"},
-    secondary:{ 
-      main:"#616161"},
-  },
+      main: "#212121"
+    },
+    secondary: {
+      main: "#616161"
+    }
+  }
 });
 
 class ManagePhoto extends Component {
-
   state = {
-    images:[],
+    images: [],
+    image: null,
+    categories: [],
     snackbarIsOpen: false,
     message: "",
+    colCount: 4
   };
 
   componentDidMount = () => {
+    this.updateColCount();
+    window.addEventListener("resize", this.updateColCount);
     Client.getAllImages(param, images => {
+      images.forEach(image => {
+        image.edit = false;
+      });
       this.setState({
         images: images
-      })
+      });
     });
-  }
+  };
+
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", this.updateColCount);
+  };
+
+  updateColCount = () => {
+    if ($(window).width() < 576) {
+      this.setState({ colCount: 2 });
+      return;
+    }
+    if ($(window).width() < 768) {
+      this.setState({ colCount: 3 });
+      return;
+    } else {
+      this.setState({ colCount: 4 });
+    }
+  };
 
   deleteOrRestore = (id, visible) => {
     const visibility = visible === 0 ? 1 : 0;
-    Client.deleteImage(id, visibility, () =>{
+    Client.deleteImage(id, visibility, () => {
       Client.getAllImages(param, images => {
         this.setState({
           images: images
-        })
+        });
       });
     });
-  }
-
+  };
 
   updateCategory = (item, name, value) => {
     item[name] = this.props.categories[value].tag;
@@ -59,106 +101,149 @@ class ManagePhoto extends Component {
       Client.getAllImages(param, images => {
         this.setState({
           images: images
-        })
-      });
-    })
-  }
-
-  sendNotification = (item) => {
-    Client.getEmails().then(response => {
-      const emails = response;
-      const notifications_data = {
-        emails: emails,
-        images: [item],
-      };
-      Client.postNewsletter(notifications_data)
-      .then(res => {
-        this.setState({
-          snackbarIsOpen: true,
-          message: "Notification sent"
         });
+      });
+    });
+  };
+
+  sendNotification = item => {
+    Client.getEmails()
+      .then(response => {
+        const emails = response;
+        const notifications_data = {
+          emails: emails,
+          images: [item]
+        };
+        Client.postNewsletter(notifications_data)
+          .then(res => {
+            this.setState({
+              snackbarIsOpen: true,
+              message: "Notification sent"
+            });
+          })
+          .catch(err => {
+            this.setState({
+              snackbarIsOpen: true,
+              message: "Error: " + err
+            });
+          });
       })
       .catch(err => {
         this.setState({
           snackbarIsOpen: true,
-          message: "Error"
+          message: "Error" + err
         });
       });
-    })
-    .catch(err => {
-      this.setState({
-        snackbarIsOpen: true,
-        message: "Error"
-      });
-    });
-  }
+  };
 
-  isFirstElement = (item) => {
+  isFirstElement = item => {
     const images = this.state.images;
     // eslint-disable-next-line
-    return findIndex(images, el => { return el.id == item.id}) === 0;
-  }
+    return (
+      findIndex(images, el => {
+        return el.id == item.id;
+      }) === 0
+    );
+  };
 
-  isLastElement = (item) => {
+  isLastElement = item => {
     const images = this.state.images;
     // eslint-disable-next-line
-    return (findIndex(images, el => { return el.id == item.id}) === (images.length - 1));
-  }
+    return (
+      findIndex(images, el => {
+        return el.id == item.id;
+      }) ===
+      images.length - 1
+    );
+  };
 
   updateCreationDate = (item, action) => {
     const images = this.state.images;
     // eslint-disable-next-line
-    const index = findIndex(images, el => { return el.id == item.id});
-    let prevImage= images[index-1];
-    let nextImage = images[index+1];
+    const index = findIndex(images, el => {
+      return el.id == item.id;
+    });
+    let prevImage = images[index - 1];
+    let nextImage = images[index + 1];
     const itemDate = moment(item.created_at).format("YYYY-MM-DD HH:mm:ss");
-    const prevDate = moment(images[index-1].created_at).format("YYYY-MM-DD HH:mm:ss");
-    const nextDate = moment(images[index+1].created_at).format("YYYY-MM-DD HH:mm:ss");
+    const prevDate = moment(images[index - 1].created_at).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
+    const nextDate = moment(images[index + 1].created_at).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
     //const lastDate = moment(images[images.length-1].created_at).format("YYYY-MM-DD HH:mm:ss");
     let imagesToUpdate = [];
 
-    switch(action){
-      case 'top':
+    switch (action) {
+      case "top":
         item.created_at = moment().format("YYYY-MM-DD HH:mm:ss");
         imagesToUpdate.push(item);
         break;
-      case 'bottom':
+      case "bottom":
         //let d = moment(lastDate).add("1", "hour");
         break;
-      case 'up':
+      case "up":
         prevImage.created_at = itemDate;
         item.created_at = prevDate;
         imagesToUpdate.push(item, prevImage);
         break;
-      case 'down':
+      case "down":
         nextImage.created_at = itemDate;
         item.created_at = nextDate;
         imagesToUpdate.push(item, nextImage);
         break;
       default:
-        console.log('unknown case');
+        console.log("unknown case");
         break;
     }
 
-    for(let item of imagesToUpdate)
+    for (let item of imagesToUpdate)
       Client.updateImage(item, () => {
         Client.getAllImages(param, images => {
           this.setState({
             images: images
-          })
+          });
         });
       });
-  }
+  };
+
+  toggleDetailView = image => {
+    const images = this.state.images;
+    let index = findIndex(this.state.images, el => {
+      return el.id == image.id;
+    });
+    images[index].edit = !images[index].edit;
+    if (images[index].edit) {
+      this.setState({ image: images[index] });
+    }
+    this.setState({ images });
+  };
+
+  hasCategory = category => {
+    if (
+      this.state.image.tag_1 === category.tag ||
+      this.state.image.tag_2 === category.tag ||
+      this.state.image.tag_3 === category.tag
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  handleSelectionChange = event => {
+    this.setState({ categories: event.target.value });
+    console.log(this.state.categories);
+  };
 
   render() {
-    const images = this.state.images;
+    const { images, colCount } = this.state;
     const categories = this.props.categories;
+
     return (
       <div>
-
-            <h1>Manage {/*<i className="material-icons" onClick={ () => { this.fillWithDate() }}>healing</i>*/}</h1>
         <MuiThemeProvider theme={muiBlack}>
-          <List className="admin__manage__list">
+          {/* <List className="admin__manage__list">
             {images.map((item, key) => {
               return(
                 
@@ -230,9 +315,65 @@ class ManagePhoto extends Component {
               );
             })
           }
-          </List>
-        </MuiThemeProvider>
-        <MuiThemeProvider theme={muiBlack}>
+          </List> */}
+
+          <GridList cellHeight={180} cols={colCount}>
+            {images.map((image, key) => (
+              <GridListTile key={key}>
+                {!image.edit === true ? (
+                  <span>
+                    {/* <img src={image.src} alt="Manage photos" />
+                 */}
+                    <div
+                      className="grid-view__image"
+                      style={{
+                        backgroundImage: `url(${image.src})`
+                      }}
+                    />
+                    <GridListTileBar
+                      title="title"
+                      subtitle={<span>subtitle {image.edit}</span>}
+                      actionIcon={
+                        <IconButton
+                          className="icon"
+                          onClick={this.toggleDetailView.bind(this, image)}
+                        >
+                          <i className="material-icons edit-icon">edit</i>
+                        </IconButton>
+                      }
+                    />
+                  </span>
+                ) : (
+                  <div>
+                    <i
+                      className="material-icons close-icon"
+                      onClick={this.toggleDetailView.bind(this, image)}
+                    >
+                      clear
+                    </i>
+                    <InputLabel htmlFor="select-multiple-checkbox">
+                      Tag
+                    </InputLabel>
+                    <Select
+                      multiple
+                      value={this.state.categories}
+                      onChange={this.handleSelectionChange}
+                      input={<Input id="select-multiple-checkbox" />}
+                      renderValue={selected => selected.join(", ")}
+                    >
+                      {categories.map((category, key) => (
+                        <MenuItem key={key} value={category.name}>
+                          <Checkbox checked={this.hasCategory(category)} />
+                          <ListItemText primary={category.name} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                )}
+              </GridListTile>
+            ))}
+          </GridList>
+
           <Snackbar
             open={this.state.snackbarIsOpen}
             message={this.state.message}
@@ -244,7 +385,5 @@ class ManagePhoto extends Component {
     );
   }
 }
-
-
 
 export default withRouter(ManagePhoto);
