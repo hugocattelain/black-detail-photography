@@ -1,47 +1,45 @@
-@import 'global/constant.scss';
+@import "global/constant.scss";
 
-.navbar{
+.navbar {
   background-color: #ffffff;
   border: none;
 }
 
-.navbar-logo{
-  background: url('../images/menu-image.jpg') 0% 50% /contain;
+.navbar-logo {
+  background: url("../images/menu-image.jpg") 0% 50% / contain;
   background-repeat: no-repeat;
   width: 100%;
   height: 100px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.menu-item{
-    text-transform: capitalize;
-  }
+.menu-item {
+  text-transform: capitalize;
+}
 
-.menu-list{
+.menu-list {
   list-style-type: none;
   padding: 30px 0 0 0;
   text-align: left;
 
-  a{
+  a {
     color: #000000;
   }
 }
-
-
 
 /* Hamburger menu */
 
 /* Position and sizing of burger button */
 
-$hamburger-padding-x                       : 15px;
-$hamburger-padding-y                       : 15px;
-$hamburger-layer-width                     : 40px;
-$hamburger-layer-height                    : 4px;
-$hamburger-layer-spacing                   : 6px;
-$hamburger-layer-color                     : #000;
-$hamburger-layer-border-radius             : 4px;
-$hamburger-hover-opacity                   : 0.7;
-$hamburger-hover-transition-duration       : 3s;
+$hamburger-padding-x: 15px;
+$hamburger-padding-y: 15px;
+$hamburger-layer-width: 40px;
+$hamburger-layer-height: 4px;
+$hamburger-layer-spacing: 6px;
+$hamburger-layer-color: #000;
+$hamburger-layer-border-radius: 4px;
+$hamburger-hover-opacity: 0.7;
+$hamburger-hover-transition-duration: 3s;
 $hamburger-hover-transition-timing-function: linear;
 
 @import "../../node_modules/hamburgers/_sass/hamburgers/hamburgers";
@@ -51,25 +49,25 @@ $hamburger-hover-transition-timing-function: linear;
   position: fixed;
   right: 30px;
   top: 14px;
-  -webkit-transition: all .4s;
-  -moz-transition: all .4s;
-  -o-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
   transition-timing-function: ease-in-out;
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
-  &.gone{
+  &.gone {
     transform: translate3d(300%, 0, 0);
   }
-  &:focus{
-    outline:none;
+  &:focus {
+    outline: none;
   }
   @media #{$s} {
-    right:10px;
+    right: 10px;
     display: inline-block;
   }
   @media #{$xs} {
-    right:0;
+    right: 0;
   }
 }
 .bm-burger-button {
@@ -79,36 +77,36 @@ $hamburger-hover-transition-timing-function: linear;
   height: 20px;
   right: 36px;
   top: 30px;
-  -webkit-transition: all .4s;
-  -moz-transition: all .4s;
-  -o-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
 
-  &.gone{
+  &.gone {
     transform: translate3d(400%, 0, 0);
   }
 }
 
-.mini-navbar{
+.mini-navbar {
   display: block;
   position: fixed;
   background-color: #ffffff;
   width: 100%;
   height: 80px;
   z-index: 200;
-  -webkit-transition: all .4s;
-  -moz-transition: all .4s;
-  -o-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
   transition-timing-function: ease-in-out;
   transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
 
-  &.gone{
+  &.gone {
     transform: translate3d(0, -100%, 0);
   }
 
-  &__home-banner{
-    background: url('../images/home_banner.jpg') 0% 50% /contain;
+  &__home-banner {
+    background: url("../images/home_banner.jpg") 0% 50% / contain;
     background-repeat: no-repeat;
     float: left;
     z-index: 200;
@@ -117,9 +115,9 @@ $hamburger-hover-transition-timing-function: linear;
     left: 45px;
     top: 12px;
     position: absolute;
-    cursor:pointer;
+    cursor: pointer;
 
-    @media #{$s}{
+    @media #{$s} {
       left: 25px;
       top: 12px;
     }
@@ -146,9 +144,9 @@ $hamburger-hover-transition-timing-function: linear;
   background: #bdc3c7;
 }
 
-.bm-menu-wrap{
+.bm-menu-wrap {
   width: 275px !important;
-  @media #{$s}{
+  @media #{$s} {
     width: 70vw !important;
   }
 }
@@ -178,194 +176,206 @@ $hamburger-hover-transition-timing-function: linear;
 
 /* Social component */
 
-
-.copyright{
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color:#838383;
+.copyright {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #838383;
   text-align: left;
   font-weight: bold;
   font-size: 0.7em;
 }
 
-.share__menu{
-  hr{
+.share__menu {
+  hr {
     margin: 5px 20px !important;
   }
 }
-.share__button{
-  &-facebook, &-twitter, &-pinterest, &-tumblr{
+.share__button {
+  &-facebook,
+  &-twitter,
+  &-pinterest,
+  &-tumblr {
     padding-left: 45px !important;
     font-size: 14px !important;
   }
 
-  &-facebook::before, &-twitter::before, &-tumblr::before, &-pinterest::before{
-    content: '';
+  &-facebook::before,
+  &-twitter::before,
+  &-tumblr::before,
+  &-pinterest::before {
+    content: "";
     position: absolute;
     top: calc(50% - 10px);
     width: 20px;
     height: 20px;
     float: left;
-    left:15px;
+    left: 15px;
     background-repeat: no-repeat;
   }
 
-  &-facebook::before{
-    background: url("../images/fb-logo.png") 50% 50% /contain;
+  &-facebook::before {
+    background: url("../images/fb-logo.png") 50% 50% / contain;
   }
 
-  &-twitter::before{
-    background: url("../images/twitter-logo.png") 50% 50% /contain;
+  &-twitter::before {
+    background: url("../images/twitter-logo.png") 50% 50% / contain;
   }
 
-  &-tumblr::before{
-    background: url("../images/tumblr-logo.png") 50% 50% /contain;
+  &-tumblr::before {
+    background: url("../images/tumblr-logo.png") 50% 50% / contain;
   }
 
-  &-pinterest::before{
-    background: url("../images/pinterest-logo.png") 50% 50% /contain;
+  &-pinterest::before {
+    background: url("../images/pinterest-logo.png") 50% 50% / contain;
   }
 }
 
-.social{
-  &__wrapper{
+.social {
+  &__wrapper {
     margin: 30px 0 20px 0;
     text-align: left;
   }
 
-  &__share{
-    &__container{
+  &__share {
+    &__container {
       padding: 20px 0;
     }
 
-    &-button{
+    &-button {
       margin: 0 10px 0 0;
       width: 150px;
       //max-width: 150px;
     }
   }
 
-  &__item{
-    display:inline-block;
+  &__item {
+    display: inline-block;
     height: 30px;
     line-height: 32px;
     width: 22px;
     margin: 0 10px 0 0;
 
-    &.instagram{
-      background: url('../images/instagram-logo.png') 50% 50% /contain;
+    &.instagram {
+      background: url("../images/instagram-logo.png") 50% 50% / contain;
       background-repeat: no-repeat;
     }
 
-    &.facebook{
-      background: url('../images/fb-logo.png') 50% 50% /contain;
+    &.facebook {
+      background: url("../images/fb-logo.png") 50% 50% / contain;
       background-repeat: no-repeat;
     }
 
-    &.eyeem{
-      background: url('../images/eyeem-logo.png') 50% 50% /contain;
+    &.eyeem {
+      background: url("../images/eyeem-logo.png") 50% 50% / contain;
       background-repeat: no-repeat;
       width: 30px;
     }
   }
 
-  &__modal{
+  &__modal {
     min-width: 350px !important;
-    @media #{$xs}{
+    @media #{$xs} {
       width: 85% !important;
     }
 
-    &-icon{
+    &__content {
+      text-align: center;
+    }
+
+    &-icon {
       width: 100px;
       margin-bottom: 2rem;
       opacity: 0.87;
+      margin: 30px auto;
+      display: block;
     }
 
-    &__title{
-      text-align: center;
-      font-size: 3rem !important;
-      line-height: 0;
+    &__title {
+      h2 {
+        text-align: center;
+        font-size: 2rem !important;
+        line-height: 0;
+      }
     }
 
-    &__description{
-
+    &__description {
       text-align: center;
-      padding:0 15px 25px 15px;
-      @media #{$xs}, #{$s}{
-        padding:5px 15px 15px;
+      padding: 0 15px 25px 15px;
+      @media #{$xs}, #{$s} {
+        padding: 5px 15px 15px;
         font-size: 13px;
       }
     }
 
-    &__success{
+    &__success {
       text-align: center;
       color: black;
       font-family: serif;
       font-size: 2.3rem;
     }
 
-    &__input{
-        width: 65% !important;
-        display: block;
-        margin: 0 auto;
+    &__input {
+      width: 65% !important;
+      display: block;
+      margin: 0 auto;
     }
 
-    &__actions{
+    &__actions {
       text-align: center;
-      margin:15px 0;
+      margin: 15px 0;
 
-      .divider{
+      .divider {
         border-color: #000;
-        @media #{$xs}{
+        @media #{$xs} {
           margin-left: 5px;
           margin-left: 5px;
         }
       }
 
-      .or{
+      .or {
         font-size: 45px;
         line-height: 45px;
         color: #000000;
         font-family: Georgia, serif;
-        @media #{$s}{
+        @media #{$s} {
           font-size: 30px;
-          padding:0;
+          padding: 0;
         }
-        @media #{$xs}{
+        @media #{$xs} {
           font-size: 21px;
-          padding:0;
+          padding: 0;
         }
       }
 
-      &__button{
+      &__button {
         margin: 5px 45px;
         width: 25%;
-        @media #{$xs}{
+        @media #{$xs} {
           margin: 5px 0;
         }
       }
 
-      @media #{$xs}{
+      @media #{$xs} {
         padding: 0 5px;
       }
 
-      >form{
+      > form {
         margin-top: 2rem;
       }
     }
 
-    &__decline-button{
-      float:right;
+    &__decline-button {
+      float: right;
     }
 
-    &__footer{
+    &__footer {
       margin: 10px 0 0 0;
       padding-right: 0;
     }
   }
-  &__notifications-button{
+  &__notifications-button {
     height: 36px !important;
     padding: 0 12px !important;
     vertical-align: bottom;
-    color:#000;
+    color: #000;
   }
 }
