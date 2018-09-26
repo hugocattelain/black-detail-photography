@@ -12,11 +12,39 @@ let lastScrollPos = 0;
 class Header extends Component {
   state = {
     menuIsOpen: false, //Menu bugs out if set to true initial on push mode
-    scrollDirection: "unset"
+    scrollDirection: "unset",
+    menuLinks: [
+      {
+        path: "/",
+        title: "Fine art nude"
+      },
+      {
+        path: "/portrait",
+        title: "Portrait"
+      },
+      {
+        path: "/architecture",
+        title: "Architecture"
+      },
+      {
+        path: "/contact",
+        title: "Contact"
+      }
+    ]
   };
 
   componentWillMount = () => {
     window.addEventListener("scroll", this.toggleHeader, false);
+    if (
+      window.localStorage.safeMode === "true" &&
+      this.props.history.location.pathname === "/unsafe"
+    ) {
+      window.localStorage.safeMode = "false";
+    }
+    if (window.localStorage.safeMode === "true") {
+      let safeLinkList = this.state.menuLinks.slice(1);
+      this.setState({ menuLinks: safeLinkList });
+    }
   };
 
   componentDidMount = () => {
@@ -95,6 +123,7 @@ class Header extends Component {
   };
 
   render() {
+    const { menuLinks } = this.state;
     return (
       <div>
         <button className="hamburger hamburger--spin" type="button">
@@ -118,20 +147,11 @@ class Header extends Component {
             }}
           />
           <ul className="menu-list">
-            <li className="menu-item">
-              <Link to="/">Fine art nude</Link>
-            </li>
-            {/*<li className="menu-item"><Link to='/curves'>Curves</Link></li>
-             <li className="menu-item"><Link to='/black'>Black</Link></li> */}
-            <li className="menu-item">
-              <Link to="/portrait">Portrait</Link>
-            </li>
-            <li className="menu-item">
-              <Link to="/architecture">Architecture</Link>
-            </li>
-            <li className="menu-item">
-              <Link to="/contact">Contact</Link>
-            </li>
+            {menuLinks.map((menuItem, key) => (
+              <li key={key} className="menu-item">
+                <Link to={menuItem.path}>{menuItem.title}</Link>
+              </li>
+            ))}
           </ul>
           <SocialMedia />
 

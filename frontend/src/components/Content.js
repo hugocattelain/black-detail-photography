@@ -23,6 +23,7 @@ class Content extends Component {
     return (
       <HttpsRedirect>
         <Switch>
+          <Route exact path="/photography" component={Masonry} />
           <Route exact path="/" component={Masonry} />
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/contact" component={Contact} />

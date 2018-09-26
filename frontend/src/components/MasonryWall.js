@@ -1,91 +1,103 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React, { Component } from "react";
+import { withRouter } from "react-router";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 //import CookieConsent from 'react-cookie-consent';
-import $ from 'jquery';
+import $ from "jquery";
 // eslint-disable-next-line
-import lazysizes from 'lazysizes';
+import lazysizes from "lazysizes";
 
-import Lightbox from './Lightbox';
-import { getCategoryName } from '../Utils';
+import Lightbox from "./Lightbox";
+import { getCategoryName } from "../Utils";
 import Client from "../Client";
-import LandingPage from './LandingPage';
-import '../styles/masonry.css';
-
+import LandingPage from "./LandingPage";
+import "../styles/masonry.css";
 
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main:"#212121"},
-    secondary:{ 
-      main:"#616161"},
-  },
+      main: "#212121"
+    },
+    secondary: {
+      main: "#616161"
+    }
+  }
 });
 
-
-class Masonry extends Component{
-  constructor(props){
+class Masonry extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
-      images:[],
-      loading: false,
+      images: [],
+      loading: false
     };
   }
 
   componentDidMount = () => {
+    if (this.props.location.pathname === "/photography") {
+      window.localStorage.safeMode = "true";
+      this.props.history.push("/architecture");
+    }
     window.scrollTo(0, 0);
-    $('.landing-page__title').addClass("faded");
+    $(".landing-page__title").addClass("faded");
     this.setState({ loading: true });
     const param = getCategoryName(this.props.match.params.category);
     Client.getAllImages(param, images => {
       this.setState({
         images: images,
-        loading: false,
+        loading: false
       });
     });
-  }
+  };
 
-  
-
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     const nextCategory = getCategoryName(nextProps.match.params.category);
     const currentCategory = getCategoryName(this.props.match.params.category);
-    if(nextCategory !== currentCategory){
+    if (nextCategory !== currentCategory) {
       window.scrollTo(0, 0);
       const param = nextCategory;
       this.setState({ loading: true });
       Client.getAllImages(param, images => {
         this.setState({
           images: images,
-          loading: false,
+          loading: false
         });
       });
     }
-  }
+  };
 
-  openLightbox = (id) => {
-    const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category;
+  openLightbox = id => {
+    const category =
+      this.props.match.params.category === undefined
+        ? "home"
+        : this.props.match.params.category;
     this.props.history.push(`/${category}&${id}`);
-  }
+  };
 
   render() {
     const images = this.state.images;
-    let id=this.props.match.params.id;
-    const category = this.props.match.params.category === undefined ? 'home' : this.props.match.params.category;
+    let id = this.props.match.params.id;
+    const category =
+      this.props.match.params.category === undefined
+        ? "home"
+        : this.props.match.params.category;
 
     const childElements = images.map((item, key) => {
       const id = item.id;
       const thumb = item.src.replace("upload", "upload/t_web_small");
-      return(
-        <li key={key} className="masonry-layout__panel" onClick={() => this.openLightbox(id)}>
+      return (
+        <li
+          key={key}
+          className="masonry-layout__panel"
+          onClick={() => this.openLightbox(id)}
+        >
           <img
             src={thumb}
             data-expand="600"
             data-src={item.src.replace("upload", "upload/t_web_large")}
-            alt={item.title || 'Black Detail Photography'}
+            alt={item.title || "Black Detail Photography"}
             className="masonry-layout__panel-content lazyload"
           />
         </li>
@@ -94,23 +106,24 @@ class Masonry extends Component{
 
     return (
       <div>
-        <LandingPage category={category}/>
+        <LandingPage category={category} />
         <div className="container">
           {!this.state.loading ? (
-              <ul className="masonry-layout">{childElements}</ul>
+            <ul className="masonry-layout">{childElements}</ul>
           ) : (
             <MuiThemeProvider theme={muiBlack}>
-              <CircularProgress className="global__progress-bar" size={30} thickness={2} />
+              <CircularProgress
+                className="global__progress-bar"
+                size={30}
+                thickness={2}
+              />
             </MuiThemeProvider>
           )}
-          { id > 0 &&
-            <Lightbox images={images} id={Number(id)} />
-          }
+          {id > 0 && <Lightbox images={images} id={Number(id)} />}
         </div>
       </div>
     );
   }
 }
-
 
 export default withRouter(Masonry);

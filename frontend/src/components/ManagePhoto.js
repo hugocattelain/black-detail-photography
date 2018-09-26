@@ -47,8 +47,8 @@ const muiBlack = createMuiTheme({
 class ManagePhoto extends Component {
   state = {
     images: [],
-    image: null,
-    categories: [],
+    /* image: null, 
+    categories: [],*/
     snackbarIsOpen: false,
     message: "",
     colCount: 4
@@ -95,15 +95,17 @@ class ManagePhoto extends Component {
     });
   };
 
-  updateCategory = (item, name, value) => {
-    item[name] = this.props.categories[value].tag;
+  /* updateCategory = (item, name, value) => { */
+  updateCategory = event => {
+    console.log(event.target.name, event.target.value, event.target);
+    /* item[name] = this.props.categories[value].tag;
     Client.updateImage(item, () => {
       Client.getAllImages(param, images => {
         this.setState({
           images: images
         });
       });
-    });
+    }); */
   };
 
   sendNotification = item => {
@@ -210,13 +212,12 @@ class ManagePhoto extends Component {
 
   toggleDetailView = image => {
     const images = this.state.images;
+    images.forEach(image => (image.edit = false));
     let index = findIndex(this.state.images, el => {
       return el.id == image.id;
     });
     images[index].edit = !images[index].edit;
-    if (images[index].edit) {
-      this.setState({ image: images[index] });
-    }
+
     this.setState({ images });
   };
 
@@ -231,10 +232,10 @@ class ManagePhoto extends Component {
     return false;
   };
 
-  handleSelectionChange = event => {
+  /* handleSelectionChange = event => {
     this.setState({ categories: event.target.value });
     console.log(this.state.categories);
-  };
+  }; */
 
   render() {
     const { images, colCount } = this.state;
@@ -351,10 +352,10 @@ class ManagePhoto extends Component {
                     >
                       clear
                     </i>
-                    <InputLabel htmlFor="select-multiple-checkbox">
+                    {/*<InputLabel htmlFor="select-multiple-checkbox">
                       Tag
                     </InputLabel>
-                    <Select
+                     <Select
                       multiple
                       value={this.state.categories}
                       onChange={this.handleSelectionChange}
@@ -367,6 +368,24 @@ class ManagePhoto extends Component {
                           <ListItemText primary={category.name} />
                         </MenuItem>
                       ))}
+                    </Select> */}
+                    <InputLabel htmlFor="category_1">Category 1</InputLabel>
+                    <Select
+                      value={image.tag_1}
+                      onChange={this.updateCategory}
+                      inputProps={{
+                        name: "cat_1",
+                        id: "category_1",
+                        image: image
+                      }}
+                    >
+                      {categories.map((item, key) => {
+                        return (
+                          <MenuItem key={key} value={item.tag}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
                     </Select>
                   </div>
                 )}

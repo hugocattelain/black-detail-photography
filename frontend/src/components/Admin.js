@@ -28,7 +28,7 @@ const muiBlack = createMuiTheme({
 class Admin extends Component {
   state = {
     adminPassword: "",
-    tab: 0
+    tab: 1
   };
 
   setInputState = (event, name) => {
@@ -48,13 +48,6 @@ class Admin extends Component {
       <div className="container admin">
         {isAdmin ? (
           <div className="row">
-            {/* <div className="col-xs-12">
-              <UploadPhoto categories={categories}/>
-            </div>
-
-            <div className=" col-xs-12">
-              <ManagePhoto categories={categories}/>
-            </div> */}
             <MuiThemeProvider theme={muiBlack}>
               <AppBar position="static">
                 <Tabs value={tab} onChange={this.handleTabChange}>
