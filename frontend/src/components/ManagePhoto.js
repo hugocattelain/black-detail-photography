@@ -1,74 +1,63 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import IconButton from "@material-ui/core/IconButton";
-import Snackbar from "@material-ui/core/Snackbar";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-import moment from "moment";
-import findIndex from "lodash/findIndex";
-import $ from "jquery";
+import moment from 'moment';
+import findIndex from 'lodash/findIndex';
+import $ from 'jquery';
 
-import Client from "../Client";
-import {
-  Input,
-  InputLabel,
-  ListItemText,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  Checkbox
-} from "@material-ui/core";
+import Client from '../Client';
+import { InputLabel } from '@material-ui/core';
 
-const param = "all";
+const param = 'all';
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main: "#212121"
+      main: '#212121',
     },
     secondary: {
-      main: "#616161"
-    }
-  }
+      main: '#616161',
+    },
+  },
 });
 
 class ManagePhoto extends Component {
   state = {
     images: [],
-    /* image: null, 
-    categories: [],*/
+    imageToEdit: null,
+    /*categories: [],*/
     snackbarIsOpen: false,
-    message: "",
-    colCount: 4
+    message: '',
+    colCount: 4,
   };
 
   componentDidMount = () => {
     this.updateColCount();
-    window.addEventListener("resize", this.updateColCount);
+    window.addEventListener('resize', this.updateColCount);
     Client.getAllImages(param, images => {
       images.forEach(image => {
         image.edit = false;
       });
+      images = images.reverse();
       this.setState({
-        images: images
+        images: images,
       });
     });
   };
 
   componentWillUnmount = () => {
-    window.removeEventListener("resize", this.updateColCount);
+    window.removeEventListener('resize', this.updateColCount);
   };
 
   updateColCount = () => {
@@ -89,23 +78,23 @@ class ManagePhoto extends Component {
     Client.deleteImage(id, visibility, () => {
       Client.getAllImages(param, images => {
         this.setState({
-          images: images
+          images: images,
         });
       });
     });
   };
 
-  /* updateCategory = (item, name, value) => { */
   updateCategory = event => {
-    console.log(event.target.name, event.target.value, event.target);
-    /* item[name] = this.props.categories[value].tag;
-    Client.updateImage(item, () => {
+    const imageToEdit = this.state.imageToEdit;
+    imageToEdit[event.target.name] = event.target.value;
+    Client.updateImage(imageToEdit, () => {
       Client.getAllImages(param, images => {
+        images = images.reverse();
         this.setState({
-          images: images
+          images: images,
         });
       });
-    }); */
+    });
   };
 
   sendNotification = item => {
@@ -114,26 +103,26 @@ class ManagePhoto extends Component {
         const emails = response;
         const notifications_data = {
           emails: emails,
-          images: [item]
+          images: [item],
         };
         Client.postNewsletter(notifications_data)
           .then(res => {
             this.setState({
               snackbarIsOpen: true,
-              message: "Notification sent"
+              message: 'Notification sent',
             });
           })
           .catch(err => {
             this.setState({
               snackbarIsOpen: true,
-              message: "Error: " + err
+              message: 'Error: ' + err,
             });
           });
       })
       .catch(err => {
         this.setState({
           snackbarIsOpen: true,
-          message: "Error" + err
+          message: 'Error' + err,
         });
       });
   };
@@ -162,41 +151,39 @@ class ManagePhoto extends Component {
   updateCreationDate = (item, action) => {
     const images = this.state.images;
     // eslint-disable-next-line
-    const index = findIndex(images, el => {
-      return el.id == item.id;
-    });
+    const index = this.getImageIndex(images, item);
     let prevImage = images[index - 1];
     let nextImage = images[index + 1];
-    const itemDate = moment(item.created_at).format("YYYY-MM-DD HH:mm:ss");
+    const itemDate = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
     const prevDate = moment(images[index - 1].created_at).format(
-      "YYYY-MM-DD HH:mm:ss"
+      'YYYY-MM-DD HH:mm:ss'
     );
     const nextDate = moment(images[index + 1].created_at).format(
-      "YYYY-MM-DD HH:mm:ss"
+      'YYYY-MM-DD HH:mm:ss'
     );
     //const lastDate = moment(images[images.length-1].created_at).format("YYYY-MM-DD HH:mm:ss");
     let imagesToUpdate = [];
 
     switch (action) {
-      case "top":
-        item.created_at = moment().format("YYYY-MM-DD HH:mm:ss");
+      case 'top':
+        item.created_at = moment().format('YYYY-MM-DD HH:mm:ss');
         imagesToUpdate.push(item);
         break;
-      case "bottom":
+      case 'bottom':
         //let d = moment(lastDate).add("1", "hour");
         break;
-      case "up":
+      case 'up':
         prevImage.created_at = itemDate;
         item.created_at = prevDate;
         imagesToUpdate.push(item, prevImage);
         break;
-      case "down":
+      case 'down':
         nextImage.created_at = itemDate;
         item.created_at = nextDate;
         imagesToUpdate.push(item, nextImage);
         break;
       default:
-        console.log("unknown case");
+        console.log('unknown case');
         break;
     }
 
@@ -204,7 +191,7 @@ class ManagePhoto extends Component {
       Client.updateImage(item, () => {
         Client.getAllImages(param, images => {
           this.setState({
-            images: images
+            images: images,
           });
         });
       });
@@ -213,12 +200,18 @@ class ManagePhoto extends Component {
   toggleDetailView = image => {
     const images = this.state.images;
     images.forEach(image => (image.edit = false));
-    let index = findIndex(this.state.images, el => {
-      return el.id == image.id;
-    });
+    let index = this.getImageIndex(images, image);
+
     images[index].edit = !images[index].edit;
 
-    this.setState({ images });
+    this.setState({ images: images, imageToEdit: image });
+  };
+
+  getImageIndex = (images, image) => {
+    let index = findIndex(images, el => {
+      return el.id == image.id;
+    });
+    return index;
   };
 
   hasCategory = category => {
@@ -231,11 +224,6 @@ class ManagePhoto extends Component {
     }
     return false;
   };
-
-  /* handleSelectionChange = event => {
-    this.setState({ categories: event.target.value });
-    console.log(this.state.categories);
-  }; */
 
   render() {
     const { images, colCount } = this.state;
@@ -328,7 +316,7 @@ class ManagePhoto extends Component {
                     <div
                       className="grid-view__image"
                       style={{
-                        backgroundImage: `url(${image.src})`
+                        backgroundImage: `url(${image.src})`,
                       }}
                     />
                     <GridListTileBar
@@ -352,31 +340,15 @@ class ManagePhoto extends Component {
                     >
                       clear
                     </i>
-                    {/*<InputLabel htmlFor="select-multiple-checkbox">
-                      Tag
-                    </InputLabel>
-                     <Select
-                      multiple
-                      value={this.state.categories}
-                      onChange={this.handleSelectionChange}
-                      input={<Input id="select-multiple-checkbox" />}
-                      renderValue={selected => selected.join(", ")}
-                    >
-                      {categories.map((category, key) => (
-                        <MenuItem key={key} value={category.name}>
-                          <Checkbox checked={this.hasCategory(category)} />
-                          <ListItemText primary={category.name} />
-                        </MenuItem>
-                      ))}
-                    </Select> */}
+
                     <InputLabel htmlFor="category_1">Category 1</InputLabel>
                     <Select
                       value={image.tag_1}
                       onChange={this.updateCategory}
                       inputProps={{
-                        name: "cat_1",
-                        id: "category_1",
-                        image: image
+                        name: 'tag_1',
+                        id: 'category_1',
+                        image: image,
                       }}
                     >
                       {categories.map((item, key) => {
@@ -387,6 +359,58 @@ class ManagePhoto extends Component {
                         );
                       })}
                     </Select>
+
+                    <InputLabel htmlFor="category_2">Category 2</InputLabel>
+                    <Select
+                      value={image.tag_2}
+                      onChange={this.updateCategory}
+                      inputProps={{
+                        name: 'tag_2',
+                        id: 'category_2',
+                        image: image,
+                      }}
+                    >
+                      {categories.map((item, key) => {
+                        return (
+                          <MenuItem key={key} value={item.tag}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+
+                    <InputLabel htmlFor="category_3">Category 3</InputLabel>
+                    <Select
+                      value={image.tag_3}
+                      onChange={this.updateCategory}
+                      inputProps={{
+                        name: 'tag_3',
+                        id: 'category_3',
+                        image: image,
+                      }}
+                    >
+                      {categories.map((item, key) => {
+                        return (
+                          <MenuItem key={key} value={item.tag}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+
+                    <IconButton
+                      className="admin__manage__list__item__button"
+                      onClick={this.handleOpenModal}
+                    >
+                      <i
+                        className="material-icons"
+                        onClick={() => {
+                          this.deleteOrRestore(image.id, image.is_visible);
+                        }}
+                      >
+                        {image.is_visible === 0 ? 'restore' : 'delete'}
+                      </i>
+                    </IconButton>
                   </div>
                 )}
               </GridListTile>

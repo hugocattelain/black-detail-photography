@@ -38,7 +38,7 @@ class Masonry extends Component {
   componentDidMount = () => {
     if (this.props.location.pathname === "/photography") {
       window.localStorage.safeMode = "true";
-      this.props.history.push("/architecture");
+      this.props.history.push("/portrait");
     }
     window.scrollTo(0, 0);
     $(".landing-page__title").addClass("faded");

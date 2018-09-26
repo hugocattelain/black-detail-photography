@@ -9,35 +9,30 @@ import '../images/BDP_logo.jpg';
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main:"#212121"},
-    secondary:{ 
-      main:"#616161"},
+      main: '#212121',
+    },
+    secondary: {
+      main: '#616161',
+    },
   },
 });
 
 class WebNotifications extends Component {
-
-
   showNotifications = () => {
     // If the Notifications API is supported by the browser
     // then show the notification
-    if(this.n.supported()) this.n.show();
-  }
+    if (this.n.supported()) this.n.show();
+  };
   componentDidMount = () => {
-    console.log(this.props);
     this.showNotifications();
-  }
-  componentWillReceiveProps = (nextProps) => {
-    console.log(this.props);
-    console.log(nextProps);
-    if (!isEqual(this.props, nextProps)){
-      console.log(this.props);
-      console.log(nextProps);
+  };
+  componentWillReceiveProps = nextProps => {
+    if (!isEqual(this.props, nextProps)) {
       this.showNotifications();
     }
-  }
+  };
 
-  handleClick = (event) => {
+  handleClick = event => {
     // Do something here such as
     // console.log("Notification Clicked") OR
     // window.focus() OR
@@ -46,12 +41,11 @@ class WebNotifications extends Component {
     // Lastly, Close the notification
     window.open(this.props.url);
     this.n.close(event.target.tag);
-  }
+  };
 
   render() {
     return (
       <div>
-
         <ReactNotifications
           onRef={ref => (this.n = ref)}
           title={this.props.title}
@@ -61,11 +55,8 @@ class WebNotifications extends Component {
           tag="abcdef"
           onClick={event => this.handleClick(event)}
         />
-
-
-
       </div>
-    )
+    );
   }
 }
 
@@ -78,11 +69,12 @@ WebNotifications.propTypes = {
 };
 
 WebNotifications.defaultProps = {
-  title: "Black Detail",
-  body: "New photo. Check this out !",
-  timeout:0,
-  icon: "http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg",
-  url: "http://www.black-detail.com/curves"
+  title: 'Black Detail',
+  body: 'New photo. Check this out !',
+  timeout: 0,
+  icon:
+    'http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg',
+  url: 'http://www.black-detail.com/curves',
 };
 
 export default WebNotifications;

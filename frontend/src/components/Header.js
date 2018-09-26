@@ -40,6 +40,7 @@ class Header extends Component {
       this.props.history.location.pathname === "/unsafe"
     ) {
       window.localStorage.safeMode = "false";
+      this.props.history.push("/");
     }
     if (window.localStorage.safeMode === "true") {
       let safeLinkList = this.state.menuLinks.slice(1);
@@ -72,6 +73,12 @@ class Header extends Component {
     }
   };
   componentWillUpdate = (nextProps, nextState) => {
+    if (
+      nextProps.history.location.pathname === "/" &&
+      window.localStorage.safeMode === "true"
+    ) {
+      this.props.history.push("/portrait");
+    }
     if ($(window).width() < 768) {
       if (this.state.scrollDirection === "up") {
         $(".mini-navbar").removeClass("gone");

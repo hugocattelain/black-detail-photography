@@ -18,137 +18,147 @@ import { getCategoryAlias } from '../Utils';
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main:"#212121"},
-    secondary:{ 
-      main:"#616161"},
+      main: '#212121',
+    },
+    secondary: {
+      main: '#616161',
+    },
   },
 });
 
 class UploadPhoto extends Component {
-
   state = {
     uploadedFilesUrl: [],
     endUpload: false,
-    loading:false,
-    progress:0,
-    data:[],
+    loading: false,
+    progress: 0,
+    data: [],
     sendNewsletter: false,
     snackbarIsOpen: false,
     message: '',
   };
 
-  onImageDrop = (files) => {
+  onImageDrop = files => {
     this.setState({
       uploadedFile: files,
-      loading:true,
+      loading: true,
     });
     this.handleImageUpload(files);
-  }
+  };
 
   handleImageUpload = files => {
     const filesURL = [];
     const uploaders = files.map(file => {
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
-      return axios.post(process.env.REACT_APP_CLOUDINARY_UPLOAD_URL,formData, {
-        headers: { "X-Requested-With": "XMLHttpRequest" },
-      })
-      .then(response => {
-        const data=response.data;
-        const fileURL = data.secure_url;
-        filesURL.push(fileURL);
-        this.setState({ progress: filesURL.length/files.length*100 });
-      });
+      formData.append('file', file);
+      formData.append(
+        'upload_preset',
+        process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+      );
+      return axios
+        .post(process.env.REACT_APP_CLOUDINARY_UPLOAD_URL, formData, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        })
+        .then(response => {
+          console.log(response);
+          const data = response.data;
+          const fileURL = data.secure_url;
+          filesURL.push(fileURL);
+          this.setState({ progress: (filesURL.length / files.length) * 100 });
+        });
     });
     axios.all(uploaders).then(() => {
       this.setState({
         uploadedFilesUrl: filesURL,
-        loading:false,
+        loading: false,
         endUpload: true,
-        progress :100,
+        progress: 100,
         notification_data: {},
         //showNotification: false
       });
-
     });
-  }
+  };
 
   initState = (src, index) => {
-    const data= this.state.data;
-    data.push({src: src, title: 'Black Detail Photography', tag_1: '',tag_2: '',tag_3: '', is_visible: 1});
+    const data = this.state.data;
+    data.push({
+      src: src,
+      title: 'Black Detail Photography',
+      tag_1: '',
+      tag_2: '',
+      tag_3: '',
+      is_visible: 1,
+    });
     this.setState({ data: data });
-  }
+  };
 
   setInputState = (event, name, index) => {
-    const data= this.state.data;
+    const data = this.state.data;
     const input = data[index];
     input[name] = event.target.value;
     data.slice(index, 0, input);
     this.setState({ data: data });
-  }
+  };
 
   setSelectState = (name, value, index) => {
-    const data= this.state.data;
+    const data = this.state.data;
     const input = data[index];
     input[name] = value;
     data.slice(index, 0, input);
     this.setState({ data: data });
-  }
+  };
 
   handleSnackbarClose = () => {
     this.setState({
-      message: "",
+      message: '',
       snackbarIsOpen: false,
     });
-  }
+  };
 
   handleCheckboxChange = (event, name) => {
     console.log(event, name);
     this.setState({ [name]: event.target.checked });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
+    console.log('submit');
     event.preventDefault();
-    Client.postImage(this.state.data)
-    .then(response => {
+    Client.postImage(this.state.data).then(response => {
       this.setState({
         notification_data: response,
         //showNotification: true,
-        message: "Success",
+        message: 'Success',
         snackbarIsOpen: true,
-        uploadEnded:false,
+        uploadEnded: false,
       });
-      if(this.state.sendNewsletter){
-        Client.getEmails()
-        .then(response => {
+      if (this.state.sendNewsletter) {
+        Client.getEmails().then(response => {
           const emails = response;
           const notifications_data = {
             emails: emails,
-            images: this.state.data
+            images: this.state.data,
           };
           Client.postNewsletter(notifications_data)
-          .then(response => {
-          })
-          .catch(err => {
-            this.setState({
-              message: "Error while sending newsletter: " + err,
-              snackbarIsOpen: true,
+            .then(response => {})
+            .catch(err => {
+              this.setState({
+                message: 'Error while sending newsletter: ' + err,
+                snackbarIsOpen: true,
+              });
             });
-          });
         });
       }
     });
-  }
+  };
 
   render() {
-    const { uploadedFilesUrl, endUpload, loading} = this.state;
+    const { uploadedFilesUrl, endUpload, loading } = this.state;
     const { categories } = this.props;
     //let showNotification = this.state.showNotification;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
-      const index=key;
-      return(
+      const index = key;
+      return (
         <NewPhoto
           key={key}
           index={index}
@@ -158,7 +168,8 @@ class UploadPhoto extends Component {
           setSelectState={this.setSelectState}
           initState={this.initState}
           categories={categories}
-        />);
+        />
+      );
     });
 
     return (
@@ -166,23 +177,21 @@ class UploadPhoto extends Component {
         {endUpload ? (
           <div>
             <form onSubmit={this.handleSubmit}>
-            <MuiThemeProvider theme={muiBlack}>
-              <Checkbox
-                checked={this.state.sendNewsletter}
-                onCheck={(e) => this.handleCheckboxChange(e,'sendNewsletter')}
-                label="Send newsletter"
-                className="admin__upload__checkbox"
-              />
-            </MuiThemeProvider>
+              <MuiThemeProvider theme={muiBlack}>
+                <Checkbox
+                  checked={this.state.sendNewsletter}
+                  onChange={e => this.handleCheckboxChange(e, 'sendNewsletter')}
+                  label="Send newsletter"
+                  className="admin__upload__checkbox"
+                />
+              </MuiThemeProvider>
               {newPhotos}
               <div className="row">
                 <div className="col-xs-12">
                   <MuiThemeProvider theme={muiBlack}>
-                    <Button 
-                      variant="contained"
-                      type="submit" 
-                      prSimary={true}
-                    >Submit</Button>
+                    <Button variant="contained" type="submit" color="primary">
+                      Submit
+                    </Button>
                   </MuiThemeProvider>
                 </div>
               </div>
@@ -199,21 +208,18 @@ class UploadPhoto extends Component {
             </Dropzone>
           </div>
         )}
-        { loading && (
+        {loading && (
           <MuiThemeProvider theme={muiBlack}>
-          { this.state.uploadedFile.lenght>1 ? (
-            <CircularProgress
-              size={30}
-              thickness={2}
-              mode="determinate"
-              value={this.state.progress}
-            />
-          ) : (
-            <CircularProgress
-              size={30}
-              thickness={2}
-            />
-          )}
+            {this.state.uploadedFile.lenght > 1 ? (
+              <CircularProgress
+                size={30}
+                thickness={2}
+                mode="determinate"
+                value={this.state.progress}
+              />
+            ) : (
+              <CircularProgress size={30} thickness={2} />
+            )}
           </MuiThemeProvider>
         )}
         {/*
@@ -240,7 +246,7 @@ class UploadPhoto extends Component {
 }
 
 UploadPhoto.propTypes = {
-  newPhotos: PropTypes.element
+  newPhotos: PropTypes.element,
 };
 
 export default withRouter(UploadPhoto);
