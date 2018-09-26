@@ -9,52 +9,56 @@ import MenuItem from '@material-ui/core/MenuItem';
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main:"#212121"},
-    secondary:{ 
-      main:"#616161"},
+      main: '#212121',
+    },
+    secondary: {
+      main: '#616161',
+    },
   },
 });
 
 class NewPhoto extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.state={
+    this.state = {
       title: '',
       tag_1: '',
       tag_2: '',
       tag_3: '',
       is_visible: 1,
     };
-    ;
   }
 
   componentDidMount = () => {
-    this.props.initState(this.props.url,this.props.index);
-  }
+    this.props.initState(this.props.url, this.props.index);
+  };
 
-  render(){//TODO PASS THE WHOLE IMAGE
+  render() {
+    //TODO PASS THE WHOLE IMAGE
     const index = this.props.index;
-    const {data} = this.props;
-    const src= this.props.url;
+    const { data } = this.props;
+    const src = this.props.url;
     const categories = this.props.categories;
-    if(data.length === 0){
+    if (data.length === 0) {
       return null;
     }
-    return(
-
+    return (
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <MuiThemeProvider theme={muiBlack}>
-        <Card>
-          <CardMedia>
-            <div className="image__thumbnail" style={{backgroundImage: `url(${src.replace("upload", "upload/t_web_small")})`}}></div>
-          </CardMedia>
+        <MuiThemeProvider theme={muiBlack}>
+          <Card>
+            <CardMedia>
+              <div
+                className="image__thumbnail"
+                style={{ backgroundImage: `url(${src})` }}
+              />
+            </CardMedia>
             <MuiThemeProvider theme={muiBlack}>
               <TextField
                 floatingLabelText="Title"
                 required={true}
-                value={ data[index] ? data[index].title : '' }
-                onChange={(e) => this.props.setInputState(e, 'title', index)}
+                value={data[index] ? data[index].title : ''}
+                onChange={e => this.props.setInputState(e, 'title', index)}
               />
             </MuiThemeProvider>
             <MuiThemeProvider theme={muiBlack}>
@@ -62,10 +66,18 @@ class NewPhoto extends Component {
                 floatingLabelText="Category 1"
                 required={true}
                 value={data[index] ? data[index].tag_1 : ''}
-                onChange={(evt, newIndex, value) => this.props.setSelectState('tag_1', value, index)}
+                onChange={(evt, newIndex, value) =>
+                  this.props.setSelectState('tag_1', value, index)
+                }
               >
                 {categories.map((item, key) => {
-                  return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
+                  return (
+                    <MenuItem
+                      key={key}
+                      value={item.tag}
+                      primaryText={item.name}
+                    />
+                  );
                 })}
               </Select>
             </MuiThemeProvider>
@@ -73,10 +85,18 @@ class NewPhoto extends Component {
               <Select
                 floatingLabelText="Category 2"
                 value={data[index] ? data[index].tag_2 : ''}
-                onChange={(evt, newIndex, value) => this.props.setSelectState('tag_2', value, index)}
+                onChange={(evt, newIndex, value) =>
+                  this.props.setSelectState('tag_2', value, index)
+                }
               >
                 {categories.map((item, key) => {
-                  return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
+                  return (
+                    <MenuItem
+                      key={key}
+                      value={item.tag}
+                      primaryText={item.name}
+                    />
+                  );
                 })}
               </Select>
             </MuiThemeProvider>
@@ -84,17 +104,25 @@ class NewPhoto extends Component {
               <Select
                 floatingLabelText="Category 3"
                 value={data[index] ? data[index].tag_3 : ''}
-                onChange={(evt, newIndex, value) => this.props.setSelectState('tag_3', value, index)}
+                onChange={(evt, newIndex, value) =>
+                  this.props.setSelectState('tag_3', value, index)
+                }
               >
                 {categories.map((item, key) => {
-                  return(<MenuItem key = {key} value={item.tag} primaryText={item.name} />);
+                  return (
+                    <MenuItem
+                      key={key}
+                      value={item.tag}
+                      primaryText={item.name}
+                    />
+                  );
                 })}
               </Select>
             </MuiThemeProvider>
           </Card>
         </MuiThemeProvider>
       </div>
-    )
+    );
   }
 }
 
