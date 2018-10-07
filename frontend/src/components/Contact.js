@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Client from '../Client';
 import $ from 'jquery';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import '../styles/content.css';
 import { FormHelperText } from '@material-ui/core';

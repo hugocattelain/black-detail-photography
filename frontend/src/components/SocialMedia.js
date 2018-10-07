@@ -26,6 +26,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  withStyles,
 } from '@material-ui/core';
 
 const muiBlack = createMuiTheme({
@@ -284,7 +285,7 @@ class SocialMedia extends Component {
                     src={email}
                     alt="Newsletter_Icon"
                   />
-                  <DialogContentText className="social__modal__content">
+                  <DialogContentText className="social__modal-text">
                     Subscribe to the newsletter to receive the latest updates.
                     <br />
                     Get notified when a new post comes up.

@@ -1,48 +1,48 @@
-import React, { Component } from "react";
-import { slide as Menu } from "react-burger-menu";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import $ from "jquery";
+import React, { Component } from 'react';
+import { slide as Menu } from 'react-burger-menu';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import $ from 'jquery';
 
-import SocialMedia from "./SocialMedia";
-import "../styles/header.css";
+import SocialMedia from './SocialMedia';
+import '../styles/header.css';
 
 let lastScrollPos = 0;
 
 class Header extends Component {
   state = {
     menuIsOpen: false, //Menu bugs out if set to true initial on push mode
-    scrollDirection: "unset",
+    scrollDirection: 'unset',
     menuLinks: [
       {
-        path: "/",
-        title: "Fine art nude"
+        path: '/',
+        title: 'Fine art nude',
       },
       {
-        path: "/portrait",
-        title: "Portrait"
+        path: '/portrait',
+        title: 'Portrait',
       },
       {
-        path: "/architecture",
-        title: "Architecture"
+        path: '/architecture',
+        title: 'Architecture',
       },
       {
-        path: "/contact",
-        title: "Contact"
-      }
-    ]
+        path: '/contact',
+        title: 'Contact',
+      },
+    ],
   };
 
   componentWillMount = () => {
-    window.addEventListener("scroll", this.toggleHeader, false);
+    window.addEventListener('scroll', this.toggleHeader, false);
     if (
-      window.localStorage.safeMode === "true" &&
-      this.props.history.location.pathname === "/unsafe"
+      window.localStorage.safeMode === 'true' &&
+      this.props.history.location.pathname === '/unsafe'
     ) {
-      window.localStorage.safeMode = "false";
-      this.props.history.push("/");
+      window.localStorage.safeMode = 'false';
+      this.props.history.push('/');
     }
-    if (window.localStorage.safeMode === "true") {
+    if (window.localStorage.safeMode === 'true') {
       let safeLinkList = this.state.menuLinks.slice(1);
       this.setState({ menuLinks: safeLinkList });
     }
@@ -51,79 +51,79 @@ class Header extends Component {
   componentDidMount = () => {
     if (
       $(window).width() > 768 &&
-      this.props.history.location.pathname !== "/admin"
+      this.props.history.location.pathname !== '/admin'
     ) {
       this.setState({ menuIsOpen: true });
     }
-    window.addEventListener("resize", this.updateDimensions);
-    $(".hamburger").on("click", () => {
+    window.addEventListener('resize', this.updateDimensions);
+    $('.hamburger').on('click', () => {
       this.setState({ menuIsOpen: !this.state.menuIsOpen });
     });
-    $(".menu-item").on("click", () => {
+    $('.menu-item').on('click', () => {
       if ($(window).width() < 768) {
         this.setState({ menuIsOpen: false });
       }
     });
   };
   componentWillReceiveProps = nextProps => {
-    $(".mini-navbar").removeClass("gone");
-    $(".hamburger").removeClass("gone");
+    $('.mini-navbar').removeClass('gone');
+    $('.hamburger').removeClass('gone');
     if ($(window).width() < 768) {
       this.setState({ menuIsOpen: false });
     }
   };
   componentWillUpdate = (nextProps, nextState) => {
     if (
-      nextProps.history.location.pathname === "/" &&
-      window.localStorage.safeMode === "true"
+      nextProps.history.location.pathname === '/' &&
+      window.localStorage.safeMode === 'true'
     ) {
-      this.props.history.push("/portrait");
+      this.props.history.push('/portrait');
     }
     if ($(window).width() < 768) {
-      if (this.state.scrollDirection === "up") {
-        $(".mini-navbar").removeClass("gone");
-        $(".hamburger").removeClass("gone");
+      if (this.state.scrollDirection === 'up') {
+        $('.mini-navbar').removeClass('gone');
+        $('.hamburger').removeClass('gone');
       } else {
-        $(".mini-navbar").addClass("gone");
-        $(".hamburger").addClass("gone");
+        $('.mini-navbar').addClass('gone');
+        $('.hamburger').addClass('gone');
       }
       if (this.state.menuIsOpen !== nextState.menuIsOpen) {
-        $(".hamburger").toggleClass("is-active");
+        $('.hamburger').toggleClass('is-active');
       }
     } else {
-      $(".mini-navbar").addClass("gone");
-      $(".hamburger").addClass("gone");
+      $('.mini-navbar').addClass('gone');
+      $('.hamburger').addClass('gone');
     }
   };
 
   componentWillUnmount = () => {
-    window.removeEventListener("resize", this.updateDimensions);
-    window.removeEventListener("scroll", this.toggleHeader, false);
+    window.removeEventListener('resize', this.updateDimensions);
+    window.removeEventListener('scroll', this.toggleHeader, false);
   };
 
   updateDimensions = () => {
-    if (this.props.history.location.pathname !== "/admin") {
+    if (this.props.history.location.pathname !== '/admin') {
       if ($(window).width() < 768) {
         this.setState({ menuIsOpen: false });
-        $(".mini-navbar").removeClass("gone");
-        $(".hamburger").removeClass("gone");
+        $('.mini-navbar').removeClass('gone');
+        $('.hamburger').removeClass('gone');
       } else {
         this.setState({ menuIsOpen: true });
-        $(".mini-navbar").addClass("gone");
-        $(".hamburger").addClass("gone");
+        $('.mini-navbar').addClass('gone');
+        $('.hamburger').addClass('gone');
       }
     }
   };
 
   toggleHeader = () => {
     if (
-      window.scrollY > $(".mini-navbar").height() + window.innerHeight &&
-      this.props.history.location.pathname !== "/admin"
+      window.scrollY > $('.mini-navbar').height() + window.innerHeight &&
+      this.props.history.location.pathname !== '/admin'
     ) {
       if (window.scrollY > lastScrollPos) {
-        this.setState({ scrollDirection: "down" });
+        this.setState({ scrollDirection: 'down' });
       } else {
-        this.setState({ scrollDirection: "up" });
+        this.setState({ scrollDirection: 'up' });
       }
     }
     lastScrollPos = window.scrollY;
@@ -142,7 +142,7 @@ class Header extends Component {
           <div
             className="mini-navbar__home-banner"
             onClick={e => {
-              this.props.history.push("/");
+              this.props.history.push('/');
             }}
           />
         </div>
@@ -150,7 +150,7 @@ class Header extends Component {
           <div
             className="navbar-logo"
             onClick={e => {
-              this.props.history.push("/");
+              this.props.history.push('/');
             }}
           />
           <ul className="menu-list">
@@ -174,7 +174,7 @@ class Header extends Component {
             </div>
           </a>
           <script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js">
-            {" "}
+            {' '}
           </script>
         </Menu>
       </div>

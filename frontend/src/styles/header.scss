@@ -1,4 +1,4 @@
-@import "global/constant.scss";
+@import 'global/constant.scss';
 
 .navbar {
   background-color: #ffffff;
@@ -6,7 +6,7 @@
 }
 
 .navbar-logo {
-  background: url("../images/menu-image.jpg") 0% 50% / contain;
+  background: url('../images/menu-image.jpg') 0% 50% / contain;
   background-repeat: no-repeat;
   width: 100%;
   height: 100px;
@@ -42,7 +42,7 @@ $hamburger-hover-opacity: 0.7;
 $hamburger-hover-transition-duration: 3s;
 $hamburger-hover-transition-timing-function: linear;
 
-@import "../../node_modules/hamburgers/_sass/hamburgers/hamburgers";
+@import '../../node_modules/hamburgers/_sass/hamburgers/hamburgers';
 .hamburger {
   z-index: 300;
   display: none;
@@ -106,7 +106,7 @@ $hamburger-hover-transition-timing-function: linear;
   }
 
   &__home-banner {
-    background: url("../images/home_banner.jpg") 0% 50% / contain;
+    background: url('../images/home_banner.jpg') 0% 50% / contain;
     background-repeat: no-repeat;
     float: left;
     z-index: 200;
@@ -177,7 +177,7 @@ $hamburger-hover-transition-timing-function: linear;
 /* Social component */
 
 .copyright {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #838383;
   text-align: left;
   font-weight: bold;
@@ -202,7 +202,7 @@ $hamburger-hover-transition-timing-function: linear;
   &-twitter::before,
   &-tumblr::before,
   &-pinterest::before {
-    content: "";
+    content: '';
     position: absolute;
     top: calc(50% - 10px);
     width: 20px;
@@ -213,19 +213,19 @@ $hamburger-hover-transition-timing-function: linear;
   }
 
   &-facebook::before {
-    background: url("../images/fb-logo.png") 50% 50% / contain;
+    background: url('../images/fb-logo.png') 50% 50% / contain;
   }
 
   &-twitter::before {
-    background: url("../images/twitter-logo.png") 50% 50% / contain;
+    background: url('../images/twitter-logo.png') 50% 50% / contain;
   }
 
   &-tumblr::before {
-    background: url("../images/tumblr-logo.png") 50% 50% / contain;
+    background: url('../images/tumblr-logo.png') 50% 50% / contain;
   }
 
   &-pinterest::before {
-    background: url("../images/pinterest-logo.png") 50% 50% / contain;
+    background: url('../images/pinterest-logo.png') 50% 50% / contain;
   }
 }
 
@@ -243,7 +243,6 @@ $hamburger-hover-transition-timing-function: linear;
     &-button {
       margin: 0 10px 0 0;
       width: 150px;
-      //max-width: 150px;
     }
   }
 
@@ -255,17 +254,17 @@ $hamburger-hover-transition-timing-function: linear;
     margin: 0 10px 0 0;
 
     &.instagram {
-      background: url("../images/instagram-logo.png") 50% 50% / contain;
+      background: url('../images/instagram-logo.png') 50% 50% / contain;
       background-repeat: no-repeat;
     }
 
     &.facebook {
-      background: url("../images/fb-logo.png") 50% 50% / contain;
+      background: url('../images/fb-logo.png') 50% 50% / contain;
       background-repeat: no-repeat;
     }
 
     &.eyeem {
-      background: url("../images/eyeem-logo.png") 50% 50% / contain;
+      background: url('../images/eyeem-logo.png') 50% 50% / contain;
       background-repeat: no-repeat;
       width: 30px;
     }
@@ -279,6 +278,7 @@ $hamburger-hover-transition-timing-function: linear;
 
     &__content {
       text-align: center;
+      font-size: 16px;
     }
 
     &-icon {
@@ -287,6 +287,11 @@ $hamburger-hover-transition-timing-function: linear;
       opacity: 0.87;
       margin: 30px auto;
       display: block;
+    }
+
+    &-text {
+      text-align: center;
+      font-size: 14px !important;
     }
 
     &__title {

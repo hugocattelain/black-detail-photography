@@ -1,134 +1,153 @@
 <mjml>
   <mj-head>
-     <mj-title>Black Detail - Message received</mj-title>
-     <mj-attributes>
-       <mj-section background-color="#FFFFFF" background-repeat="no-repeat" text-align="center" vertical-align="top" />
-       <mj-all font-family="Arial" padding-top="0" padding-bottom="0" />
-     </mj-attributes>
-     <mj-style inline="inline">
-       a{
-         text-decoration: none;
-       }
-       .header-link{
-         text-decoration: none !important;
-         line-height: 10px;
-         padding: 0;
-         text-align: center;
-         font-size:16px;
-         color:#000000 !important;
-         font-family:'Times New Roman',Helvetica,Arial,sans-serif;
-       }
-       .header-banner{
-         border:none;
-         margin: 15px 0;
-       }
-       .link{
-         color:#000000 !important;
-         text-decoration: underline !important;
-       }
-       h1{
-         line-height: 60px;
-         margin: 10px 0;
-         font-size:35px;
-         color:#000000;
-         font-family:'Times New Roman',Helvetica,Arial,sans-serif;
-         font-weight:bold;
-       }
-       h2{
-         line-height: 20px;
-         color:#000000;
-         font-size:25px;
-         font-family:'Times New Roman',Helvetica,Arial,sans-serif;
-         padding:0;
-         margin: 0;
-       }
+    <mj-title>Black Detail - Message received</mj-title>
+    <mj-attributes>
+      <mj-section background-color="#FFFFFF" background-repeat="no-repeat" text-align="center" vertical-align="top" />
+      <mj-all font-family="Arial" padding-top="0" padding-bottom="0" />
+    </mj-attributes>
+    <mj-style inline="inline">
+      a {
+        text-decoration: none;
+      }
 
-       .text{
-         color:#000000;
-         font-size:18px;
-         font-family:'Times New Roman',Helvetica,Arial,sans-serif;
-         padding:0;
-         margin: 0;
-       }
-       .button{
-         display: inline-block;
-         font-family:'Times New Roman',Helvetica,Arial,sans-serif;
-         font-size:18px;
-         background-color: #000000;
-         color:#ffffff;
-         padding:10px;
-         text-decoration: none;
-         width:100px;
-         margin: 2px 2px;
-       }
-       .conditions{
-         line-height: 16px;
-         margin: 0 0 10px 0;
-         font-size:12px;
-         color:#000000;
-       }
-       .center{
-         text-align: center !important;
-       }
-       .grey{
-         color:#898989;
-         font-family:'Times New Roman',Helvetica,Arial,sans-serif;
-       }
-       .italic{
-         font-style:italic;
-       }
-       .underline{
-         font-style:underline;
-       }
-       .bold{
-         font-weight:bold;
-       }
-       .grey_box {
-         text-align:center;
-         border: 1px solid #d6d4d4;
-         border-radius: 5px;
-         padding: 25px 50px;
-         margin:0 0 25px 0;
-       }
+      .header-link {
+        text-decoration: none !important;
+        line-height: 10px;
+        padding: 0;
+        text-align: center;
+        font-size: 16px;
+        color: #000000 !important;
+        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+      }
 
-       .social-icon{
-         width:25px;
-         padding: 0;
-       }
+      .header-banner {
+        border: none;
+        margin: 15px 0;
+      }
 
-       @media all and (min-width: 480px) {
-          .message_wrapper {
-            padding: 25px 25px;
-          }
-          .button{
-            width:40%;
-          }
-          .conditions{
-            padding: 15px 0 10px 0;
-          }
+      .link {
+        color: #000000 !important;
+        text-decoration: underline !important;
+      }
+
+      h1 {
+        line-height: 60px;
+        margin: 10px 0;
+        font-size: 35px;
+        color: #000000;
+        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+        font-weight: bold;
+      }
+
+      h2 {
+        line-height: 20px;
+        color: #000000;
+        font-size: 25px;
+        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+
+      .text {
+        color: #000000;
+        font-size: 18px;
+        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+
+      .button {
+        display: inline-block;
+        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        background-color: #000000;
+        color: #ffffff;
+        padding: 10px;
+        text-decoration: none;
+        width: 100px;
+        margin: 2px 2px;
+      }
+
+      .conditions {
+        line-height: 16px;
+        margin: 0 0 10px 0;
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .center {
+        text-align: center !important;
+      }
+
+      .grey {
+        color: #898989;
+        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+      }
+
+      .italic {
+        font-mj-style: italic;
+      }
+
+      .underline {
+        font-mj-style: underline;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .grey_box {
+        text-align: center;
+        border: 1px solid #d6d4d4;
+        border-radius: 5px;
+        padding: 25px 50px;
+        margin: 0 0 25px 0;
+      }
+
+      .social-icon {
+        width: 25px;
+        padding: 0;
+      }
+
+      @media all and (min-width: 480px) {
+        .message_wrapper {
+          padding: 25px 25px;
         }
-     </mj-style>
-   </mj-head>
+
+        .button {
+          width: 40%;
+        }
+
+        .conditions {
+          padding: 15px 0 10px 0;
+        }
+      }
+    </mj-style>
+  </mj-head>
   <mj-body>
     <mj-container>
       <mj-section padding-bottom="0">
         <mj-column>
-          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" href="https://www.black-detail.com" src="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" src="https://res.cloudinary.com/blackdetail/image/upload/v1538427226/Util/home_mail.jpg" title="Home Banner Black Detail" width="280px"></mj-image>
           <mj-text align="center" padding-bottom="0">
-            <a class="header-link" href="https://www.black-detail.com/" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">PORTFOLIO</font></span></a>
+            <a class="header-link" href="https://www.black-detail.com/" style="color:#000; text-decoration:none;"><span style="color:#000;">
+                <font color="#000">PORTFOLIO</font>
+              </span></a>
             <span>&nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; </span>
-            <a class="header-link" href="https://www.black-detail.com/contact" style="color:#000; text-decoration:none;"><span style="color:#000;"><font color="#000">CONTACT</font></span></a>
+            <a class="header-link" href="https://www.black-detail.com/contact" style="color:#000; text-decoration:none;"><span style="color:#000;">
+                <font color="#000">CONTACT</font>
+              </span></a>
           </mj-text>
-        </mj-column>
-      </mj-section>
-      <mj-section >
-        <mj-column>
-          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" href="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg" title="Header Banner Black Detail" width="780px"></mj-image>
         </mj-column>
       </mj-section>
       <mj-section>
         <mj-column>
-          <mj-text align="center" padding-bottom="5px" padding-top="25px" >
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" src="https://res.cloudinary.com/blackdetail/image/upload/v1538954836/Util/mail_banner.jpg" title="Header Banner Black Detail" width="780px"></mj-image>
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        <mj-column>
+          <mj-text align="center" padding-bottom="5px" padding-top="25px">
             <h1 class="center">Message sent</h1>
           </mj-text>
           <mj-text padding-left="20px" padding-right="20px">
@@ -143,28 +162,34 @@
 
         </mj-column>
       </mj-section>
-      <mj-section padding-bottom="0">
+      <mj-section padding-bottom="0px" padding-top="20px">
         <mj-column>
-            <mj-text align="center">
-              <a class="button" href="https://www.black-detail.com/architecture" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">ARCHITECTURE</font></span></a>
-              <a class="button" href="https://www.black-detail.com" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">FINE ART NUDE</font></span></a>
-              <a class="button" href="https://www.black-detail.com/portrait" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;"><font color="#ffffff">PORTRAIT</font></span></a>
-            </mj-text>
-            <mj-divider border-width="1px" padding-bottom="0" padding-top="30" border-style="solid" border-color="lightgrey" />
+          <mj-text align="center">
+            <a class="button" href="https://www.black-detail.com/architecture" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;">
+                <font color="#ffffff">URBAN</font>
+              </span></a>
+            <a class="button" href="https://www.black-detail.com" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;">
+                <font color="#ffffff">EROTIC</font>
+              </span></a>
+            <a class="button" href="https://www.black-detail.com/portrait" style="color:#ffffff; text-decoration:none;"><span style="color:#ffffff;">
+                <font color="#ffffff">PORTRAIT</font>
+              </span></a>
+          </mj-text>
+          <mj-divider border-width="1px" padding-bottom="0" padding-top="30px" border-style="solid" border-color="lightgrey" />
         </mj-column>
       </mj-section>
-      <mj-section background-color="#f8f8f8" padding-top="0" >
+      <mj-section background-color="#f8f8f8" padding-top="0">
         <mj-column>
-          <mj-text align="center" padding-top="20" padding-bottom="15">
-            <a class="center" href="https://www.instagram.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589598/instagram-logo_ninrnz.png"/></a>
+          <mj-text align="center" padding-top="20px" padding-bottom="15px">
+            <a class="center" href="https://www.instagram.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589598/instagram-logo_ninrnz.png" /></a>
             <span>&nbsp; &nbsp;</span>
-            <a class="center" href="https://www.facebook.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589593/fb-logo_o5b5kd.png"/></a>
+            <a class="center" href="https://www.facebook.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589593/fb-logo_o5b5kd.png" /></a>
             <span>&nbsp; &nbsp;</span>
-            <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521648019/eyeem-logo_qzznzc.png"/></a>
+            <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521648019/eyeem-logo_qzznzc.png" /></a>
           </mj-text>
           <mj-text padding-left="25" padding-right="25" padding-bottom="15">
             <p class="conditions center">© Black Detail 2018. Berlin - Paris.<br>Visit <a class="link" href="http://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
-            <br>By sending a message, you have been automatically added to the mailing list. You will get notified about new posts and products available on Black Detail. <a class="link" href="{{ notifications_url }}">Unsubscribe</a></p>
+              <br>By sending a message, you have been automatically added to the mailing list. You will get notified about new posts and products available on Black Detail. <a class="link" href="{{ notifications_url }}">Unsubscribe</a></p>
           </mj-text>
         </mj-column>
       </mj-section>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Client from '../Client';
@@ -14,6 +13,7 @@ import NewPhoto from './NewPhoto';
 // import WebNotifications from './NotificationWeb';
 // eslint-disable-next-line
 import { getCategoryAlias } from '../Utils';
+import { FormLabel } from '@material-ui/core';
 
 const muiBlack = createMuiTheme({
   palette: {
@@ -60,7 +60,6 @@ class UploadPhoto extends Component {
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
         .then(response => {
-          console.log(response);
           const data = response.data;
           const fileURL = data.secure_url;
           filesURL.push(fileURL);
@@ -74,12 +73,12 @@ class UploadPhoto extends Component {
         endUpload: true,
         progress: 100,
         notification_data: {},
-        //showNotification: false
+        showNotification: false,
       });
     });
   };
 
-  initState = (src, index) => {
+  initState(src, index) {
     const data = this.state.data;
     data.push({
       src: src,
@@ -90,9 +89,9 @@ class UploadPhoto extends Component {
       is_visible: 1,
     });
     this.setState({ data: data });
-  };
+  }
 
-  setInputState = (event, name, index) => {
+  setInputState = (name, index) => event => {
     const data = this.state.data;
     const input = data[index];
     input[name] = event.target.value;
@@ -100,10 +99,10 @@ class UploadPhoto extends Component {
     this.setState({ data: data });
   };
 
-  setSelectState = (name, value, index) => {
+  setSelectState = (index, event) => {
     const data = this.state.data;
     const input = data[index];
-    input[name] = value;
+    input[event.target.name] = event.target.value;
     data.slice(index, 0, input);
     this.setState({ data: data });
   };
@@ -115,13 +114,11 @@ class UploadPhoto extends Component {
     });
   };
 
-  handleCheckboxChange = (event, name) => {
-    console.log(event, name);
+  handleCheckboxChange = name => event => {
     this.setState({ [name]: event.target.checked });
   };
 
   handleSubmit = event => {
-    console.log('submit');
     event.preventDefault();
     Client.postImage(this.state.data).then(response => {
       this.setState({
@@ -152,21 +149,21 @@ class UploadPhoto extends Component {
   };
 
   render() {
-    const { uploadedFilesUrl, endUpload, loading } = this.state;
+    const { uploadedFilesUrl, endUpload, loading, data } = this.state;
     const { categories } = this.props;
-    //let showNotification = this.state.showNotification;
 
     const newPhotos = uploadedFilesUrl.map((url, key) => {
       const index = key;
+
       return (
         <NewPhoto
-          key={key}
+          key={index}
+          src={url}
           index={index}
-          url={url}
-          data={this.state.data}
-          setInputState={this.setInputState}
-          setSelectState={this.setSelectState}
-          initState={this.initState}
+          data={data[index]}
+          setInputState={this.setInputState.bind(this)}
+          setSelectState={this.setSelectState.bind(this)}
+          initState={this.initState.bind(this)}
           categories={categories}
         />
       );
@@ -178,11 +175,12 @@ class UploadPhoto extends Component {
           <div>
             <form onSubmit={this.handleSubmit}>
               <MuiThemeProvider theme={muiBlack}>
+                <FormLabel component="legend">Send newsletter</FormLabel>
                 <Checkbox
                   checked={this.state.sendNewsletter}
-                  onChange={e => this.handleCheckboxChange(e, 'sendNewsletter')}
-                  label="Send newsletter"
+                  onChange={this.handleCheckboxChange('sendNewsletter')}
                   className="admin__upload__checkbox"
+                  value="sendNewsletter"
                 />
               </MuiThemeProvider>
               {newPhotos}
@@ -198,7 +196,7 @@ class UploadPhoto extends Component {
             </form>
           </div>
         ) : (
-          <div className="admin__upload__wrapper">
+          <div className="admin__upload-wrapper">
             <Dropzone
               multiple
               accept="image/*"
@@ -249,4 +247,4 @@ UploadPhoto.propTypes = {
   newPhotos: PropTypes.element,
 };
 
-export default withRouter(UploadPhoto);
+export default UploadPhoto;

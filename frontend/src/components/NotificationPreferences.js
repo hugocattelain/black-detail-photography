@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import React, { Component } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
-import Paper from "@material-ui/core/Paper";
-import Client from "../Client";
-import { withRouter } from "react-router";
+import Paper from '@material-ui/core/Paper';
+import Client from '../Client';
+import { withRouter } from 'react-router-dom';
 
-import "../styles/content.css";
-import { FormControlLabel } from "@material-ui/core";
+import '../styles/content.css';
+import { FormControlLabel } from '@material-ui/core';
 
 const muiBlack = createMuiTheme({
   palette: {
     primary: {
-      main: "#212121"
+      main: '#212121',
     },
     secondary: {
-      main: "#616161"
-    }
-  }
+      main: '#616161',
+    },
+  },
 });
 
 class NotificationPreferences extends Component {
@@ -29,7 +29,7 @@ class NotificationPreferences extends Component {
     email: this.props.match.params.email,
     subscriptionType: this.props.match.params.subscriptionType,
     loading: false,
-    status: "todo"
+    status: 'todo',
   };
 
   setInputState = event => {
@@ -44,14 +44,14 @@ class NotificationPreferences extends Component {
     Client.updateEmail(email, pref)
       .then(res => {
         this.setState({
-          status: "done",
-          loading: false
+          status: 'done',
+          loading: false,
         });
       })
       .catch(err => {
         this.setState({
-          status: "todo",
-          loading: false
+          status: 'todo',
+          loading: false,
         });
       });
   };
@@ -59,7 +59,7 @@ class NotificationPreferences extends Component {
     const { subscriptionType, status, loading } = this.state;
     return (
       <div className="container preferences">
-        {status === "todo" ? (
+        {status === 'todo' ? (
           <MuiThemeProvider theme={muiBlack}>
             <Paper
               elevation={3}
@@ -139,7 +139,7 @@ class NotificationPreferences extends Component {
                   <Button
                     variant="contained"
                     onClick={e => {
-                      this.props.history.push("/");
+                      this.props.history.push('/');
                     }}
                     className="preferences__button"
                   >

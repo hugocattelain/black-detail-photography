@@ -1,19 +1,28 @@
 require('dotenv').config();
-var express = require('express');
-var bodyParser = require('body-parser');
-var mysql = require('mysql');
-var moment = require('moment');
-var nodemailer = require('nodemailer');
-var Client = require('./frontend/src/Client.js');
-var fs = require('fs');
-var mjmlToHtml = require('./emails/transformer/mjmlToHtml.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
+const mysql = require('mysql');
+const moment = require('moment');
+const nodemailer = require('nodemailer');
+const mjmlToHtml = require('./emails/transformer/mjmlToHtml.js');
 const path = require('path');
-const app = express();
-// const cors = require('cors');
+const morgan = require('morgan');
+const jwt = require('jwt-simple');
 
-// app.use(cors());
+const app = express();
+
+const ADMIN = process.env.ADMIN_USER;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const SECRET = process.env.ADMIN_SECRET;
+
+const PORT = process.env.PORT || 3001;
+
+app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -24,13 +33,43 @@ app.use(function(req, res, next) {
   next();
 });
 
-// const message_sent_html = fs.readFileSync(__dirname + "/emails/templates/message_sent.html", "utf8");
-// const newsletter_new_image = fs.readFileSync(__dirname + "/emails/templates/new_photo.mjml", "utf8");
-
-const PORT = process.env.PORT || 3001;
-
 // Express only serves static assets in production
 app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    if (username === ADMIN && password === ADMIN_PASSWORD) {
+      done(null, jwt.encode({ username }, SECRET));
+      return;
+    }
+    done(null, false);
+  })
+);
+
+passport.use(
+  new BearerStrategy((token, done) => {
+    try {
+      const { username } = jwt.decode(token, SECRET);
+      if (username === ADMIN) {
+        done(null, username);
+        return;
+      }
+      done(null, false);
+    } catch (error) {
+      done(null, false);
+    }
+  })
+);
+
+app.post(
+  '/api/login',
+  passport.authenticate('local', { session: false }),
+  (req, res) => {
+    res.send({
+      token: req.user,
+    });
+  }
+);
 
 var pool = mysql.createPool({
   connectionLimit: 100, //important
@@ -41,53 +80,57 @@ var pool = mysql.createPool({
   debug: false,
 });
 
-app.get('/api/photos', (req, res, next) => {
-  const param = req.query.category || 'portrait';
-  const exception = 'nsfw';
-  let values = [];
-  let instruction = '';
-  switch (param) {
-    case 'home':
-      instruction = `
+app.get(
+  '/api/photos',
+
+  (req, res, next) => {
+    const param = req.query.category || 'portrait';
+    const exception = 'nsfw';
+    let values = [];
+    let instruction = '';
+    switch (param) {
+      case 'home':
+        instruction = `
         select * from photos
         where is_visible=1
         and (tag_1 like ?
         or tag_2 like ?
         or tag_3 like ?)
         order by created_at desc`;
-      values = [exception, exception, exception];
-      break;
-    case 'all':
-      instruction = `select * from photos order by created_at desc`;
-      values = '';
-      break;
-    default:
-      instruction = `
+        values = [exception, exception, exception];
+        break;
+      case 'all':
+        instruction = `select * from photos order by created_at desc`;
+        values = '';
+        break;
+      default:
+        instruction = `
         select * from photos
         where (tag_1 like ?
         or tag_2 like ?
         or tag_3 like ?)
         and is_visible=1
         order by created_at desc`;
-      values = [param, param, param];
-      break;
-  }
-
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      res.json({ code: 100, status: 'Error in connection database' });
-      return;
+        values = [param, param, param];
+        break;
     }
 
-    connection.query(instruction, values, function(err, rows) {
-      connection.release();
-      if (!err) {
-        res.status(200).json(rows);
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        connection.release();
+        res.json({ code: 100, status: 'Error in connection database' });
+        return;
       }
+
+      connection.query(instruction, values, function(err, rows) {
+        connection.release();
+        if (!err) {
+          res.status(200).json(rows);
+        }
+      });
     });
-  });
-});
+  }
+);
 
 app.get('/api/photos/:category', (req, res, next) => {
   const category = req.params.category;
@@ -116,10 +159,12 @@ app.get('/api/photos/:category', (req, res, next) => {
   });
 });
 
-app.post('/api/photo', (req, res, next) => {
-  const { body } = req;
-  const data = req.body;
-  const instruction = `INSERT INTO photos (
+app.post(
+  '/api/photo',
+  passport.authenticate('bearer', { session: false }),
+  (req, res, next) => {
+    const data = req.body;
+    const instruction = `INSERT INTO photos (
     src,
     title,
     tag_1,
@@ -129,44 +174,48 @@ app.post('/api/photo', (req, res, next) => {
     is_visible
   ) VALUES ?`;
 
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      res.json({ code: 100, status: 'Error in connection database' });
-      return;
-    }
-
-    const values = data.map(item => {
-      if (!item.src || !item.tag_1 || !item.title || !item.is_visible) {
-        res.status(422).json({ error: 'Missing required field(s)' });
-      } else {
-        return [
-          item.src,
-          item.title,
-          item.tag_1,
-          item.tag_2,
-          item.tag_3,
-          moment().format('YYYY-MM-DD HH:mm:ss'),
-          item.is_visible,
-        ];
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        connection.release();
+        res.json({ code: 100, status: 'Error in connection database' });
+        return;
       }
-    });
 
-    connection.query(instruction, [values], function(err, result) {
-      connection.release();
-      if (!err) {
-        res.status(201).json(values[0]);
-      } else {
-        res.status(500).json(err);
-      }
-    });
-  });
-});
+      const values = data.map(item => {
+        if (!item.src || !item.tag_1 || !item.title || !item.is_visible) {
+          res.status(422).json({ error: 'Missing required field(s)' });
+        } else {
+          return [
+            item.src,
+            item.title,
+            item.tag_1,
+            item.tag_2,
+            item.tag_3,
+            moment().format('YYYY-MM-DD HH:mm:ss'),
+            item.is_visible,
+          ];
+        }
+      });
 
-app.put('/api/photos/:id', (req, res, next) => {
-  const id = req.params.id;
-  const data = req.body;
-  const instruction = `UPDATE photos
+      connection.query(instruction, [values], function(err, result) {
+        connection.release();
+        if (!err) {
+          res.status(201).json(values);
+        } else {
+          res.status(500).json(err);
+        }
+      });
+    });
+  }
+);
+
+app.put(
+  '/api/photos/:id',
+  passport.authenticate('bearer', { session: false }),
+  (req, res, next) => {
+    const id = req.params.id;
+    const data = req.body;
+    const instruction = `UPDATE photos
     SET tag_1 = ? ,
     tag_2 = ?,
     tag_3 = ?,
@@ -174,59 +223,64 @@ app.put('/api/photos/:id', (req, res, next) => {
     is_visible = ?
     WHERE id = ?;
     `;
-  const values = [
-    data.tag_1,
-    data.tag_2,
-    data.tag_3,
-    data.created_at,
-    data.is_visible,
-    id,
-  ];
+    const values = [
+      data.tag_1,
+      data.tag_2,
+      data.tag_3,
+      data.created_at,
+      data.is_visible,
+      id,
+    ];
 
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      res.json({ code: 100, status: 'Error in connection database' });
-      return;
-    }
-
-    connection.query(instruction, values, function(err, result) {
-      connection.release();
-      if (!err) {
-        res.status(201).json('Success');
-      } else {
-        res.status(500).json(err);
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        connection.release();
+        res.json({ code: 100, status: 'Error in connection database' });
+        return;
       }
-    });
-  });
-});
 
-app.put('/api/photos/:id/:visibility', (req, res, next) => {
-  const id = req.params.id;
-  const visibility = req.params.visibility;
-  const instruction = `UPDATE photos
+      connection.query(instruction, values, function(err, result) {
+        connection.release();
+        if (!err) {
+          res.status(201).json('Success');
+        } else {
+          res.status(500).json(err);
+        }
+      });
+    });
+  }
+);
+
+app.put(
+  '/api/photos/:id/:visibility',
+  passport.authenticate('bearer', { session: false }),
+  (req, res, next) => {
+    const id = req.params.id;
+    const visibility = req.params.visibility;
+    const instruction = `UPDATE photos
     SET is_visible = ?
     WHERE id = ?;
     `;
-  const values = [visibility, id];
+    const values = [visibility, id];
 
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      res.json({ code: 100, status: 'Error in connection database' });
-      return;
-    }
-
-    connection.query(instruction, values, function(err, result) {
-      connection.release();
-      if (!err) {
-        res.status(201).json('Success');
-      } else {
-        res.status(500).json(err);
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        connection.release();
+        res.json({ code: 100, status: 'Error in connection database' });
+        return;
       }
+
+      connection.query(instruction, values, function(err, result) {
+        connection.release();
+        if (!err) {
+          res.status(201).json('Success');
+        } else {
+          res.status(500).json(err);
+        }
+      });
     });
-  });
-});
+  }
+);
 
 app.post('/api/contact', function(req, res) {
   const data = req.body;
@@ -271,29 +325,29 @@ app.post('/api/contact', function(req, res) {
   transporter.close();
 });
 
-app.post('/api/newsletter', function(req, res, next) {
-  const data = req.body;
-  const emails = data.emails;
-  const images = data.images;
-  for (let image of images) {
-    image.src = image.src.replace('upload', 'upload/t_web_large');
+app.post(
+  '/api/newsletter',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res, next) {
+    const data = req.body;
+    const emails = data.emails;
+    const images = data.images;
+
+    let transporter = nodemailer.createTransport({
+      host: process.env.MAILER_SERVER,
+      port: process.env.MAILER_PORT,
+      secure: false,
+      auth: {
+        user: process.env.MAILER_NAME,
+        pass: process.env.MAILER_PASSWORD,
+      },
+    });
+    sendEmails(transporter, emails, images);
+
+    transporter.close();
+    res.status(200).json('Success');
   }
-
-  let errorCount = 0;
-  let transporter = nodemailer.createTransport({
-    host: process.env.MAILER_SERVER,
-    port: process.env.MAILER_PORT,
-    secure: false,
-    auth: {
-      user: process.env.MAILER_NAME,
-      pass: process.env.MAILER_PASSWORD,
-    },
-  });
-  sendEmails(transporter, emails, images);
-
-  transporter.close();
-  res.status(200).json('Success');
-});
+);
 
 async function sendEmails(transporter, emails, images) {
   for (const email of emails) {
@@ -324,24 +378,28 @@ async function sendEmail(transporter, message) {
   });
 }
 
-app.get('/api/emails', (req, res, next) => {
-  let instruction = 'select * from emails';
+app.get(
+  '/api/emails',
+  passport.authenticate('bearer', { session: false }),
+  (req, res, next) => {
+    let instruction = 'select * from emails';
 
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      res.json({ code: 100, status: 'Error in connection database' });
-      return;
-    }
-
-    connection.query(instruction, (err, response) => {
-      connection.release();
-      if (!err) {
-        res.json(response);
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        connection.release();
+        res.json({ code: 100, status: 'Error in connection database' });
+        return;
       }
+
+      connection.query(instruction, (err, response) => {
+        connection.release();
+        if (!err) {
+          res.json(response);
+        }
+      });
     });
-  });
-});
+  }
+);
 
 app.get('/api/emails/:email', (req, res, next) => {
   let values = req.params.email;
@@ -383,6 +441,7 @@ app.post('/api/emails', (req, res, next) => {
       if (!err) {
         res.status(201).json('Success');
       } else {
+        console.log(err);
         res.status(500).json(err);
       }
     });

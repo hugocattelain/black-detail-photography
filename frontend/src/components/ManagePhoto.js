@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -18,7 +18,7 @@ import findIndex from 'lodash/findIndex';
 import $ from 'jquery';
 
 import Client from '../Client';
-import { InputLabel } from '@material-ui/core';
+import { InputLabel, FormControl } from '@material-ui/core';
 
 const param = 'all';
 const muiBlack = createMuiTheme({
@@ -36,7 +36,7 @@ class ManagePhoto extends Component {
   state = {
     images: [],
     imageToEdit: null,
-    /*categories: [],*/
+    filter: '',
     snackbarIsOpen: false,
     message: '',
     colCount: 4,
@@ -84,12 +84,15 @@ class ManagePhoto extends Component {
     });
   };
 
+  updateFilter = event => {
+    this.setState({ filter: event.target.value });
+  };
+
   updateCategory = event => {
     const imageToEdit = this.state.imageToEdit;
     imageToEdit[event.target.name] = event.target.value;
     Client.updateImage(imageToEdit, () => {
       Client.getAllImages(param, images => {
-        images = images.reverse();
         this.setState({
           images: images,
         });
@@ -197,7 +200,7 @@ class ManagePhoto extends Component {
       });
   };
 
-  toggleDetailView = image => {
+  toggleDetailView = image => event => {
     const images = this.state.images;
     images.forEach(image => (image.edit = false));
     let index = this.getImageIndex(images, image);
@@ -225,9 +228,15 @@ class ManagePhoto extends Component {
     return false;
   };
 
+  handleSnackbarClose = () => {
+    this.setState({ snackbarIsOpen: false });
+  };
+
   render() {
-    const { images, colCount } = this.state;
+    const { images, colCount, filter } = this.state;
     const categories = this.props.categories;
+    const filteredImages =
+      filter === '' ? images : images.filter(image => image.tag_1 === filter);
 
     return (
       <div>
@@ -305,27 +314,44 @@ class ManagePhoto extends Component {
             })
           }
           </List> */}
-
+          <FormControl style={{ display: 'flex' }}>
+            <InputLabel htmlFor="filter">Filter category</InputLabel>
+            <Select
+              value={filter}
+              onChange={this.updateFilter}
+              inputProps={{
+                name: 'filter',
+                id: 'filter',
+              }}
+            >
+              {categories.map((item, key) => {
+                return (
+                  <MenuItem key={key} value={item.tag}>
+                    {item.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
           <GridList cellHeight={180} cols={colCount}>
-            {images.map((image, key) => (
+            {filteredImages.map((image, key) => (
               <GridListTile key={key}>
                 {!image.edit === true ? (
                   <span>
-                    {/* <img src={image.src} alt="Manage photos" />
-                 */}
                     <div
                       className="grid-view__image"
                       style={{
-                        backgroundImage: `url(${image.src})`,
+                        backgroundImage: `url(${image.src.replace(
+                          'upload',
+                          'upload/t_web_small'
+                        )})`,
                       }}
                     />
                     <GridListTileBar
-                      title="title"
-                      subtitle={<span>subtitle {image.edit}</span>}
                       actionIcon={
                         <IconButton
                           className="icon"
-                          onClick={this.toggleDetailView.bind(this, image)}
+                          onClick={this.toggleDetailView(image)}
                         >
                           <i className="material-icons edit-icon">edit</i>
                         </IconButton>
@@ -340,75 +366,83 @@ class ManagePhoto extends Component {
                     >
                       clear
                     </i>
-
-                    <InputLabel htmlFor="category_1">Category 1</InputLabel>
-                    <Select
-                      value={image.tag_1}
-                      onChange={this.updateCategory}
-                      inputProps={{
-                        name: 'tag_1',
-                        id: 'category_1',
-                        image: image,
-                      }}
-                    >
-                      {categories.map((item, key) => {
-                        return (
-                          <MenuItem key={key} value={item.tag}>
-                            {item.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-
-                    <InputLabel htmlFor="category_2">Category 2</InputLabel>
-                    <Select
-                      value={image.tag_2}
-                      onChange={this.updateCategory}
-                      inputProps={{
-                        name: 'tag_2',
-                        id: 'category_2',
-                        image: image,
-                      }}
-                    >
-                      {categories.map((item, key) => {
-                        return (
-                          <MenuItem key={key} value={item.tag}>
-                            {item.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-
-                    <InputLabel htmlFor="category_3">Category 3</InputLabel>
-                    <Select
-                      value={image.tag_3}
-                      onChange={this.updateCategory}
-                      inputProps={{
-                        name: 'tag_3',
-                        id: 'category_3',
-                        image: image,
-                      }}
-                    >
-                      {categories.map((item, key) => {
-                        return (
-                          <MenuItem key={key} value={item.tag}>
-                            {item.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-
-                    <IconButton
-                      className="admin__manage__list__item__button"
-                      onClick={this.handleOpenModal}
-                    >
-                      <i
-                        className="material-icons"
-                        onClick={() => {
-                          this.deleteOrRestore(image.id, image.is_visible);
+                    <FormControl style={{ display: 'flex' }}>
+                      <InputLabel htmlFor="category_1">Category 1</InputLabel>
+                      <Select
+                        value={image.tag_1}
+                        onChange={this.updateCategory}
+                        inputProps={{
+                          name: 'tag_1',
+                          id: 'category_1',
+                          image: image,
                         }}
                       >
+                        {categories.map((item, key) => {
+                          return (
+                            <MenuItem key={key} value={item.tag}>
+                              {item.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                    <FormControl style={{ display: 'flex' }}>
+                      <InputLabel htmlFor="category_2">Category 2</InputLabel>
+                      <Select
+                        value={image.tag_2}
+                        onChange={this.updateCategory}
+                        inputProps={{
+                          name: 'tag_2',
+                          id: 'category_2',
+                          image: image,
+                        }}
+                      >
+                        {categories.map((item, key) => {
+                          return (
+                            <MenuItem key={key} value={item.tag}>
+                              {item.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                    <FormControl style={{ display: 'flex' }}>
+                      <InputLabel htmlFor="category_3">Category 3</InputLabel>
+                      <Select
+                        value={image.tag_3}
+                        onChange={this.updateCategory}
+                        inputProps={{
+                          name: 'tag_3',
+                          id: 'category_3',
+                          image: image,
+                        }}
+                      >
+                        {categories.map((item, key) => {
+                          return (
+                            <MenuItem key={key} value={item.tag}>
+                              {item.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                    <IconButton
+                      className="admin__manage__list__item__button"
+                      onClick={() => {
+                        this.deleteOrRestore(image.id, image.is_visible);
+                      }}
+                    >
+                      <i className="material-icons">
                         {image.is_visible === 0 ? 'restore' : 'delete'}
+                      </i>
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        this.sendNotification(image);
+                      }}
+                    >
+                      <i className="shake shake-rorate material-icons">
+                        notifications
                       </i>
                     </IconButton>
                   </div>

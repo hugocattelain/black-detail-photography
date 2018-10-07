@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
-import $ from "jquery";
-import HttpsRedirect from "react-https-redirect";
+import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import $ from 'jquery';
+import HttpsRedirect from 'react-https-redirect';
 
-import NotificationPreferences from "./NotificationPreferences";
-import Admin from "./Admin";
-import Masonry from "./MasonryWall";
-import Contact from "./Contact";
-import { copyToClipboard } from "../Utils";
-import "../styles/content.css";
+import NotificationPreferences from './NotificationPreferences';
+import Admin from './Admin';
+import Masonry from './MasonryWall';
+import Contact from './Contact';
+import { copyToClipboard } from '../Utils';
+import '../styles/content.css';
 
 class Content extends Component {
   componentDidMount = () => {
-    $(window).on("keyup", function(e) {
+    $(window).on('keyup', function(e) {
       if (e.keyCode == 44) {
         copyToClipboard();
       }
