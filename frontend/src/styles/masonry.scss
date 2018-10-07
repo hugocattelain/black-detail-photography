@@ -1,42 +1,53 @@
 @import 'global/constant.scss';
 
-
-.lazyload,
-.lazyloading {
-  //filter: blur(4px);
-}
-
 .lazyloaded {
-  transition: .5s -webkit-filter ease-in-out;
+  transition: 0.5s -webkit-filter ease-in-out;
 }
 
-.cookieConsent{
-  @media #{$s}{
-    display: grid !important;
-  }
-}
-
-// -------------------------
 .masonry-layout {
   list-style-type: none;
   column-count: 3;
   column-gap: 0;
   padding: 0;
 
-  @media #{$s}{
+  @media #{$s} {
     column-count: 2;
   }
 }
 .masonry-layout__panel {
   break-inside: avoid;
   padding: 5px;
-  cursor:pointer;
-  &:hover{
-    opacity: .95;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.95;
   }
 }
 .masonry-layout__panel-content {
   width: 100%;
   overflow: hidden;
 }
-//-----------------------------
+
+.diaporama-icon {
+  cursor: pointer;
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  color: black;
+  z-index: 99999;
+  font-size: 30px;
+
+  &--white {
+    color: white;
+  }
+
+  @media #{$s} {
+    background-color: white;
+    border-radius: 3px;
+    opacity: 0.65;
+    right: 40px;
+  }
+
+  @media #{$xs} {
+    right: 30px;
+  }
+}

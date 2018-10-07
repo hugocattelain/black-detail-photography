@@ -1,51 +1,87 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
+import { Fade } from 'react-slideshow-image';
+import '../styles/diaporama.css';
+
+const fadeProperties = {
+  duration: 5000,
+  transitionDuration: 500,
+  infinite: true,
+  indicators: false,
+};
 
 class Diaporama extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      images:[],
+      fadeImages: [],
     };
   }
-  componentDidMount(){
-    let images = this.props.images;
 
-    images = this.shuffle(images);
-    this.setState({images: images});
+  componentDidMount() {
+    let images = this.shuffle(this.props.images);
+    images = images.map(img => img.src);
+    this.setState({ fadeImages: images });
+    this.openFullscreen();
   }
 
-  shouldComponentUpdate(nextProps, nextState){
+  componentWillUnmount = () => {
+    $('body').removeClass('no-overflow');
+  };
 
-    if(this.props.images !== nextProps.images){
-      let images = nextProps.images;
-      images = this.shuffle(images);
-      this.setState({images: images});
-      return false;
+  openFullscreen = () => {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      /* Chrome, Safari & Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      /* IE/Edge */
+      elem.msRequestFullscreen();
     }
-    else{
-      return true;
-    }
-  }
+    $('body').addClass('no-overflow');
+  };
 
   shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
     while (0 !== currentIndex) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
+    }
+    return array;
   }
-  return array;
-}
 
   render() {
-    //const images = this.state.images;
+    const { fadeImages } = this.state;
+    if (!fadeImages[0]) {
+      return null;
+    }
 
     return (
-      <div> </div>
+      <div className="diaporama__container">
+        <Fade {...fadeProperties}>
+          {fadeImages.map(image => (
+            <div className="each-fade">
+              <div className="image-container">
+                <div
+                  className="image-item"
+                  style={{ backgroundImage: `url(${image})` }}
+                />
+              </div>
+            </div>
+          ))}
+        </Fade>
+      </div>
     );
   }
 }

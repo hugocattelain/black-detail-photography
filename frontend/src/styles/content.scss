@@ -2,34 +2,32 @@
 @import 'contact.scss';
 @import 'notification_preferences.scss';
 
-.container{
+.container {
   text-align: center;
-  padding: 80px 40px 0 310px;
+  padding: 80px 50px 0 310px;
   margin: 0;
-  width:100%;
+  width: 100%;
   height: 100%;
 
-  .row{
+  .row {
     margin: 0;
-    padding:0;
+    padding: 0;
   }
 
-  @media #{$s}{
-    padding:80px 20px 0 20px;
+  @media #{$s} {
+    padding: 80px 20px 0 20px;
   }
 
-  @media #{$xs}{
-    padding:80px 10px 0 10px;
+  @media #{$xs} {
+    padding: 80px 10px 0 10px;
   }
 }
 
-
-
-.github-link__logo{
+.github-link__logo {
   position: absolute;
   bottom: 15px;
   right: 15px;
-  background: url(../images/github.png) 50% 50% /contain;
+  background: url(../images/github.png) 50% 50% / contain;
   background-repeat: no-repeat;
   width: 30px;
   height: 30px;

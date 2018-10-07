@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LB from 'lightbox-react';
 import findIndex from 'lodash/findIndex';

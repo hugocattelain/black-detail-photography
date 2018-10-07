@@ -1,34 +1,56 @@
-var mjml2html = require('mjml');
-var Utils = require('../../frontend/src/Utils.js');
+const path = require('path');
+const mjml2html = require('mjml');
+const Utils = require('../../frontend/src/Utils.js');
 const fs = require('fs');
-//var mjml_image = require('./emails/components/new_photo.mjml')
 
-exports.fillNewsLetter = function (email, images){
-  let newsletter_mjml = fs.readFileSync(__dirname + "/../templates/new_photo.mjml", "utf8");
-  const mjml_image = fs.readFileSync(__dirname + "/../components/mjml_image.mjml", "utf8");
-  var imageList=[];
-  let final_file="";
-  const notifications_url= 'https://www.black-detail.com/notifications/' + email.email + '/' + email.subscription_type;
-  newsletter_mjml = newsletter_mjml.replace('{{ notifications_url }}', notifications_url);
-  for(let image of images){
-    var url = "https://www.black-detail.com/" + Utils.getCategoryAlias(image.tag_1);
-    if (image.id && image.id !== undefined){
-      url = url + "&" + image.id;
+exports.fillNewsLetter = (email, images) => {
+  let newsletterMjml = fs.readFileSync(
+    path.join(__dirname, '../templates/new_photo.mjml'),
+    'utf8'
+  );
+  const mjmlImage = fs.readFileSync(
+    path.join(__dirname, '../components/mjml_image.mjml'),
+    'utf8'
+  );
+  const imageList = [];
+  const notificationsUrl =
+    'https://www.black-detail.com/notifications/' +
+    email.email +
+    '/' +
+    email.subscription_type;
+  newsletterMjml = newsletterMjml.replace(
+    '{{ notifications_url }}',
+    notificationsUrl
+  );
+  for (const image of images) {
+    let url =
+      'https://www.black-detail.com/' + Utils.getCategoryAlias(image.tag_1);
+    if (image.id && image.id !== undefined) {
+      url = url + '&' + image.id;
     }
-    var singleImage = mjml_image.replace("{{ image_src }}", image.src.replace('upload','upload/t_web_small'));
-    singleImage = singleImage.replace("{{ image_url }}", url);
+    let singleImage = mjmlImage.replace('{{ image_src }}', image.src);
+    singleImage = singleImage.replace('{{ image_url }}', url);
     imageList.push(singleImage);
   }
 
-  newsletter_html = mjml2html(newsletter_mjml.replace("{{ image_list }}", imageList.join(" ")));
-  return newsletter_html.html;
-}
+  const newsletterHtml = mjml2html(
+    newsletterMjml.replace('{{ image_list }}', imageList.join(' '))
+  );
+  return newsletterHtml.html;
+};
 
-exports.fillMessageSent = function (data){
-  let message_sent_mjml = fs.readFileSync(__dirname + "/../templates/message_sent.mjml", "utf8");
-  const notifications_url= 'https://www.black-detail.com/notifications/' + data.from + '/1';
-  message_sent_mjml = message_sent_mjml.replace('{{ message }}', data.text);
-  message_sent_mjml = message_sent_mjml.replace('{{ notifications_url }}', notifications_url);
-  const message_sent_html = mjml2html(message_sent_mjml);
-  return message_sent_html.html;
-}
+exports.fillMessageSent = data => {
+  let messageSentMjml = fs.readFileSync(
+    __dirname + '/../templates/message_sent.mjml',
+    'utf8'
+  );
+  const notificationsUrl =
+    'https://www.black-detail.com/notifications/' + data.from + '/1';
+  messageSentMjml = messageSentMjml.replace('{{ message }}', data.text);
+  messageSentMjml = messageSentMjml.replace(
+    '{{ notifications_url }}',
+    notificationsUrl
+  );
+  const messageSentHtml = mjml2html(messageSentMjml);
+  return messageSentHtml.html;
+};
