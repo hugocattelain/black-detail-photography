@@ -1,0 +1,48 @@
+@import '../../styles/constant.scss';
+
+.ril-toolbar {
+  background-color: transparent !important;
+  &-right {
+    padding: 0;
+  }
+}
+
+.ril-close {
+  background: url('../../images/cross-white.png') 50% 50% / contain !important;
+  background-repeat: no-repeat !important;
+  width: 25px;
+  width: 25px;
+  margin: 25px;
+}
+
+.ril-outer {
+  //background-color: transparent;
+}
+
+.ril-prev-button,
+.ril-next-button {
+  top: 50%;
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+  padding: 30px 30px;
+}
+
+.ril-prev-button {
+}
+
+.ril-next-button {
+}
+
+.ril-image-current {
+  max-height: 85% !important;
+  max-width: 70% !important;
+  outline: #fff solid 35px;
+  background-color: white;
+
+  @media #{$xs} {
+    max-height: 100% !important;
+    max-width: 85% !important;
+    outline: #fff solid 10px;
+  }
+}

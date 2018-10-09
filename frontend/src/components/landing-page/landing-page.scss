@@ -1,0 +1,69 @@
+@import '../../styles/constant.scss';
+
+.landing-page {
+  &__container {
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    text-align: center;
+    padding: 80px 40px 0 310px;
+    margin: 0;
+
+    @media #{$s} {
+      padding: 80px 0 0 0;
+    }
+  }
+
+  &__title {
+    opacity: 0;
+    font-size: 4rem;
+    color: #000;
+    text-transform: capitalize;
+    text-align: center;
+    margin-top: 12rem;
+
+    @media #{$xs} {
+      margin-top: 7rem;
+      font-size: 3rem;
+    }
+
+    &.faded {
+      opacity: 1;
+      transition: all 2s ease-in-out;
+      transform: translate3d(0, -30%, 0);
+    }
+  }
+
+  &__subtitle {
+    font-style: italic;
+    font-size: 3rem;
+    color: #242424;
+    text-align: center;
+    font-family: serif;
+    opacity: 0.9;
+    width: 45%;
+    margin: 0 auto;
+
+    @media #{$xs} {
+      width: 75%;
+      margin: 0 auto;
+      font-size: 2rem;
+    }
+  }
+
+  &__icon {
+    transform: rotateZ(90deg);
+    animation: blinker 2.5s linear infinite;
+    text-align: center;
+    width: 100%;
+    font-size: 4em !important;
+    cursor: pointer;
+    margin-top: 10rem;
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+}
