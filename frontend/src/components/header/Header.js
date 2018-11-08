@@ -33,22 +33,8 @@ class Header extends Component {
     ],
   };
 
-  componentWillMount = () => {
-    window.addEventListener('scroll', this.toggleHeader, false);
-    if (
-      window.localStorage.safeMode === 'true' &&
-      this.props.history.location.pathname === '/unsafe'
-    ) {
-      window.localStorage.safeMode = 'false';
-      this.props.history.push('/');
-    }
-    if (window.localStorage.safeMode === 'true') {
-      let safeLinkList = this.state.menuLinks.slice(1);
-      this.setState({ menuLinks: safeLinkList });
-    }
-  };
-
   componentDidMount = () => {
+    window.addEventListener('scroll', this.toggleHeader, false);
     if (
       $(window).width() > 768 &&
       this.props.history.location.pathname !== '/admin'
@@ -71,7 +57,20 @@ class Header extends Component {
     if ($(window).width() < 768) {
       this.setState({ menuIsOpen: false });
     }
+
+    if (
+      window.localStorage.safeMode === 'true' &&
+      this.props.history.location.pathname === '/unsafe'
+    ) {
+      window.localStorage.safeMode = 'false';
+      this.props.history.push('/');
+    }
+    if (window.localStorage.safeMode === 'true') {
+      let safeLinkList = this.state.menuLinks.slice(1);
+      this.setState({ menuLinks: safeLinkList });
+    }
   };
+
   componentWillUpdate = (nextProps, nextState) => {
     if (
       nextProps.history.location.pathname === '/' &&
