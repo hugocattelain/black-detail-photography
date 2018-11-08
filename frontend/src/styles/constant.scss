@@ -1,0 +1,97 @@
+@import '../../node_modules/csshake/scss/csshake';
+$xs: 'only screen and (max-width : 576px)';
+$s: 'only screen and (max-width : 768px)';
+$m: 'only screen and (max-width : 992px)';
+$l: 'only screen and (max-width : 1200px)';
+$xl: 'only screen and (min-width : 1200px)';
+
+$break-large: 992px;
+$break-medium: 768px;
+$break-small: 576px;
+
+$bdp-grey: #242424;
+$bdp-light-grey: #f2f2f2;
+
+$spacing: 16px;
+
+* {
+  //font-family: Georgia, serif;
+}
+body {
+  font-family: sans-serif;
+}
+
+*:focus {
+  outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  color: $bdp-grey !important;
+  font-family: Georgia, serif;
+}
+.global {
+  &__center {
+    margin-top: 50vh;
+    transform: translateY(-50%);
+  }
+  &__progress-bar {
+    margin-top: 50vh;
+    transform: translateY(-50%);
+
+    @media #{$s} {
+      margin-top: 20vh;
+      transform: translateY(-20%);
+    }
+  }
+
+  &__button {
+    margin: 15px 20px;
+  }
+
+  &__divider {
+    border-color: $bdp-grey;
+    @media #{$xs} {
+      margin-left: 5px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.no-overflow {
+  overflow: hidden;
+}
+
+.lightgrey {
+  color: $bdp-light-grey;
+  border-color: lightgrey;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}

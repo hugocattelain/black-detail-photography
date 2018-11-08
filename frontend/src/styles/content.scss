@@ -1,6 +1,6 @@
-@import 'global/constant.scss';
-@import 'contact.scss';
-@import 'notification_preferences.scss';
+@import './constant.scss';
+@import '../components/contact/contact.scss';
+@import '../components/email-preferences/email-preferences.scss';
 
 .container {
   text-align: center;

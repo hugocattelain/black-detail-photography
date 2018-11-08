@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import Header from './components/Header';
-import Content from './components/Content';
-import CookieConsent from './components/CookieConsent';
-import Maintenance from './components/Maintenance';
+import Header from './components/header/Header';
+import Router from './router';
+import CookieConsent from './components/cookie-consent/CookieConsent';
+import Maintenance from './components/maintenance/Maintenance';
 
-import './app.css';
+import './styles/app.css';
 
 class App extends Component {
   render() {
@@ -20,7 +20,7 @@ class App extends Component {
     ) : (
       <div className="App">
         <Header />
-        <Content />
+        <Router />
         <CookieConsent />
       </div>
     );

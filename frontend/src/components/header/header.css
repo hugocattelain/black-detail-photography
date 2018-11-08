@@ -1,0 +1,1967 @@
+/*! * * * * * * * * * * * * * * * * * * * *\  
+  CSShake :: Package
+  v1.5.0
+  CSS classes to move your DOM
+  (c) 2015 @elrumordelaluz
+  http://elrumordelaluz.github.io/csshake/
+  Licensed under MIT
+\* * * * * * * * * * * * * * * * * * * * */
+.shake, .shake-little, .shake-slow, .shake-hard, .shake-horizontal, .shake-vertical, .shake-rotate, .shake-opacity, .shake-crazy, .shake-chunk {
+  display: inherit;
+  transform-origin: center center; }
+
+.shake-freeze,
+.shake-constant.shake-constant--hover:hover,
+.shake-trigger:hover .shake-constant.shake-constant--hover {
+  animation-play-state: paused; }
+
+.shake-freeze:hover,
+.shake-trigger:hover .shake-freeze, .shake:hover,
+.shake-trigger:hover .shake, .shake-little:hover,
+.shake-trigger:hover .shake-little, .shake-slow:hover,
+.shake-trigger:hover .shake-slow, .shake-hard:hover,
+.shake-trigger:hover .shake-hard, .shake-horizontal:hover,
+.shake-trigger:hover .shake-horizontal, .shake-vertical:hover,
+.shake-trigger:hover .shake-vertical, .shake-rotate:hover,
+.shake-trigger:hover .shake-rotate, .shake-opacity:hover,
+.shake-trigger:hover .shake-opacity, .shake-crazy:hover,
+.shake-trigger:hover .shake-crazy, .shake-chunk:hover,
+.shake-trigger:hover .shake-chunk {
+  animation-play-state: running; }
+
+@keyframes shake {
+  2% {
+    transform: translate(2.5px, 2.5px) rotate(0.5deg); }
+  4% {
+    transform: translate(-0.5px, -1.5px) rotate(1.5deg); }
+  6% {
+    transform: translate(0.5px, 0.5px) rotate(1.5deg); }
+  8% {
+    transform: translate(-1.5px, -1.5px) rotate(-0.5deg); }
+  10% {
+    transform: translate(2.5px, 0.5px) rotate(1.5deg); }
+  12% {
+    transform: translate(-1.5px, 0.5px) rotate(1.5deg); }
+  14% {
+    transform: translate(1.5px, 1.5px) rotate(1.5deg); }
+  16% {
+    transform: translate(0.5px, -1.5px) rotate(0.5deg); }
+  18% {
+    transform: translate(-1.5px, -1.5px) rotate(0.5deg); }
+  20% {
+    transform: translate(0.5px, 2.5px) rotate(0.5deg); }
+  22% {
+    transform: translate(-0.5px, -0.5px) rotate(0.5deg); }
+  24% {
+    transform: translate(1.5px, 1.5px) rotate(0.5deg); }
+  26% {
+    transform: translate(-1.5px, -1.5px) rotate(0.5deg); }
+  28% {
+    transform: translate(0.5px, 2.5px) rotate(1.5deg); }
+  30% {
+    transform: translate(2.5px, 1.5px) rotate(1.5deg); }
+  32% {
+    transform: translate(0.5px, 1.5px) rotate(1.5deg); }
+  34% {
+    transform: translate(0.5px, 0.5px) rotate(-0.5deg); }
+  36% {
+    transform: translate(-1.5px, -1.5px) rotate(-0.5deg); }
+  38% {
+    transform: translate(2.5px, -0.5px) rotate(0.5deg); }
+  40% {
+    transform: translate(-1.5px, 0.5px) rotate(1.5deg); }
+  42% {
+    transform: translate(1.5px, -1.5px) rotate(-0.5deg); }
+  44% {
+    transform: translate(1.5px, -0.5px) rotate(1.5deg); }
+  46% {
+    transform: translate(-0.5px, -0.5px) rotate(-0.5deg); }
+  48% {
+    transform: translate(0.5px, 2.5px) rotate(0.5deg); }
+  50% {
+    transform: translate(-0.5px, -0.5px) rotate(1.5deg); }
+  52% {
+    transform: translate(-1.5px, -0.5px) rotate(0.5deg); }
+  54% {
+    transform: translate(-0.5px, -1.5px) rotate(0.5deg); }
+  56% {
+    transform: translate(-1.5px, 2.5px) rotate(-0.5deg); }
+  58% {
+    transform: translate(2.5px, -0.5px) rotate(-0.5deg); }
+  60% {
+    transform: translate(-0.5px, 0.5px) rotate(1.5deg); }
+  62% {
+    transform: translate(0.5px, 0.5px) rotate(0.5deg); }
+  64% {
+    transform: translate(2.5px, 1.5px) rotate(-0.5deg); }
+  66% {
+    transform: translate(2.5px, 1.5px) rotate(1.5deg); }
+  68% {
+    transform: translate(1.5px, 2.5px) rotate(-0.5deg); }
+  70% {
+    transform: translate(0.5px, -1.5px) rotate(0.5deg); }
+  72% {
+    transform: translate(2.5px, 0.5px) rotate(0.5deg); }
+  74% {
+    transform: translate(-1.5px, -0.5px) rotate(1.5deg); }
+  76% {
+    transform: translate(-1.5px, 1.5px) rotate(0.5deg); }
+  78% {
+    transform: translate(-1.5px, -1.5px) rotate(-0.5deg); }
+  80% {
+    transform: translate(2.5px, -0.5px) rotate(0.5deg); }
+  82% {
+    transform: translate(-0.5px, 1.5px) rotate(1.5deg); }
+  84% {
+    transform: translate(-0.5px, 2.5px) rotate(-0.5deg); }
+  86% {
+    transform: translate(1.5px, -0.5px) rotate(-0.5deg); }
+  88% {
+    transform: translate(-0.5px, 2.5px) rotate(0.5deg); }
+  90% {
+    transform: translate(1.5px, 1.5px) rotate(-0.5deg); }
+  92% {
+    transform: translate(1.5px, -0.5px) rotate(-0.5deg); }
+  94% {
+    transform: translate(1.5px, -1.5px) rotate(0.5deg); }
+  96% {
+    transform: translate(1.5px, 2.5px) rotate(-0.5deg); }
+  98% {
+    transform: translate(-0.5px, -0.5px) rotate(-0.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake:hover,
+.shake-trigger:hover .shake, .shake.shake-freeze, .shake.shake-constant {
+  animation-name: shake;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-little {
+  2% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  4% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  6% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  8% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  10% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  12% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  14% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  16% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  18% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  20% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  22% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  24% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  26% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  28% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  30% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  32% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  34% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  36% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  38% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  40% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  42% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  44% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  46% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  48% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  50% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  52% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  54% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  56% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  58% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  60% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  62% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  64% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  66% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  68% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  70% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  72% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  74% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  76% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  78% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  80% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  82% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  84% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  86% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  88% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  90% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  92% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  94% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  96% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  98% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-little:hover,
+.shake-trigger:hover .shake-little, .shake-little.shake-freeze, .shake-little.shake-constant {
+  animation-name: shake-little;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-slow {
+  2% {
+    transform: translate(-1px, 10px) rotate(3.5deg); }
+  4% {
+    transform: translate(-2px, -9px) rotate(2.5deg); }
+  6% {
+    transform: translate(-3px, 4px) rotate(-1.5deg); }
+  8% {
+    transform: translate(2px, -9px) rotate(0.5deg); }
+  10% {
+    transform: translate(7px, -4px) rotate(-1.5deg); }
+  12% {
+    transform: translate(-9px, 8px) rotate(1.5deg); }
+  14% {
+    transform: translate(10px, -6px) rotate(3.5deg); }
+  16% {
+    transform: translate(-1px, 4px) rotate(3.5deg); }
+  18% {
+    transform: translate(-1px, 1px) rotate(2.5deg); }
+  20% {
+    transform: translate(-9px, -5px) rotate(3.5deg); }
+  22% {
+    transform: translate(-8px, -7px) rotate(-0.5deg); }
+  24% {
+    transform: translate(9px, -5px) rotate(-0.5deg); }
+  26% {
+    transform: translate(9px, 6px) rotate(-0.5deg); }
+  28% {
+    transform: translate(3px, -7px) rotate(0.5deg); }
+  30% {
+    transform: translate(-6px, -1px) rotate(1.5deg); }
+  32% {
+    transform: translate(10px, 7px) rotate(1.5deg); }
+  34% {
+    transform: translate(-5px, -2px) rotate(1.5deg); }
+  36% {
+    transform: translate(-1px, -7px) rotate(1.5deg); }
+  38% {
+    transform: translate(3px, 0px) rotate(-2.5deg); }
+  40% {
+    transform: translate(3px, 3px) rotate(-1.5deg); }
+  42% {
+    transform: translate(-1px, 0px) rotate(0.5deg); }
+  44% {
+    transform: translate(-3px, 4px) rotate(0.5deg); }
+  46% {
+    transform: translate(6px, -9px) rotate(-1.5deg); }
+  48% {
+    transform: translate(9px, -8px) rotate(-0.5deg); }
+  50% {
+    transform: translate(6px, 6px) rotate(2.5deg); }
+  52% {
+    transform: translate(-4px, 5px) rotate(-1.5deg); }
+  54% {
+    transform: translate(5px, 10px) rotate(3.5deg); }
+  56% {
+    transform: translate(-5px, -1px) rotate(1.5deg); }
+  58% {
+    transform: translate(-5px, 9px) rotate(0.5deg); }
+  60% {
+    transform: translate(-1px, 2px) rotate(-2.5deg); }
+  62% {
+    transform: translate(3px, -3px) rotate(3.5deg); }
+  64% {
+    transform: translate(0px, 2px) rotate(3.5deg); }
+  66% {
+    transform: translate(10px, -1px) rotate(-1.5deg); }
+  68% {
+    transform: translate(-6px, 2px) rotate(-1.5deg); }
+  70% {
+    transform: translate(9px, -4px) rotate(-2.5deg); }
+  72% {
+    transform: translate(-7px, 4px) rotate(0.5deg); }
+  74% {
+    transform: translate(8px, -2px) rotate(2.5deg); }
+  76% {
+    transform: translate(1px, 6px) rotate(1.5deg); }
+  78% {
+    transform: translate(-7px, -8px) rotate(2.5deg); }
+  80% {
+    transform: translate(5px, -7px) rotate(-1.5deg); }
+  82% {
+    transform: translate(-1px, 2px) rotate(-0.5deg); }
+  84% {
+    transform: translate(-3px, 10px) rotate(-1.5deg); }
+  86% {
+    transform: translate(-7px, 0px) rotate(-1.5deg); }
+  88% {
+    transform: translate(-8px, 10px) rotate(3.5deg); }
+  90% {
+    transform: translate(-8px, -3px) rotate(-1.5deg); }
+  92% {
+    transform: translate(2px, 4px) rotate(2.5deg); }
+  94% {
+    transform: translate(-9px, 1px) rotate(-1.5deg); }
+  96% {
+    transform: translate(3px, 9px) rotate(-2.5deg); }
+  98% {
+    transform: translate(-9px, 2px) rotate(3.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-slow:hover,
+.shake-trigger:hover .shake-slow, .shake-slow.shake-freeze, .shake-slow.shake-constant {
+  animation-name: shake-slow;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-hard {
+  2% {
+    transform: translate(-9px, 10px) rotate(-2.5deg); }
+  4% {
+    transform: translate(6px, -3px) rotate(1.5deg); }
+  6% {
+    transform: translate(-6px, -9px) rotate(-1.5deg); }
+  8% {
+    transform: translate(-1px, 8px) rotate(2.5deg); }
+  10% {
+    transform: translate(9px, 1px) rotate(-1.5deg); }
+  12% {
+    transform: translate(8px, -8px) rotate(0.5deg); }
+  14% {
+    transform: translate(5px, 6px) rotate(2.5deg); }
+  16% {
+    transform: translate(-2px, 6px) rotate(-1.5deg); }
+  18% {
+    transform: translate(4px, -3px) rotate(-0.5deg); }
+  20% {
+    transform: translate(-4px, 7px) rotate(3.5deg); }
+  22% {
+    transform: translate(9px, 2px) rotate(0.5deg); }
+  24% {
+    transform: translate(8px, -2px) rotate(2.5deg); }
+  26% {
+    transform: translate(4px, 1px) rotate(2.5deg); }
+  28% {
+    transform: translate(-2px, 9px) rotate(3.5deg); }
+  30% {
+    transform: translate(3px, 2px) rotate(-2.5deg); }
+  32% {
+    transform: translate(-3px, 0px) rotate(-2.5deg); }
+  34% {
+    transform: translate(5px, 9px) rotate(-2.5deg); }
+  36% {
+    transform: translate(0px, 0px) rotate(-2.5deg); }
+  38% {
+    transform: translate(3px, 8px) rotate(-2.5deg); }
+  40% {
+    transform: translate(-1px, 9px) rotate(3.5deg); }
+  42% {
+    transform: translate(10px, 0px) rotate(3.5deg); }
+  44% {
+    transform: translate(4px, 0px) rotate(-2.5deg); }
+  46% {
+    transform: translate(-9px, -1px) rotate(0.5deg); }
+  48% {
+    transform: translate(-8px, 9px) rotate(-0.5deg); }
+  50% {
+    transform: translate(-5px, -8px) rotate(3.5deg); }
+  52% {
+    transform: translate(7px, 5px) rotate(1.5deg); }
+  54% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  56% {
+    transform: translate(9px, 9px) rotate(-2.5deg); }
+  58% {
+    transform: translate(10px, 6px) rotate(0.5deg); }
+  60% {
+    transform: translate(8px, -9px) rotate(0.5deg); }
+  62% {
+    transform: translate(-5px, 10px) rotate(0.5deg); }
+  64% {
+    transform: translate(-7px, 6px) rotate(-2.5deg); }
+  66% {
+    transform: translate(-5px, -1px) rotate(-1.5deg); }
+  68% {
+    transform: translate(10px, -7px) rotate(-1.5deg); }
+  70% {
+    transform: translate(-7px, 4px) rotate(3.5deg); }
+  72% {
+    transform: translate(-6px, 7px) rotate(1.5deg); }
+  74% {
+    transform: translate(-3px, -1px) rotate(-0.5deg); }
+  76% {
+    transform: translate(2px, -3px) rotate(0.5deg); }
+  78% {
+    transform: translate(-5px, 3px) rotate(-1.5deg); }
+  80% {
+    transform: translate(4px, 9px) rotate(-1.5deg); }
+  82% {
+    transform: translate(-9px, 1px) rotate(3.5deg); }
+  84% {
+    transform: translate(6px, -5px) rotate(-0.5deg); }
+  86% {
+    transform: translate(4px, 5px) rotate(2.5deg); }
+  88% {
+    transform: translate(-8px, 9px) rotate(2.5deg); }
+  90% {
+    transform: translate(-8px, -1px) rotate(-0.5deg); }
+  92% {
+    transform: translate(6px, 0px) rotate(2.5deg); }
+  94% {
+    transform: translate(-8px, -4px) rotate(3.5deg); }
+  96% {
+    transform: translate(7px, 10px) rotate(2.5deg); }
+  98% {
+    transform: translate(-7px, 5px) rotate(-2.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-hard:hover,
+.shake-trigger:hover .shake-hard, .shake-hard.shake-freeze, .shake-hard.shake-constant {
+  animation-name: shake-hard;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-horizontal {
+  2% {
+    transform: translate(3px, 0) rotate(0); }
+  4% {
+    transform: translate(-7px, 0) rotate(0); }
+  6% {
+    transform: translate(-5px, 0) rotate(0); }
+  8% {
+    transform: translate(4px, 0) rotate(0); }
+  10% {
+    transform: translate(-7px, 0) rotate(0); }
+  12% {
+    transform: translate(-4px, 0) rotate(0); }
+  14% {
+    transform: translate(7px, 0) rotate(0); }
+  16% {
+    transform: translate(6px, 0) rotate(0); }
+  18% {
+    transform: translate(0px, 0) rotate(0); }
+  20% {
+    transform: translate(1px, 0) rotate(0); }
+  22% {
+    transform: translate(8px, 0) rotate(0); }
+  24% {
+    transform: translate(1px, 0) rotate(0); }
+  26% {
+    transform: translate(5px, 0) rotate(0); }
+  28% {
+    transform: translate(-9px, 0) rotate(0); }
+  30% {
+    transform: translate(3px, 0) rotate(0); }
+  32% {
+    transform: translate(-6px, 0) rotate(0); }
+  34% {
+    transform: translate(-8px, 0) rotate(0); }
+  36% {
+    transform: translate(5px, 0) rotate(0); }
+  38% {
+    transform: translate(3px, 0) rotate(0); }
+  40% {
+    transform: translate(-4px, 0) rotate(0); }
+  42% {
+    transform: translate(-8px, 0) rotate(0); }
+  44% {
+    transform: translate(7px, 0) rotate(0); }
+  46% {
+    transform: translate(3px, 0) rotate(0); }
+  48% {
+    transform: translate(7px, 0) rotate(0); }
+  50% {
+    transform: translate(-6px, 0) rotate(0); }
+  52% {
+    transform: translate(-4px, 0) rotate(0); }
+  54% {
+    transform: translate(8px, 0) rotate(0); }
+  56% {
+    transform: translate(5px, 0) rotate(0); }
+  58% {
+    transform: translate(3px, 0) rotate(0); }
+  60% {
+    transform: translate(-8px, 0) rotate(0); }
+  62% {
+    transform: translate(2px, 0) rotate(0); }
+  64% {
+    transform: translate(9px, 0) rotate(0); }
+  66% {
+    transform: translate(-4px, 0) rotate(0); }
+  68% {
+    transform: translate(2px, 0) rotate(0); }
+  70% {
+    transform: translate(7px, 0) rotate(0); }
+  72% {
+    transform: translate(1px, 0) rotate(0); }
+  74% {
+    transform: translate(-3px, 0) rotate(0); }
+  76% {
+    transform: translate(10px, 0) rotate(0); }
+  78% {
+    transform: translate(10px, 0) rotate(0); }
+  80% {
+    transform: translate(-7px, 0) rotate(0); }
+  82% {
+    transform: translate(-7px, 0) rotate(0); }
+  84% {
+    transform: translate(8px, 0) rotate(0); }
+  86% {
+    transform: translate(-1px, 0) rotate(0); }
+  88% {
+    transform: translate(6px, 0) rotate(0); }
+  90% {
+    transform: translate(10px, 0) rotate(0); }
+  92% {
+    transform: translate(-6px, 0) rotate(0); }
+  94% {
+    transform: translate(2px, 0) rotate(0); }
+  96% {
+    transform: translate(2px, 0) rotate(0); }
+  98% {
+    transform: translate(6px, 0) rotate(0); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-horizontal:hover,
+.shake-trigger:hover .shake-horizontal, .shake-horizontal.shake-freeze, .shake-horizontal.shake-constant {
+  animation-name: shake-horizontal;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-vertical {
+  2% {
+    transform: translate(0, 5px) rotate(0); }
+  4% {
+    transform: translate(0, 2px) rotate(0); }
+  6% {
+    transform: translate(0, 2px) rotate(0); }
+  8% {
+    transform: translate(0, 6px) rotate(0); }
+  10% {
+    transform: translate(0, 2px) rotate(0); }
+  12% {
+    transform: translate(0, 10px) rotate(0); }
+  14% {
+    transform: translate(0, 2px) rotate(0); }
+  16% {
+    transform: translate(0, 4px) rotate(0); }
+  18% {
+    transform: translate(0, -9px) rotate(0); }
+  20% {
+    transform: translate(0, 4px) rotate(0); }
+  22% {
+    transform: translate(0, 5px) rotate(0); }
+  24% {
+    transform: translate(0, -3px) rotate(0); }
+  26% {
+    transform: translate(0, 10px) rotate(0); }
+  28% {
+    transform: translate(0, -8px) rotate(0); }
+  30% {
+    transform: translate(0, -3px) rotate(0); }
+  32% {
+    transform: translate(0, -5px) rotate(0); }
+  34% {
+    transform: translate(0, 9px) rotate(0); }
+  36% {
+    transform: translate(0, -2px) rotate(0); }
+  38% {
+    transform: translate(0, 6px) rotate(0); }
+  40% {
+    transform: translate(0, -3px) rotate(0); }
+  42% {
+    transform: translate(0, -9px) rotate(0); }
+  44% {
+    transform: translate(0, -6px) rotate(0); }
+  46% {
+    transform: translate(0, 0px) rotate(0); }
+  48% {
+    transform: translate(0, -8px) rotate(0); }
+  50% {
+    transform: translate(0, 6px) rotate(0); }
+  52% {
+    transform: translate(0, 3px) rotate(0); }
+  54% {
+    transform: translate(0, -6px) rotate(0); }
+  56% {
+    transform: translate(0, 5px) rotate(0); }
+  58% {
+    transform: translate(0, 3px) rotate(0); }
+  60% {
+    transform: translate(0, 6px) rotate(0); }
+  62% {
+    transform: translate(0, 7px) rotate(0); }
+  64% {
+    transform: translate(0, 3px) rotate(0); }
+  66% {
+    transform: translate(0, 0px) rotate(0); }
+  68% {
+    transform: translate(0, 1px) rotate(0); }
+  70% {
+    transform: translate(0, 8px) rotate(0); }
+  72% {
+    transform: translate(0, -2px) rotate(0); }
+  74% {
+    transform: translate(0, -2px) rotate(0); }
+  76% {
+    transform: translate(0, -4px) rotate(0); }
+  78% {
+    transform: translate(0, -9px) rotate(0); }
+  80% {
+    transform: translate(0, 1px) rotate(0); }
+  82% {
+    transform: translate(0, -8px) rotate(0); }
+  84% {
+    transform: translate(0, -8px) rotate(0); }
+  86% {
+    transform: translate(0, -6px) rotate(0); }
+  88% {
+    transform: translate(0, -2px) rotate(0); }
+  90% {
+    transform: translate(0, -5px) rotate(0); }
+  92% {
+    transform: translate(0, 10px) rotate(0); }
+  94% {
+    transform: translate(0, 0px) rotate(0); }
+  96% {
+    transform: translate(0, 1px) rotate(0); }
+  98% {
+    transform: translate(0, 2px) rotate(0); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-vertical:hover,
+.shake-trigger:hover .shake-vertical, .shake-vertical.shake-freeze, .shake-vertical.shake-constant {
+  animation-name: shake-vertical;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-rotate {
+  2% {
+    transform: translate(0, 0) rotate(0.5deg); }
+  4% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  6% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  8% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  10% {
+    transform: translate(0, 0) rotate(5.5deg); }
+  12% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  14% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  16% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  18% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  20% {
+    transform: translate(0, 0) rotate(0.5deg); }
+  22% {
+    transform: translate(0, 0) rotate(-2.5deg); }
+  24% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  26% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  28% {
+    transform: translate(0, 0) rotate(-3.5deg); }
+  30% {
+    transform: translate(0, 0) rotate(-3.5deg); }
+  32% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  34% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  36% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  38% {
+    transform: translate(0, 0) rotate(-2.5deg); }
+  40% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  42% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  44% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  46% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  48% {
+    transform: translate(0, 0) rotate(-0.5deg); }
+  50% {
+    transform: translate(0, 0) rotate(-0.5deg); }
+  52% {
+    transform: translate(0, 0) rotate(7.5deg); }
+  54% {
+    transform: translate(0, 0) rotate(-0.5deg); }
+  56% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  58% {
+    transform: translate(0, 0) rotate(3.5deg); }
+  60% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  62% {
+    transform: translate(0, 0) rotate(-0.5deg); }
+  64% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  66% {
+    transform: translate(0, 0) rotate(-1.5deg); }
+  68% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  70% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  72% {
+    transform: translate(0, 0) rotate(-3.5deg); }
+  74% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  76% {
+    transform: translate(0, 0) rotate(6.5deg); }
+  78% {
+    transform: translate(0, 0) rotate(-2.5deg); }
+  80% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  82% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  84% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  86% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  88% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  90% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  92% {
+    transform: translate(0, 0) rotate(-2.5deg); }
+  94% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  96% {
+    transform: translate(0, 0) rotate(-2.5deg); }
+  98% {
+    transform: translate(0, 0) rotate(5.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-rotate:hover,
+.shake-trigger:hover .shake-rotate, .shake-rotate.shake-freeze, .shake-rotate.shake-constant {
+  animation-name: shake-rotate;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-opacity {
+  10% {
+    transform: translate(-1px, -4px) rotate(-0.5deg);
+    opacity: 0.81; }
+  20% {
+    transform: translate(-3px, 4px) rotate(1.5deg);
+    opacity: 0.78; }
+  30% {
+    transform: translate(-3px, -2px) rotate(-0.5deg);
+    opacity: 0.32; }
+  40% {
+    transform: translate(5px, -3px) rotate(2.5deg);
+    opacity: 0.54; }
+  50% {
+    transform: translate(4px, -3px) rotate(1.5deg);
+    opacity: 0.74; }
+  60% {
+    transform: translate(-2px, 1px) rotate(0.5deg);
+    opacity: 0.34; }
+  70% {
+    transform: translate(3px, 4px) rotate(1.5deg);
+    opacity: 0.86; }
+  80% {
+    transform: translate(4px, -3px) rotate(-1.5deg);
+    opacity: 0.16; }
+  90% {
+    transform: translate(5px, -3px) rotate(1.5deg);
+    opacity: 0.57; }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-opacity:hover,
+.shake-trigger:hover .shake-opacity, .shake-opacity.shake-freeze, .shake-opacity.shake-constant {
+  animation-name: shake-opacity;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-crazy {
+  10% {
+    transform: translate(-12px, 1px) rotate(-4deg);
+    opacity: 0.4; }
+  20% {
+    transform: translate(-9px, -9px) rotate(-4deg);
+    opacity: 0.63; }
+  30% {
+    transform: translate(7px, -3px) rotate(-9deg);
+    opacity: 0.79; }
+  40% {
+    transform: translate(-12px, -15px) rotate(-8deg);
+    opacity: 0.39; }
+  50% {
+    transform: translate(7px, -3px) rotate(-2deg);
+    opacity: 0.42; }
+  60% {
+    transform: translate(-10px, 14px) rotate(4deg);
+    opacity: 0.71; }
+  70% {
+    transform: translate(-6px, 1px) rotate(-7deg);
+    opacity: 0.91; }
+  80% {
+    transform: translate(7px, -11px) rotate(-2deg);
+    opacity: 0.69; }
+  90% {
+    transform: translate(10px, -19px) rotate(5deg);
+    opacity: 0.17; }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-crazy:hover,
+.shake-trigger:hover .shake-crazy, .shake-crazy.shake-freeze, .shake-crazy.shake-constant {
+  animation-name: shake-crazy;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-chunk {
+  2% {
+    transform: translate(2px, 6px) rotate(14deg); }
+  4% {
+    transform: translate(12px, -1px) rotate(0deg); }
+  6% {
+    transform: translate(2px, 10px) rotate(3deg); }
+  8% {
+    transform: translate(1px, -12px) rotate(-5deg); }
+  10% {
+    transform: translate(0px, 10px) rotate(-8deg); }
+  12% {
+    transform: translate(15px, -9px) rotate(12deg); }
+  14% {
+    transform: translate(10px, 13px) rotate(-3deg); }
+  16% {
+    transform: translate(-5px, 11px) rotate(6deg); }
+  18% {
+    transform: translate(12px, 10px) rotate(12deg); }
+  20% {
+    transform: translate(10px, -14px) rotate(5deg); }
+  22% {
+    transform: translate(2px, -11px) rotate(11deg); }
+  24% {
+    transform: translate(-6px, 15px) rotate(-11deg); }
+  26% {
+    transform: translate(12px, 2px) rotate(-13deg); }
+  28% {
+    transform: translate(-4px, -1px) rotate(0deg); }
+  30% {
+    transform: translate(1px, -10px) rotate(12deg); }
+  32% {
+    transform: translate(11px, 9px) rotate(2deg); }
+  34% {
+    transform: translate(9px, -3px) rotate(-14deg); }
+  36% {
+    transform: translate(-6px, -6px) rotate(9deg); }
+  38% {
+    transform: translate(11px, 4px) rotate(-10deg); }
+  0%, 40%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-chunk:hover,
+.shake-trigger:hover .shake-chunk, .shake-chunk.shake-freeze, .shake-chunk.shake-constant {
+  animation-name: shake-chunk;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+body {
+  font-family: sans-serif; }
+
+*:focus {
+  outline: none; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  color: #242424 !important;
+  font-family: Georgia, serif; }
+
+.global__center {
+  margin-top: 50vh;
+  transform: translateY(-50%); }
+
+.global__progress-bar {
+  margin-top: 50vh;
+  transform: translateY(-50%); }
+  @media only screen and (max-width: 768px) {
+    .global__progress-bar {
+      margin-top: 20vh;
+      transform: translateY(-20%); } }
+
+.global__button {
+  margin: 15px 20px; }
+
+.global__divider {
+  border-color: #242424; }
+  @media only screen and (max-width: 576px) {
+    .global__divider {
+      margin-left: 5px;
+      margin-left: 5px; } }
+
+.no-overflow {
+  overflow: hidden; }
+
+.lightgrey {
+  color: #f2f2f2;
+  border-color: lightgrey; }
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga'; }
+
+.navbar {
+  background-color: #ffffff;
+  border: none; }
+
+.navbar-logo {
+  background: url("../../images/menu-image.jpg") 0% 50%/contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100px;
+  cursor: pointer; }
+
+.menu-item {
+  text-transform: capitalize; }
+
+.menu-list {
+  list-style-type: none;
+  padding: 30px 0 0 0;
+  text-align: left; }
+  .menu-list a {
+    color: #000000; }
+
+/* Hamburger menu */
+/* Position and sizing of burger button */
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+.hamburger {
+  padding: 15px 15px;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 3s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible; }
+  .hamburger:hover {
+    opacity: 0.7; }
+
+.hamburger-box {
+  width: 40px;
+  height: 24px;
+  display: inline-block;
+  position: relative; }
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -2px; }
+  .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+    width: 40px;
+    height: 4px;
+    background-color: #000;
+    border-radius: 4px;
+    position: absolute;
+    transition-property: transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease; }
+  .hamburger-inner::before, .hamburger-inner::after {
+    content: "";
+    display: block; }
+  .hamburger-inner::before {
+    top: -10px; }
+  .hamburger-inner::after {
+    bottom: -10px; }
+
+/*
+   * 3DX
+   */
+.hamburger--3dx .hamburger-box {
+  perspective: 80px; }
+
+.hamburger--3dx .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .hamburger--3dx .hamburger-inner::before, .hamburger--3dx .hamburger-inner::after {
+    transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+.hamburger--3dx.is-active .hamburger-inner {
+  background-color: transparent;
+  transform: rotateY(180deg); }
+  .hamburger--3dx.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--3dx.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(-45deg); }
+
+/*
+   * 3DX Reverse
+   */
+.hamburger--3dx-r .hamburger-box {
+  perspective: 80px; }
+
+.hamburger--3dx-r .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .hamburger--3dx-r .hamburger-inner::before, .hamburger--3dx-r .hamburger-inner::after {
+    transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+.hamburger--3dx-r.is-active .hamburger-inner {
+  background-color: transparent;
+  transform: rotateY(-180deg); }
+  .hamburger--3dx-r.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--3dx-r.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(-45deg); }
+
+/*
+   * 3DY
+   */
+.hamburger--3dy .hamburger-box {
+  perspective: 80px; }
+
+.hamburger--3dy .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .hamburger--3dy .hamburger-inner::before, .hamburger--3dy .hamburger-inner::after {
+    transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+.hamburger--3dy.is-active .hamburger-inner {
+  background-color: transparent;
+  transform: rotateX(-180deg); }
+  .hamburger--3dy.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--3dy.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(-45deg); }
+
+/*
+   * 3DY Reverse
+   */
+.hamburger--3dy-r .hamburger-box {
+  perspective: 80px; }
+
+.hamburger--3dy-r .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .hamburger--3dy-r .hamburger-inner::before, .hamburger--3dy-r .hamburger-inner::after {
+    transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+.hamburger--3dy-r.is-active .hamburger-inner {
+  background-color: transparent;
+  transform: rotateX(180deg); }
+  .hamburger--3dy-r.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--3dy-r.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(-45deg); }
+
+/*
+   * 3DXY
+   */
+.hamburger--3dxy .hamburger-box {
+  perspective: 80px; }
+
+.hamburger--3dxy .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .hamburger--3dxy .hamburger-inner::before, .hamburger--3dxy .hamburger-inner::after {
+    transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+.hamburger--3dxy.is-active .hamburger-inner {
+  background-color: transparent;
+  transform: rotateX(180deg) rotateY(180deg); }
+  .hamburger--3dxy.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--3dxy.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(-45deg); }
+
+/*
+   * 3DXY Reverse
+   */
+.hamburger--3dxy-r .hamburger-box {
+  perspective: 80px; }
+
+.hamburger--3dxy-r .hamburger-inner {
+  transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), background-color 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .hamburger--3dxy-r .hamburger-inner::before, .hamburger--3dxy-r .hamburger-inner::after {
+    transition: transform 0s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+.hamburger--3dxy-r.is-active .hamburger-inner {
+  background-color: transparent;
+  transform: rotateX(180deg) rotateY(180deg) rotateZ(-180deg); }
+  .hamburger--3dxy-r.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--3dxy-r.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(-45deg); }
+
+/*
+   * Arrow
+   */
+.hamburger--arrow.is-active .hamburger-inner::before {
+  transform: translate3d(-8px, 0, 0) rotate(-45deg) scale(0.7, 1); }
+
+.hamburger--arrow.is-active .hamburger-inner::after {
+  transform: translate3d(-8px, 0, 0) rotate(45deg) scale(0.7, 1); }
+
+/*
+   * Arrow Right
+   */
+.hamburger--arrow-r.is-active .hamburger-inner::before {
+  transform: translate3d(8px, 0, 0) rotate(45deg) scale(0.7, 1); }
+
+.hamburger--arrow-r.is-active .hamburger-inner::after {
+  transform: translate3d(8px, 0, 0) rotate(-45deg) scale(0.7, 1); }
+
+/*
+   * Arrow Alt
+   */
+.hamburger--arrowalt .hamburger-inner::before {
+  transition: top 0.1s 0.1s ease, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+
+.hamburger--arrowalt .hamburger-inner::after {
+  transition: bottom 0.1s 0.1s ease, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+
+.hamburger--arrowalt.is-active .hamburger-inner::before {
+  top: 0;
+  transform: translate3d(-8px, -10px, 0) rotate(-45deg) scale(0.7, 1);
+  transition: top 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22); }
+
+.hamburger--arrowalt.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: translate3d(-8px, 10px, 0) rotate(45deg) scale(0.7, 1);
+  transition: bottom 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22); }
+
+/*
+   * Arrow Alt Right
+   */
+.hamburger--arrowalt-r .hamburger-inner::before {
+  transition: top 0.1s 0.1s ease, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+
+.hamburger--arrowalt-r .hamburger-inner::after {
+  transition: bottom 0.1s 0.1s ease, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+
+.hamburger--arrowalt-r.is-active .hamburger-inner::before {
+  top: 0;
+  transform: translate3d(8px, -10px, 0) rotate(45deg) scale(0.7, 1);
+  transition: top 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22); }
+
+.hamburger--arrowalt-r.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: translate3d(8px, 10px, 0) rotate(-45deg) scale(0.7, 1);
+  transition: bottom 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22); }
+
+/*
+   * Arrow Turn
+   */
+.hamburger--arrowturn.is-active .hamburger-inner {
+  transform: rotate(-180deg); }
+  .hamburger--arrowturn.is-active .hamburger-inner::before {
+    transform: translate3d(8px, 0, 0) rotate(45deg) scale(0.7, 1); }
+  .hamburger--arrowturn.is-active .hamburger-inner::after {
+    transform: translate3d(8px, 0, 0) rotate(-45deg) scale(0.7, 1); }
+
+/*
+   * Arrow Turn Right
+   */
+.hamburger--arrowturn-r.is-active .hamburger-inner {
+  transform: rotate(-180deg); }
+  .hamburger--arrowturn-r.is-active .hamburger-inner::before {
+    transform: translate3d(-8px, 0, 0) rotate(-45deg) scale(0.7, 1); }
+  .hamburger--arrowturn-r.is-active .hamburger-inner::after {
+    transform: translate3d(-8px, 0, 0) rotate(45deg) scale(0.7, 1); }
+
+/*
+   * Boring
+   */
+.hamburger--boring .hamburger-inner, .hamburger--boring .hamburger-inner::before, .hamburger--boring .hamburger-inner::after {
+  transition-property: none; }
+
+.hamburger--boring.is-active .hamburger-inner {
+  transform: rotate(45deg); }
+  .hamburger--boring.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0; }
+  .hamburger--boring.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg); }
+
+/*
+   * Collapse
+   */
+.hamburger--collapse .hamburger-inner {
+  top: auto;
+  bottom: 0;
+  transition-duration: 0.13s;
+  transition-delay: 0.13s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--collapse .hamburger-inner::after {
+    top: -20px;
+    transition: top 0.2s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), opacity 0.1s linear; }
+  .hamburger--collapse .hamburger-inner::before {
+    transition: top 0.12s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--collapse.is-active .hamburger-inner {
+  transform: translate3d(0, -10px, 0) rotate(-45deg);
+  transition-delay: 0.22s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--collapse.is-active .hamburger-inner::after {
+    top: 0;
+    opacity: 0;
+    transition: top 0.2s cubic-bezier(0.33333, 0, 0.66667, 0.33333), opacity 0.1s 0.22s linear; }
+  .hamburger--collapse.is-active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(-90deg);
+    transition: top 0.1s 0.16s cubic-bezier(0.33333, 0, 0.66667, 0.33333), transform 0.13s 0.25s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Collapse Reverse
+   */
+.hamburger--collapse-r .hamburger-inner {
+  top: auto;
+  bottom: 0;
+  transition-duration: 0.13s;
+  transition-delay: 0.13s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--collapse-r .hamburger-inner::after {
+    top: -20px;
+    transition: top 0.2s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), opacity 0.1s linear; }
+  .hamburger--collapse-r .hamburger-inner::before {
+    transition: top 0.12s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--collapse-r.is-active .hamburger-inner {
+  transform: translate3d(0, -10px, 0) rotate(45deg);
+  transition-delay: 0.22s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--collapse-r.is-active .hamburger-inner::after {
+    top: 0;
+    opacity: 0;
+    transition: top 0.2s cubic-bezier(0.33333, 0, 0.66667, 0.33333), opacity 0.1s 0.22s linear; }
+  .hamburger--collapse-r.is-active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(90deg);
+    transition: top 0.1s 0.16s cubic-bezier(0.33333, 0, 0.66667, 0.33333), transform 0.13s 0.25s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Elastic
+   */
+.hamburger--elastic .hamburger-inner {
+  top: 2px;
+  transition-duration: 0.275s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  .hamburger--elastic .hamburger-inner::before {
+    top: 10px;
+    transition: opacity 0.125s 0.275s ease; }
+  .hamburger--elastic .hamburger-inner::after {
+    top: 20px;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+.hamburger--elastic.is-active .hamburger-inner {
+  transform: translate3d(0, 10px, 0) rotate(135deg);
+  transition-delay: 0.075s; }
+  .hamburger--elastic.is-active .hamburger-inner::before {
+    transition-delay: 0s;
+    opacity: 0; }
+  .hamburger--elastic.is-active .hamburger-inner::after {
+    transform: translate3d(0, -20px, 0) rotate(-270deg);
+    transition-delay: 0.075s; }
+
+/*
+   * Elastic Reverse
+   */
+.hamburger--elastic-r .hamburger-inner {
+  top: 2px;
+  transition-duration: 0.275s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  .hamburger--elastic-r .hamburger-inner::before {
+    top: 10px;
+    transition: opacity 0.125s 0.275s ease; }
+  .hamburger--elastic-r .hamburger-inner::after {
+    top: 20px;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+.hamburger--elastic-r.is-active .hamburger-inner {
+  transform: translate3d(0, 10px, 0) rotate(-135deg);
+  transition-delay: 0.075s; }
+  .hamburger--elastic-r.is-active .hamburger-inner::before {
+    transition-delay: 0s;
+    opacity: 0; }
+  .hamburger--elastic-r.is-active .hamburger-inner::after {
+    transform: translate3d(0, -20px, 0) rotate(270deg);
+    transition-delay: 0.075s; }
+
+/*
+   * Emphatic
+   */
+.hamburger--emphatic {
+  overflow: hidden; }
+  .hamburger--emphatic .hamburger-inner {
+    transition: background-color 0.125s 0.175s ease-in; }
+    .hamburger--emphatic .hamburger-inner::before {
+      left: 0;
+      transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335), top 0.05s 0.125s linear, left 0.125s 0.175s ease-in; }
+    .hamburger--emphatic .hamburger-inner::after {
+      top: 10px;
+      right: 0;
+      transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335), top 0.05s 0.125s linear, right 0.125s 0.175s ease-in; }
+  .hamburger--emphatic.is-active .hamburger-inner {
+    transition-delay: 0s;
+    transition-timing-function: ease-out;
+    background-color: transparent; }
+    .hamburger--emphatic.is-active .hamburger-inner::before {
+      left: -80px;
+      top: -80px;
+      transform: translate3d(80px, 80px, 0) rotate(45deg);
+      transition: left 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1); }
+    .hamburger--emphatic.is-active .hamburger-inner::after {
+      right: -80px;
+      top: -80px;
+      transform: translate3d(-80px, 80px, 0) rotate(-45deg);
+      transition: right 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1); }
+
+/*
+   * Emphatic Reverse
+   */
+.hamburger--emphatic-r {
+  overflow: hidden; }
+  .hamburger--emphatic-r .hamburger-inner {
+    transition: background-color 0.125s 0.175s ease-in; }
+    .hamburger--emphatic-r .hamburger-inner::before {
+      left: 0;
+      transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335), top 0.05s 0.125s linear, left 0.125s 0.175s ease-in; }
+    .hamburger--emphatic-r .hamburger-inner::after {
+      top: 10px;
+      right: 0;
+      transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335), top 0.05s 0.125s linear, right 0.125s 0.175s ease-in; }
+  .hamburger--emphatic-r.is-active .hamburger-inner {
+    transition-delay: 0s;
+    transition-timing-function: ease-out;
+    background-color: transparent; }
+    .hamburger--emphatic-r.is-active .hamburger-inner::before {
+      left: -80px;
+      top: 80px;
+      transform: translate3d(80px, -80px, 0) rotate(-45deg);
+      transition: left 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1); }
+    .hamburger--emphatic-r.is-active .hamburger-inner::after {
+      right: -80px;
+      top: 80px;
+      transform: translate3d(-80px, -80px, 0) rotate(45deg);
+      transition: right 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1); }
+
+/*
+   * Minus
+   */
+.hamburger--minus .hamburger-inner::before, .hamburger--minus .hamburger-inner::after {
+  transition: bottom 0.08s 0s ease-out, top 0.08s 0s ease-out, opacity 0s linear; }
+
+.hamburger--minus.is-active .hamburger-inner::before, .hamburger--minus.is-active .hamburger-inner::after {
+  opacity: 0;
+  transition: bottom 0.08s ease-out, top 0.08s ease-out, opacity 0s 0.08s linear; }
+
+.hamburger--minus.is-active .hamburger-inner::before {
+  top: 0; }
+
+.hamburger--minus.is-active .hamburger-inner::after {
+  bottom: 0; }
+
+/*
+   * Slider
+   */
+.hamburger--slider .hamburger-inner {
+  top: 2px; }
+  .hamburger--slider .hamburger-inner::before {
+    top: 10px;
+    transition-property: transform, opacity;
+    transition-timing-function: ease;
+    transition-duration: 0.15s; }
+  .hamburger--slider .hamburger-inner::after {
+    top: 20px; }
+
+.hamburger--slider.is-active .hamburger-inner {
+  transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--slider.is-active .hamburger-inner::before {
+    transform: rotate(-45deg) translate3d(-5.71429px, -6px, 0);
+    opacity: 0; }
+  .hamburger--slider.is-active .hamburger-inner::after {
+    transform: translate3d(0, -20px, 0) rotate(-90deg); }
+
+/*
+   * Slider Reverse
+   */
+.hamburger--slider-r .hamburger-inner {
+  top: 2px; }
+  .hamburger--slider-r .hamburger-inner::before {
+    top: 10px;
+    transition-property: transform, opacity;
+    transition-timing-function: ease;
+    transition-duration: 0.15s; }
+  .hamburger--slider-r .hamburger-inner::after {
+    top: 20px; }
+
+.hamburger--slider-r.is-active .hamburger-inner {
+  transform: translate3d(0, 10px, 0) rotate(-45deg); }
+  .hamburger--slider-r.is-active .hamburger-inner::before {
+    transform: rotate(45deg) translate3d(5.71429px, -6px, 0);
+    opacity: 0; }
+  .hamburger--slider-r.is-active .hamburger-inner::after {
+    transform: translate3d(0, -20px, 0) rotate(90deg); }
+
+/*
+   * Spin
+   */
+.hamburger--spin .hamburger-inner {
+  transition-duration: 0.22s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--spin .hamburger-inner::before {
+    transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in; }
+  .hamburger--spin .hamburger-inner::after {
+    transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--spin.is-active .hamburger-inner {
+  transform: rotate(225deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--spin.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0;
+    transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out; }
+  .hamburger--spin.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg);
+    transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Spin Reverse
+   */
+.hamburger--spin-r .hamburger-inner {
+  transition-duration: 0.22s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--spin-r .hamburger-inner::before {
+    transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in; }
+  .hamburger--spin-r .hamburger-inner::after {
+    transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--spin-r.is-active .hamburger-inner {
+  transform: rotate(-225deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--spin-r.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0;
+    transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out; }
+  .hamburger--spin-r.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(90deg);
+    transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Spring
+   */
+.hamburger--spring .hamburger-inner {
+  top: 2px;
+  transition: background-color 0s 0.13s linear; }
+  .hamburger--spring .hamburger-inner::before {
+    top: 10px;
+    transition: top 0.1s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--spring .hamburger-inner::after {
+    top: 20px;
+    transition: top 0.2s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--spring.is-active .hamburger-inner {
+  transition-delay: 0.22s;
+  background-color: transparent; }
+  .hamburger--spring.is-active .hamburger-inner::before {
+    top: 0;
+    transition: top 0.1s 0.15s cubic-bezier(0.33333, 0, 0.66667, 0.33333), transform 0.13s 0.22s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 10px, 0) rotate(45deg); }
+  .hamburger--spring.is-active .hamburger-inner::after {
+    top: 0;
+    transition: top 0.2s cubic-bezier(0.33333, 0, 0.66667, 0.33333), transform 0.13s 0.22s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 10px, 0) rotate(-45deg); }
+
+/*
+   * Spring Reverse
+   */
+.hamburger--spring-r .hamburger-inner {
+  top: auto;
+  bottom: 0;
+  transition-duration: 0.13s;
+  transition-delay: 0s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--spring-r .hamburger-inner::after {
+    top: -20px;
+    transition: top 0.2s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), opacity 0s linear; }
+  .hamburger--spring-r .hamburger-inner::before {
+    transition: top 0.1s 0.2s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--spring-r.is-active .hamburger-inner {
+  transform: translate3d(0, -10px, 0) rotate(-45deg);
+  transition-delay: 0.22s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--spring-r.is-active .hamburger-inner::after {
+    top: 0;
+    opacity: 0;
+    transition: top 0.2s cubic-bezier(0.33333, 0, 0.66667, 0.33333), opacity 0s 0.22s linear; }
+  .hamburger--spring-r.is-active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(90deg);
+    transition: top 0.1s 0.15s cubic-bezier(0.33333, 0, 0.66667, 0.33333), transform 0.13s 0.22s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Stand
+   */
+.hamburger--stand .hamburger-inner {
+  transition: transform 0.075s 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19), background-color 0s 0.075s linear; }
+  .hamburger--stand .hamburger-inner::before {
+    transition: top 0.075s 0.075s ease-in, transform 0.075s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--stand .hamburger-inner::after {
+    transition: bottom 0.075s 0.075s ease-in, transform 0.075s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--stand.is-active .hamburger-inner {
+  transform: rotate(90deg);
+  background-color: transparent;
+  transition: transform 0.075s 0s cubic-bezier(0.215, 0.61, 0.355, 1), background-color 0s 0.15s linear; }
+  .hamburger--stand.is-active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(-45deg);
+    transition: top 0.075s 0.1s ease-out, transform 0.075s 0.15s cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--stand.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(45deg);
+    transition: bottom 0.075s 0.1s ease-out, transform 0.075s 0.15s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Stand Reverse
+   */
+.hamburger--stand-r .hamburger-inner {
+  transition: transform 0.075s 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19), background-color 0s 0.075s linear; }
+  .hamburger--stand-r .hamburger-inner::before {
+    transition: top 0.075s 0.075s ease-in, transform 0.075s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--stand-r .hamburger-inner::after {
+    transition: bottom 0.075s 0.075s ease-in, transform 0.075s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--stand-r.is-active .hamburger-inner {
+  transform: rotate(-90deg);
+  background-color: transparent;
+  transition: transform 0.075s 0s cubic-bezier(0.215, 0.61, 0.355, 1), background-color 0s 0.15s linear; }
+  .hamburger--stand-r.is-active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(-45deg);
+    transition: top 0.075s 0.1s ease-out, transform 0.075s 0.15s cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--stand-r.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(45deg);
+    transition: bottom 0.075s 0.1s ease-out, transform 0.075s 0.15s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Squeeze
+   */
+.hamburger--squeeze .hamburger-inner {
+  transition-duration: 0.075s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  .hamburger--squeeze .hamburger-inner::before {
+    transition: top 0.075s 0.12s ease, opacity 0.075s ease; }
+  .hamburger--squeeze .hamburger-inner::after {
+    transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+.hamburger--squeeze.is-active .hamburger-inner {
+  transform: rotate(45deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  .hamburger--squeeze.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0;
+    transition: top 0.075s ease, opacity 0.075s 0.12s ease; }
+  .hamburger--squeeze.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg);
+    transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+/*
+   * Vortex
+   */
+.hamburger--vortex .hamburger-inner {
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+  .hamburger--vortex .hamburger-inner::before, .hamburger--vortex .hamburger-inner::after {
+    transition-duration: 0s;
+    transition-delay: 0.1s;
+    transition-timing-function: linear; }
+  .hamburger--vortex .hamburger-inner::before {
+    transition-property: top, opacity; }
+  .hamburger--vortex .hamburger-inner::after {
+    transition-property: bottom, transform; }
+
+.hamburger--vortex.is-active .hamburger-inner {
+  transform: rotate(765deg);
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+  .hamburger--vortex.is-active .hamburger-inner::before, .hamburger--vortex.is-active .hamburger-inner::after {
+    transition-delay: 0s; }
+  .hamburger--vortex.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0; }
+  .hamburger--vortex.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(90deg); }
+
+/*
+   * Vortex Reverse
+   */
+.hamburger--vortex-r .hamburger-inner {
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+  .hamburger--vortex-r .hamburger-inner::before, .hamburger--vortex-r .hamburger-inner::after {
+    transition-duration: 0s;
+    transition-delay: 0.1s;
+    transition-timing-function: linear; }
+  .hamburger--vortex-r .hamburger-inner::before {
+    transition-property: top, opacity; }
+  .hamburger--vortex-r .hamburger-inner::after {
+    transition-property: bottom, transform; }
+
+.hamburger--vortex-r.is-active .hamburger-inner {
+  transform: rotate(-765deg);
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+  .hamburger--vortex-r.is-active .hamburger-inner::before, .hamburger--vortex-r.is-active .hamburger-inner::after {
+    transition-delay: 0s; }
+  .hamburger--vortex-r.is-active .hamburger-inner::before {
+    top: 0;
+    opacity: 0; }
+  .hamburger--vortex-r.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg); }
+
+.hamburger {
+  z-index: 300;
+  display: none;
+  position: fixed;
+  right: 30px;
+  top: 14px;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  transition-timing-function: ease-in-out;
+  transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  .hamburger.gone {
+    transform: translate3d(300%, 0, 0); }
+  .hamburger:focus {
+    outline: none; }
+  @media only screen and (max-width: 768px) {
+    .hamburger {
+      right: 10px;
+      display: inline-block; } }
+  @media only screen and (max-width: 576px) {
+    .hamburger {
+      right: 0; } }
+
+.bm-burger-button {
+  display: none;
+  position: fixed;
+  width: 24px;
+  height: 20px;
+  right: 36px;
+  top: 30px;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s; }
+  .bm-burger-button.gone {
+    transform: translate3d(400%, 0, 0); }
+
+.mini-navbar {
+  display: block;
+  position: fixed;
+  background-color: #ffffff;
+  width: 100%;
+  height: 80px;
+  z-index: 200;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  transition-timing-function: ease-in-out;
+  transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
+  .mini-navbar.gone {
+    transform: translate3d(0, -100%, 0); }
+  .mini-navbar__home-banner {
+    background: url("../../images/home_banner.jpg") 0% 50%/contain;
+    background-repeat: no-repeat;
+    float: left;
+    z-index: 200;
+    width: 100%;
+    height: 60px;
+    left: 45px;
+    top: 12px;
+    position: absolute;
+    cursor: pointer; }
+    @media only screen and (max-width: 768px) {
+      .mini-navbar__home-banner {
+        left: 25px;
+        top: 12px; } }
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47; }
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  display: none;
+  height: 24px;
+  width: 24px; }
+  @media screen and (min-width: 768px) {
+    .bm-cross-button {
+      display: none; } }
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7; }
+
+.bm-menu-wrap {
+  width: 275px !important; }
+  @media only screen and (max-width: 768px) {
+    .bm-menu-wrap {
+      width: 70vw !important; } }
+
+/* General sidebar styles */
+.bm-menu {
+  background: #ffffff;
+  padding: 80px 0.5em 0 2em;
+  font-size: 1.15em; }
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47; }
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0; }
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3); }
+
+/* Social component */
+.copyright {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #838383;
+  text-align: left;
+  font-weight: bold;
+  font-size: 0.7em; }
+
+.share__menu hr {
+  margin: 5px 20px !important; }
+
+.share__button-facebook, .share__button-twitter, .share__button-pinterest, .share__button-tumblr {
+  padding-left: 45px !important;
+  font-size: 14px !important; }
+
+.share__button-facebook::before, .share__button-twitter::before, .share__button-tumblr::before, .share__button-pinterest::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 10px);
+  width: 20px;
+  height: 20px;
+  float: left;
+  left: 15px;
+  background-repeat: no-repeat; }
+
+.share__button-facebook::before {
+  background: url("../../images/fb-logo.png") 50% 50%/contain; }
+
+.share__button-twitter::before {
+  background: url("../../images/twitter-logo.png") 50% 50%/contain; }
+
+.share__button-tumblr::before {
+  background: url("../../images/tumblr-logo.png") 50% 50%/contain; }
+
+.share__button-pinterest::before {
+  background: url("../../images/pinterest-logo.png") 50% 50%/contain; }
+
+.social__wrapper {
+  margin: 30px 0 20px 0;
+  text-align: left; }
+
+.social__share__container {
+  padding: 20px 0; }
+
+.social__share-button {
+  margin: 0 10px 0 0;
+  width: 150px; }
+
+.social__item {
+  display: inline-block;
+  height: 30px;
+  line-height: 32px;
+  width: 22px;
+  margin: 0 10px 0 0; }
+  .social__item.instagram {
+    background: url("../../images/instagram-logo.png") 50% 50%/contain;
+    background-repeat: no-repeat; }
+  .social__item.facebook {
+    background: url("../../images/fb-logo.png") 50% 50%/contain;
+    background-repeat: no-repeat; }
+  .social__item.eyeem {
+    background: url("../../images/eyeem-logo.png") 50% 50%/contain;
+    background-repeat: no-repeat;
+    width: 30px; }
+
+.social__modal {
+  min-width: 350px !important; }
+  @media only screen and (max-width: 576px) {
+    .social__modal {
+      width: 85% !important; } }
+  .social__modal__content {
+    text-align: center;
+    font-size: 16px; }
+  .social__modal-icon {
+    width: 100px;
+    margin-bottom: 2rem;
+    opacity: 0.87;
+    margin: 30px auto;
+    display: block; }
+  .social__modal-text {
+    text-align: center;
+    font-size: 14px !important; }
+  .social__modal__title h2 {
+    text-align: center;
+    font-size: 2rem !important;
+    line-height: 0; }
+  .social__modal__description {
+    text-align: center;
+    padding: 0 15px 25px 15px; }
+    @media only screen and (max-width: 576px), only screen and (max-width: 768px) {
+      .social__modal__description {
+        padding: 5px 15px 15px;
+        font-size: 13px; } }
+  .social__modal__success {
+    text-align: center;
+    color: black;
+    font-family: serif;
+    font-size: 2.3rem; }
+  .social__modal__input {
+    width: 65% !important;
+    display: block;
+    margin: 0 auto; }
+  .social__modal__actions {
+    text-align: center;
+    margin: 15px 0; }
+    .social__modal__actions .divider {
+      border-color: #000; }
+      @media only screen and (max-width: 576px) {
+        .social__modal__actions .divider {
+          margin-left: 5px;
+          margin-left: 5px; } }
+    .social__modal__actions .or {
+      font-size: 45px;
+      line-height: 45px;
+      color: #000000;
+      font-family: Georgia, serif; }
+      @media only screen and (max-width: 768px) {
+        .social__modal__actions .or {
+          font-size: 30px;
+          padding: 0; } }
+      @media only screen and (max-width: 576px) {
+        .social__modal__actions .or {
+          font-size: 21px;
+          padding: 0; } }
+    .social__modal__actions__button {
+      margin: 5px 45px;
+      width: 25%; }
+      @media only screen and (max-width: 576px) {
+        .social__modal__actions__button {
+          margin: 5px 0; } }
+    @media only screen and (max-width: 576px) {
+      .social__modal__actions {
+        padding: 0 5px; } }
+    .social__modal__actions > form {
+      margin-top: 2rem; }
+  .social__modal__decline-button {
+    float: right; }
+  .social__modal__footer {
+    margin: 10px 0 0 0;
+    padding-right: 0; }
+
+.social__notifications-button {
+  height: 36px !important;
+  padding: 0 12px !important;
+  vertical-align: bottom;
+  color: #000; }
