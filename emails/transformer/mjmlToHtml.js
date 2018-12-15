@@ -41,7 +41,7 @@ exports.fillNewsLetter = (email, images) => {
 
 exports.fillMessageSent = data => {
   let messageSentMjml = fs.readFileSync(
-    __dirname + '/../templates/message_sent.mjml',
+    path.join(__dirname, '/../templates/message_sent.mjml'),
     'utf8'
   );
   const notificationsUrl =

@@ -15,10 +15,6 @@
   margin: 25px;
 }
 
-.ril-outer {
-  //background-color: transparent;
-}
-
 .ril-prev-button,
 .ril-next-button {
   top: 50%;
@@ -28,17 +24,12 @@
   padding: 30px 30px;
 }
 
-.ril-prev-button {
-}
-
-.ril-next-button {
-}
-
 .ril-image-current {
   max-height: 85% !important;
   max-width: 70% !important;
   outline: #fff solid 35px;
   background-color: white;
+  background-size: cover;
 
   @media #{$xs} {
     max-height: 100% !important;

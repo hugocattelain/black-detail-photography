@@ -11,6 +11,7 @@ const mjmlToHtml = require('./emails/transformer/mjmlToHtml.js');
 const path = require('path');
 const morgan = require('morgan');
 const jwt = require('jwt-simple');
+const mcache = require('memory-cache');
 
 const app = express();
 
@@ -71,7 +72,7 @@ app.post(
   }
 );
 
-var pool = mysql.createPool({
+const pool = mysql.createPool({
   connectionLimit: 100, //important
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -80,66 +81,81 @@ var pool = mysql.createPool({
   debug: false,
 });
 
-app.get(
-  '/api/photos',
+// Server caching middelware
+var cache = duration => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url;
+    let cachedBody = mcache.get(key);
+    if (cachedBody) {
+      res.send(cachedBody);
+      return;
+    } else {
+      res.sendResponse = res.send;
+      res.send = body => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body);
+      };
+      next();
+    }
+  };
+};
 
-  (req, res, next) => {
-    const param = req.query.category || 'portrait';
-    const exception = 'nsfw';
-    let values = [];
-    let instruction = '';
-    switch (param) {
-      case 'home':
-        instruction = `
+app.get('/api/photos', cache(6000), (req, res, next) => {
+  const param = req.query.category || 'portrait';
+  const exception = 'nsfw';
+  let values = [];
+  let instruction = '';
+  switch (param) {
+    case 'home':
+      instruction = `
         select * from photos
         where is_visible=1
         and (tag_1 like ?
         or tag_2 like ?
         or tag_3 like ?)
-        order by created_at desc`;
-        values = [exception, exception, exception];
-        break;
-      case 'all':
-        instruction = `select * from photos order by created_at desc`;
-        values = '';
-        break;
-      default:
-        instruction = `
+        order by image_index DESC`;
+      values = [exception, exception, exception];
+      break;
+    case 'all':
+      instruction = `select * from photos order by image_index DESC`;
+      values = '';
+      break;
+    default:
+      instruction = `
         select * from photos
         where (tag_1 like ?
         or tag_2 like ?
         or tag_3 like ?)
         and is_visible=1
-        order by created_at desc`;
-        values = [param, param, param];
-        break;
+        order by image_index DESC`;
+      values = [param, param, param];
+      break;
+  }
+
+  pool.getConnection(function(err, connection) {
+    if (err) {
+      connection.release();
+      res.json({ code: 100, status: 'Error in connection database' });
+      return;
     }
 
-    pool.getConnection(function(err, connection) {
-      if (err) {
-        connection.release();
-        res.json({ code: 100, status: 'Error in connection database' });
-        return;
+    connection.query(instruction, values, function(err, rows) {
+      connection.release();
+      if (!err) {
+        res.status(200).json(rows);
       }
-
-      connection.query(instruction, values, function(err, rows) {
-        connection.release();
-        if (!err) {
-          res.status(200).json(rows);
-        }
-      });
     });
-  }
-);
+  });
+});
 
-app.get('/api/photos/:category', (req, res, next) => {
+app.get('/api/photos/:category', cache(6000), (req, res, next) => {
   const category = req.params.category;
   const instruction = `select * from photos
   where tag_1 like ?
   or tag_2 like ?
   or tag_3 like ?
   and is_visible=1
-  order by created_at desc
+  order by image_index DESC
   `;
   const values = [category, category, category];
 

@@ -3,8 +3,6 @@ import UploadPhoto from './UploadPhoto';
 import ManagePhoto from './ManagePhoto';
 import Client from '../../Client';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
 import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import './admin.css';
@@ -17,20 +15,10 @@ const categories = [
   { name: 'Nude', tag: 'nsfw' },
 ];
 
-const muiBlack = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#212121',
-    },
-    secondary: {
-      main: '#616161',
-    },
-  },
-});
 class Admin extends Component {
   state = {
     password: '',
-    tab: 0,
+    tab: 1,
     isAdmin: false,
     snackbarIsOpen: false,
     message: '',
@@ -46,7 +34,7 @@ class Admin extends Component {
 
   login = () => {
     const data = {
-      username: 'Ad3^rTPONH<^n%g',
+      username: process.env.REACT_APP_ADMIN_USER,
       password: this.state.password,
     };
     Client.login(data)
@@ -78,52 +66,48 @@ class Admin extends Component {
       <div className="admin">
         {isAdmin ? (
           <div className="admin__container admin__container--top">
-            <MuiThemeProvider theme={muiBlack}>
-              <AppBar position="static">
-                <Tabs value={tab} onChange={this.handleTabChange}>
-                  <Tab label="Upload" />
-                  <Tab label="Manage" />
-                </Tabs>
-              </AppBar>
+            <AppBar position="static">
+              <Tabs value={tab} onChange={this.handleTabChange}>
+                <Tab label="Upload" />
+                <Tab label="Manage" />
+              </Tabs>
+            </AppBar>
 
-              {tab === 0 && (
-                <Typography component="div" className="admin__section">
-                  <UploadPhoto categories={categories} />
-                </Typography>
-              )}
-              {tab === 1 && (
-                <Typography component="div" className="admin__section">
-                  <ManagePhoto categories={categories} />
-                </Typography>
-              )}
-            </MuiThemeProvider>
+            {tab === 0 && (
+              <Typography component="div" className="admin__section">
+                <UploadPhoto categories={categories} />
+              </Typography>
+            )}
+            {tab === 1 && (
+              <Typography component="div" className="admin__section">
+                <ManagePhoto categories={categories} />
+              </Typography>
+            )}
           </div>
         ) : (
           <div className="admin__container">
-            <MuiThemeProvider theme={muiBlack}>
-              <TextField
-                className="admin__login-input"
-                label="Password"
-                type="password"
-                required={true}
-                value={this.state.adminPassword}
-                onChange={this.setInputState('password')}
-              />
-              <Button
-                className="admin__login-button"
-                variant="contained"
-                color="primary"
-                onClick={this.login}
-              >
-                Login
-              </Button>
-              <Snackbar
-                open={this.state.snackbarIsOpen}
-                message={this.state.message}
-                autoHideDuration={4000}
-                onClose={this.handleSnackbarClose}
-              />
-            </MuiThemeProvider>
+            <TextField
+              className="admin__login-input"
+              label="Password"
+              type="password"
+              required={true}
+              value={this.state.adminPassword}
+              onChange={this.setInputState('password')}
+            />
+            <Button
+              className="admin__login-button"
+              variant="contained"
+              color="primary"
+              onClick={this.login}
+            >
+              Login
+            </Button>
+            <Snackbar
+              open={this.state.snackbarIsOpen}
+              message={this.state.message}
+              autoHideDuration={4000}
+              onClose={this.handleSnackbarClose}
+            />
           </div>
         )}
       </div>

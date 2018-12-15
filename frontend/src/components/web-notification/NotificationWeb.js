@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactNotifications from 'react-browser-notifications';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import isEqual from 'lodash/isEqual';
 
 import '../images/BDP_logo.jpg';
-
-const muiBlack = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#212121',
-    },
-    secondary: {
-      main: '#616161',
-    },
-  },
-});
 
 class NotificationWeb extends Component {
   showNotifications = () => {

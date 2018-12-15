@@ -6,7 +6,6 @@ import Lightbox from '../lightbox/Lightbox';
 import Client from '../../Client';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import $ from 'jquery';
 // eslint-disable-next-line
 import lazysizes from 'lazysizes';
@@ -15,27 +14,12 @@ import { getCategoryName } from '../../Utils';
 
 import './masonry.css';
 
-const muiBlack = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#212121',
-    },
-    secondary: {
-      main: '#616161',
-    },
-  },
-});
-
 class MasonryWall extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      images: [],
-      loading: false,
-      diaporamaIsPlaying: false,
-    };
-  }
+  state = {
+    images: [],
+    loading: false,
+    diaporamaIsPlaying: false,
+  };
 
   componentDidMount = () => {
     $(document).on(
@@ -51,14 +35,14 @@ class MasonryWall extends Component {
       }.bind(this)
     );
 
-    if (this.props.location.pathname === '/photography') {
-      window.localStorage.safeMode = 'true';
-      this.props.history.push('/portrait');
-    }
     window.scrollTo(0, 0);
     $('.landing-page__title').addClass('faded');
     this.setState({ loading: true });
-    const param = getCategoryName(this.props.match.params.category);
+    const category = getCategoryName(this.props.match.params.category);
+    const param =
+      this.props.safeMode && category !== ('portrait' || 'architecture')
+        ? 'portrait'
+        : category;
     Client.getAllImages(param, images => {
       this.setState({
         images: images,
@@ -72,7 +56,10 @@ class MasonryWall extends Component {
     const currentCategory = getCategoryName(this.props.match.params.category);
     if (nextCategory !== currentCategory) {
       window.scrollTo(0, 0);
-      const param = nextCategory;
+      const param =
+        this.props.safeMode && nextCategory !== ('portrait' || 'architecture')
+          ? 'portrait'
+          : nextCategory;
       this.setState({ loading: true });
       Client.getAllImages(param, images => {
         this.setState({
@@ -132,13 +119,11 @@ class MasonryWall extends Component {
           {!this.state.loading ? (
             <ul className="masonry-layout">{childElements}</ul>
           ) : (
-            <MuiThemeProvider theme={muiBlack}>
-              <CircularProgress
-                className="global__progress-bar"
-                size={30}
-                thickness={2}
-              />
-            </MuiThemeProvider>
+            <CircularProgress
+              className="global__progress-bar"
+              size={30}
+              thickness={2}
+            />
           )}
           <i
             className={

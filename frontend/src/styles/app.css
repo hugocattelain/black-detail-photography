@@ -1,3 +1,38 @@
+@font-face {
+  font-family: 'Nikoleta';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/nikoleta.otf');
+}
+
+@font-face {
+  font-family: 'Tuesday';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/tuesday_night.otf');
+}
+
+@font-face {
+  font-family: 'Bodoni';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/bodoni.ttf');
+}
+
+@font-face {
+  font-family: 'brandon-grotesque';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/brandon-grotesque.otf');
+}
+
+@font-face {
+  font-family: 'brandon-grotesque-light';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/brandon-grotesque-light.otf');
+}
+
 .cookie-consent__container {
   left: 0;
   right: 0;
@@ -5,12 +40,12 @@
   color: #fff;
   background-color: #000;
   position: fixed;
-  padding: 1em 1.8em;
+  padding: 0.5em 1.8em;
   width: 100%;
   flex-direction: row;
   overflow: hidden;
   box-sizing: border-box;
-  font-family: Helvetica, Calibri, Arial, sans-serif;
+  font-family: 'brandon-grotesque-light';
   font-size: 16px;
   line-height: 1.5em;
   display: flex;
@@ -37,7 +72,7 @@
 .cookie-consent__button {
   color: #000;
   border-color: transparent;
-  padding: 5px 25px;
+  padding: 5px 20px;
   display: block;
   font-size: 0.9em;
   font-weight: 700;

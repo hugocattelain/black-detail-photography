@@ -4,7 +4,6 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Client from '../../Client';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -12,17 +11,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import NewPhoto from './NewPhoto';
 // import WebNotifications from './NotificationWeb';
 import { FormLabel } from '@material-ui/core';
-
-const muiBlack = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#212121',
-    },
-    secondary: {
-      main: '#616161',
-    },
-  },
-});
 
 class UploadPhoto extends Component {
   state = {
@@ -172,23 +160,19 @@ class UploadPhoto extends Component {
         {endUpload ? (
           <div>
             <form onSubmit={this.handleSubmit}>
-              <MuiThemeProvider theme={muiBlack}>
-                <FormLabel component="legend">Send newsletter</FormLabel>
-                <Checkbox
-                  checked={this.state.sendNewsletter}
-                  onChange={this.handleCheckboxChange('sendNewsletter')}
-                  className="admin__upload__checkbox"
-                  value="sendNewsletter"
-                />
-              </MuiThemeProvider>
+              <FormLabel component="legend">Send newsletter</FormLabel>
+              <Checkbox
+                checked={this.state.sendNewsletter}
+                onChange={this.handleCheckboxChange('sendNewsletter')}
+                className="admin__upload__checkbox"
+                value="sendNewsletter"
+              />
               {newPhotos}
               <div className="row">
                 <div className="col-xs-12">
-                  <MuiThemeProvider theme={muiBlack}>
-                    <Button variant="contained" type="submit" color="primary">
-                      Submit
-                    </Button>
-                  </MuiThemeProvider>
+                  <Button variant="contained" type="submit" color="primary">
+                    Submit
+                  </Button>
                 </div>
               </div>
             </form>
@@ -205,7 +189,7 @@ class UploadPhoto extends Component {
           </div>
         )}
         {loading && (
-          <MuiThemeProvider theme={muiBlack}>
+          <div>
             {this.state.uploadedFile.lenght > 1 ? (
               <CircularProgress
                 size={30}
@@ -216,7 +200,7 @@ class UploadPhoto extends Component {
             ) : (
               <CircularProgress size={30} thickness={2} />
             )}
-          </MuiThemeProvider>
+          </div>
         )}
         {/*
 
@@ -228,14 +212,12 @@ class UploadPhoto extends Component {
 
 
         */}
-        <MuiThemeProvider theme={muiBlack}>
-          <Snackbar
-            open={this.state.snackbarIsOpen}
-            message={this.state.message}
-            autoHideDuration={4000}
-            onClose={this.handleSnackbarClose}
-          />
-        </MuiThemeProvider>
+        <Snackbar
+          open={this.state.snackbarIsOpen}
+          message={this.state.message}
+          autoHideDuration={4000}
+          onClose={this.handleSnackbarClose}
+        />
       </div>
     );
   }

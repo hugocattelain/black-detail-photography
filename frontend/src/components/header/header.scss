@@ -15,6 +15,8 @@
 
 .menu-item {
   text-transform: capitalize;
+  font-family: 'brandon-grotesque-light';
+  font-size: 1.7rem;
 }
 
 .menu-list {
@@ -110,7 +112,7 @@ $hamburger-hover-transition-timing-function: linear;
     background-repeat: no-repeat;
     float: left;
     z-index: 200;
-    width: 100%;
+    width: 205px;
     height: 60px;
     left: 45px;
     top: 12px;
@@ -145,7 +147,7 @@ $hamburger-hover-transition-timing-function: linear;
 }
 
 .bm-menu-wrap {
-  width: 275px !important;
+  width: 27.5% !important;
   @media #{$s} {
     width: 70vw !important;
   }
@@ -177,7 +179,6 @@ $hamburger-hover-transition-timing-function: linear;
 /* Social component */
 
 .copyright {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #838383;
   text-align: left;
   font-weight: bold;
@@ -282,23 +283,19 @@ $hamburger-hover-transition-timing-function: linear;
     }
 
     &-icon {
-      width: 100px;
-      margin-bottom: 2rem;
+      height: 120px;
       opacity: 0.87;
-      margin: 30px auto;
+      margin: 0 auto;
       display: block;
     }
 
     &-text {
       text-align: center;
-      font-size: 14px !important;
     }
 
     &__title {
       h2 {
         text-align: center;
-        font-size: 2rem !important;
-        line-height: 0;
       }
     }
 
@@ -314,7 +311,6 @@ $hamburger-hover-transition-timing-function: linear;
     &__success {
       text-align: center;
       color: black;
-      font-family: serif;
       font-size: 2.3rem;
     }
 
@@ -378,8 +374,8 @@ $hamburger-hover-transition-timing-function: linear;
     }
   }
   &__notifications-button {
-    height: 36px !important;
-    padding: 0 12px !important;
+    cursor: pointer;
+    padding: 8px 12px;
     vertical-align: bottom;
     color: #000;
   }

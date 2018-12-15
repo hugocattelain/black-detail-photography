@@ -28,8 +28,9 @@ class Lightbox extends Component {
     this.setState({
       images: this.props.images,
       photoIndex: findIndex(this.props.images, el => {
+        // eslint-disable-next-line
         return el.id == this.props.id;
-      }), // eslint-disable-line
+      }),
       isOpen: this.props.id > 0,
     });
   };
@@ -37,8 +38,9 @@ class Lightbox extends Component {
     this.setState({
       images: nextProps.images,
       photoIndex: findIndex(nextProps.images, el => {
+        // eslint-disable-next-line
         return el.id == nextProps.id;
-      }), // eslint-disable-line
+      }),
       isOpen: nextProps.id > 0,
     });
   };
@@ -122,14 +124,11 @@ class Lightbox extends Component {
       <div>
         {isOpen && (
           <LB
-            mainSrc={src.replace('upload', 'upload/t_web_large')}
-            nextSrc={images[(photoIndex + 1) % images.length].src.replace(
-              'upload',
-              'upload/t_web_large'
-            )}
-            prevSrc={images[
-              (photoIndex + images.length - 1) % images.length
-            ].src.replace('upload', 'upload/t_web_large')}
+            mainSrc={src}
+            nextSrc={images[(photoIndex + 1) % images.length].src}
+            prevSrc={
+              images[(photoIndex + images.length - 1) % images.length].src
+            }
             onCloseRequest={this.closeLightbox}
             onMovePrevRequest={this.prevPhoto}
             onMoveNextRequest={this.nextPhoto}
