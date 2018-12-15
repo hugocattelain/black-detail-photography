@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+//import Avatar from '@material-ui/core/Avatar';
+//import List from '@material-ui/core/List';
+//import ListItem from '@material-ui/core/ListItem';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,24 +12,15 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-import moment from 'moment';
 import findIndex from 'lodash/findIndex';
+import { getElementByImageIndex } from '../../Utils';
 import $ from 'jquery';
 
 import Client from '../../Client';
 import { InputLabel, FormControl } from '@material-ui/core';
 
 const param = 'all';
-const muiBlack = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#212121',
-    },
-    secondary: {
-      main: '#616161',
-    },
-  },
-});
+const increment = process.env.NODE_ENV === 'production' ? 10 : 1;
 
 class ManagePhoto extends Component {
   state = {
@@ -49,7 +39,6 @@ class ManagePhoto extends Component {
       images.forEach(image => {
         image.edit = false;
       });
-      images = images.reverse();
       this.setState({
         images: images,
       });
@@ -135,6 +124,7 @@ class ManagePhoto extends Component {
     // eslint-disable-next-line
     return (
       findIndex(images, el => {
+        // eslint-disable-next-line
         return el.id == item.id;
       }) === 0
     );
@@ -142,62 +132,71 @@ class ManagePhoto extends Component {
 
   isLastElement = item => {
     const images = this.state.images;
-    // eslint-disable-next-line
     return (
       findIndex(images, el => {
+        // eslint-disable-next-line
         return el.id == item.id;
       }) ===
       images.length - 1
     );
   };
 
-  updateCreationDate = (item, action) => {
-    const images = this.state.images;
+  updateOrder = (item, action) => event => {
+    let images = this.state.images;
+    images =
+      this.state.filter === ''
+        ? images
+        : images.filter(image => image.tag_1 === this.state.filter);
+
     // eslint-disable-next-line
     const index = this.getImageIndex(images, item);
+    // eslint-disable-next-line
     let prevImage = images[index - 1];
+    // eslint-disable-next-line
     let nextImage = images[index + 1];
-    const itemDate = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
-    const prevDate = moment(images[index - 1].created_at).format(
-      'YYYY-MM-DD HH:mm:ss'
-    );
-    const nextDate = moment(images[index + 1].created_at).format(
-      'YYYY-MM-DD HH:mm:ss'
-    );
-    //const lastDate = moment(images[images.length-1].created_at).format("YYYY-MM-DD HH:mm:ss");
+    const itemIndex = item.image_index;
+    const prevIndex = images[index - 1].image_index;
+    const nextIndex = images[index + 1].image_index;
+    const firstIndex = images[0].image_index;
+    const lastIndex = images[images.length - 1].image_index;
     let imagesToUpdate = [];
 
     switch (action) {
       case 'top':
-        item.created_at = moment().format('YYYY-MM-DD HH:mm:ss');
+        item.image_index = firstIndex;
         imagesToUpdate.push(item);
+        for (var i = firstIndex; i > itemIndex; i--) {
+          const imageToUpdate = getElementByImageIndex(i, images);
+          imageToUpdate.image_index = imageToUpdate.image_index - increment;
+          imagesToUpdate.push(imageToUpdate);
+        }
         break;
       case 'bottom':
         //let d = moment(lastDate).add("1", "hour");
         break;
       case 'up':
-        prevImage.created_at = itemDate;
-        item.created_at = prevDate;
-        imagesToUpdate.push(item, prevImage);
+        /* prevImage.image_index = itemDate;
+        item.image_index = prevDate;
+        imagesToUpdate.push(item, prevImage); */
         break;
       case 'down':
-        nextImage.created_at = itemDate;
-        item.created_at = nextDate;
-        imagesToUpdate.push(item, nextImage);
+        /* nextImage.image_index = itemDate;
+        item.image_index = nextDate;
+        imagesToUpdate.push(item, nextImage); */
         break;
       default:
         console.log('unknown case');
         break;
     }
 
-    for (let item of imagesToUpdate)
+    /* for (let item of imagesToUpdate)
       Client.updateImage(item, () => {
         Client.getAllImages(param, images => {
           this.setState({
             images: images,
           });
         });
-      });
+      }); */
   };
 
   toggleDetailView = image => event => {
@@ -212,6 +211,7 @@ class ManagePhoto extends Component {
 
   getImageIndex = (images, image) => {
     let index = findIndex(images, el => {
+      // eslint-disable-next-line
       return el.id == image.id;
     });
     return index;
@@ -240,8 +240,7 @@ class ManagePhoto extends Component {
 
     return (
       <div>
-        <MuiThemeProvider theme={muiBlack}>
-          {/* <List className="admin__manage__list">
+        {/* <List className="admin__manage__list">
             {images.map((item, key) => {
               return(
                 
@@ -255,7 +254,7 @@ class ManagePhoto extends Component {
                   <i className={"material-icons admin__manage__list__item__button " + (this.isLastElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'bottom') }}>arrow_downward</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isFirstElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'up') }}>arrow_drop_up</i>
                   <i className={"material-icons admin__manage__list__item__button " + (this.isLastElement(item) ? 'hide' : '' )} onClick={ () => { this.updateCreationDate(item, 'down') }}>arrow_drop_down</i>
-                  <MuiThemeProvider theme={muiBlack}>
+                  
                   <InputLabel htmlFor="select-cat-1">Category 1</InputLabel>
                     <Select
                       input={<Input id="select-cat-1" />}
@@ -268,8 +267,6 @@ class ManagePhoto extends Component {
                         return(<MenuItem key = {key} value={item.tag} >{item.name}</MenuItem>);
                       })}
                     </Select>
-                  </MuiThemeProvider>
-                  <MuiThemeProvider theme={muiBlack}>
                   <InputLabel htmlFor="select-cat-2">Category 2</InputLabel>
                     <Select
                       input={<Input id="select-cat-2" />}
@@ -281,8 +278,6 @@ class ManagePhoto extends Component {
                         return(<MenuItem key = {key} value={item.tag}>{item.name}</MenuItem>);
                       })}
                     </Select>
-                  </MuiThemeProvider>
-                  <MuiThemeProvider theme={muiBlack}>
                   <InputLabel htmlFor="select-cat-3">Category 3</InputLabel>
                     <Select
                       input={<Input id="select-cat-3" />}
@@ -294,19 +289,13 @@ class ManagePhoto extends Component {
                         return(<MenuItem key = {key} value={item.tag}>{item.name}</MenuItem>);
                       })}
                     </Select>
-                  </MuiThemeProvider>
 
-                  <MuiThemeProvider theme={muiBlack}>
                     <IconButton className="admin__manage__list__item__button" onClick={this.handleOpenModal}>
                       <i className="shake shake-rorate material-icons" onClick={ () => { this.sendNotification(item) }}>notifications</i>
                     </IconButton>
-                  </MuiThemeProvider>
-
-                  <MuiThemeProvider theme={muiBlack}>
                     <IconButton className="admin__manage__list__item__button" onClick={this.handleOpenModal}>
                       <i className="material-icons" onClick={ () => { this.deleteOrRestore(item.id, item.is_visible) }}>{item.is_visible === 0 ? 'restore' : 'delete'}</i>
                     </IconButton>
-                  </MuiThemeProvider>
                   </ListItemText>
                 </ListItem>
 
@@ -314,150 +303,185 @@ class ManagePhoto extends Component {
             })
           }
           </List> */}
-          <FormControl style={{ display: 'flex' }}>
-            <InputLabel htmlFor="filter">Filter category</InputLabel>
-            <Select
-              value={filter}
-              onChange={this.updateFilter}
-              inputProps={{
-                name: 'filter',
-                id: 'filter',
-              }}
-            >
-              {categories.map((item, key) => {
-                return (
-                  <MenuItem key={key} value={item.tag}>
-                    {item.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-          <GridList cellHeight={180} cols={colCount}>
-            {filteredImages.map((image, key) => (
-              <GridListTile key={key}>
-                {!image.edit === true ? (
-                  <span>
-                    <div
-                      className="grid-view__image"
-                      style={{
-                        backgroundImage: `url(${image.src.replace(
-                          'upload',
-                          'upload/t_web_small'
-                        )})`,
+        <FormControl style={{ display: 'flex' }}>
+          <InputLabel htmlFor="filter">Filter category</InputLabel>
+          <Select
+            value={filter}
+            onChange={this.updateFilter}
+            inputProps={{
+              name: 'filter',
+              id: 'filter',
+            }}
+          >
+            {categories.map((item, key) => {
+              return (
+                <MenuItem key={key} value={item.tag}>
+                  {item.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <GridList cellHeight={180} cols={colCount}>
+          {filteredImages.map((image, key) => (
+            <GridListTile key={key}>
+              {!image.edit === true ? (
+                <span>
+                  <div
+                    className="grid-view__image"
+                    style={{
+                      backgroundImage: `url(${image.src.replace(
+                        'upload',
+                        'upload/t_web_small'
+                      )})`,
+                    }}
+                  />
+                  <GridListTileBar
+                    actionIcon={
+                      <IconButton
+                        className="icon"
+                        onClick={this.toggleDetailView(image)}
+                      >
+                        <i className="material-icons edit-icon">edit</i>
+                      </IconButton>
+                    }
+                  />
+                </span>
+              ) : (
+                <div>
+                  <i
+                    className="material-icons close-icon"
+                    onClick={this.toggleDetailView.bind(this, image)}
+                  >
+                    clear
+                  </i>
+                  <FormControl style={{ display: 'flex' }}>
+                    <InputLabel htmlFor="category_1">Category 1</InputLabel>
+                    <Select
+                      value={image.tag_1}
+                      onChange={this.updateCategory}
+                      inputProps={{
+                        name: 'tag_1',
+                        id: 'category_1',
+                        image: image,
                       }}
-                    />
-                    <GridListTileBar
-                      actionIcon={
-                        <IconButton
-                          className="icon"
-                          onClick={this.toggleDetailView(image)}
-                        >
-                          <i className="material-icons edit-icon">edit</i>
-                        </IconButton>
-                      }
-                    />
-                  </span>
-                ) : (
-                  <div>
-                    <i
-                      className="material-icons close-icon"
-                      onClick={this.toggleDetailView.bind(this, image)}
                     >
-                      clear
+                      {categories.map((item, key) => {
+                        return (
+                          <MenuItem key={key} value={item.tag}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl style={{ display: 'flex' }}>
+                    <InputLabel htmlFor="category_2">Category 2</InputLabel>
+                    <Select
+                      value={image.tag_2}
+                      onChange={this.updateCategory}
+                      inputProps={{
+                        name: 'tag_2',
+                        id: 'category_2',
+                        image: image,
+                      }}
+                    >
+                      {categories.map((item, key) => {
+                        return (
+                          <MenuItem key={key} value={item.tag}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl style={{ display: 'flex' }}>
+                    <InputLabel htmlFor="category_3">Category 3</InputLabel>
+                    <Select
+                      value={image.tag_3}
+                      onChange={this.updateCategory}
+                      inputProps={{
+                        name: 'tag_3',
+                        id: 'category_3',
+                        image: image,
+                      }}
+                    >
+                      {categories.map((item, key) => {
+                        return (
+                          <MenuItem key={key} value={item.tag}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <IconButton
+                    className="admin__manage__list__item__button"
+                    onClick={() => {
+                      this.deleteOrRestore(image.id, image.is_visible);
+                    }}
+                  >
+                    <i className="material-icons">
+                      {image.is_visible === 0 ? 'restore' : 'delete'}
                     </i>
-                    <FormControl style={{ display: 'flex' }}>
-                      <InputLabel htmlFor="category_1">Category 1</InputLabel>
-                      <Select
-                        value={image.tag_1}
-                        onChange={this.updateCategory}
-                        inputProps={{
-                          name: 'tag_1',
-                          id: 'category_1',
-                          image: image,
-                        }}
-                      >
-                        {categories.map((item, key) => {
-                          return (
-                            <MenuItem key={key} value={item.tag}>
-                              {item.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl style={{ display: 'flex' }}>
-                      <InputLabel htmlFor="category_2">Category 2</InputLabel>
-                      <Select
-                        value={image.tag_2}
-                        onChange={this.updateCategory}
-                        inputProps={{
-                          name: 'tag_2',
-                          id: 'category_2',
-                          image: image,
-                        }}
-                      >
-                        {categories.map((item, key) => {
-                          return (
-                            <MenuItem key={key} value={item.tag}>
-                              {item.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl style={{ display: 'flex' }}>
-                      <InputLabel htmlFor="category_3">Category 3</InputLabel>
-                      <Select
-                        value={image.tag_3}
-                        onChange={this.updateCategory}
-                        inputProps={{
-                          name: 'tag_3',
-                          id: 'category_3',
-                          image: image,
-                        }}
-                      >
-                        {categories.map((item, key) => {
-                          return (
-                            <MenuItem key={key} value={item.tag}>
-                              {item.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <IconButton
-                      className="admin__manage__list__item__button"
-                      onClick={() => {
-                        this.deleteOrRestore(image.id, image.is_visible);
-                      }}
-                    >
-                      <i className="material-icons">
-                        {image.is_visible === 0 ? 'restore' : 'delete'}
-                      </i>
-                    </IconButton>
-                    <IconButton
-                      onClick={() => {
-                        this.sendNotification(image);
-                      }}
-                    >
-                      <i className="shake shake-rorate material-icons">
-                        notifications
-                      </i>
-                    </IconButton>
-                  </div>
-                )}
-              </GridListTile>
-            ))}
-          </GridList>
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      this.sendNotification(image);
+                    }}
+                  >
+                    <i className="shake shake-rorate material-icons">
+                      notifications
+                    </i>
+                  </IconButton>
+                  <i
+                    className={
+                      'material-icons admin__manage__list__item__button ' +
+                      (this.isFirstElement(image) ? 'hide' : '')
+                    }
+                    onClick={this.updateOrder(image, 'top')}
+                  >
+                    arrow_upward
+                  </i>
+                  <i
+                    className={
+                      'material-icons admin__manage__list__item__button ' +
+                      (this.isLastElement(image) ? 'hide' : '')
+                    }
+                    onClick={this.updateOrder(image, 'bottom')}
+                  >
+                    arrow_downward
+                  </i>
+                  <i
+                    className={
+                      'material-icons admin__manage__list__item__button ' +
+                      (this.isFirstElement(image) ? 'hide' : '')
+                    }
+                    onClick={this.updateOrder(image, 'up')}
+                  >
+                    arrow_drop_up
+                  </i>
+                  <i
+                    className={
+                      'material-icons admin__manage__list__item__button ' +
+                      (this.isLastElement(image) ? 'hide' : '')
+                    }
+                    onClick={this.updateOrder(image, 'down')}
+                  >
+                    arrow_drop_down
+                  </i>
+                </div>
+              )}
+            </GridListTile>
+          ))}
+        </GridList>
 
-          <Snackbar
-            open={this.state.snackbarIsOpen}
-            message={this.state.message}
-            autoHideDuration={4000}
-            onClose={this.handleSnackbarClose}
-          />
-        </MuiThemeProvider>
+        <Snackbar
+          open={this.state.snackbarIsOpen}
+          message={this.state.message}
+          autoHideDuration={4000}
+          onClose={this.handleSnackbarClose}
+        />
       </div>
     );
   }

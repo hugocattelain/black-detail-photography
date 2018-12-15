@@ -32,8 +32,8 @@
   position: fixed;
   right: 12px;
   bottom: 12px;
-  color: black;
-  z-index: 99999;
+  color: $bdp-grey;
+  z-index: 999;
   font-size: 30px;
 
   &--white {

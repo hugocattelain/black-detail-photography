@@ -56,6 +56,8 @@
           position: relative;
           bottom: 15px;
           left: 20px;
+          z-index: 99;
+          cursor: pointer;
         }
         &__icon {
           top: 30px !important;

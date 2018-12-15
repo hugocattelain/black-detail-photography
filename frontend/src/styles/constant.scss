@@ -1,4 +1,5 @@
 @import '../../node_modules/csshake/scss/csshake';
+
 $xs: 'only screen and (max-width : 576px)';
 $s: 'only screen and (max-width : 768px)';
 $m: 'only screen and (max-width : 992px)';
@@ -14,11 +15,8 @@ $bdp-light-grey: #f2f2f2;
 
 $spacing: 16px;
 
-* {
-  //font-family: Georgia, serif;
-}
 body {
-  font-family: sans-serif;
+  font-family: 'brandon-grotesque-light';
 }
 
 *:focus {
@@ -32,7 +30,6 @@ h5,
 h6,
 a {
   color: $bdp-grey !important;
-  font-family: Georgia, serif;
 }
 .global {
   &__center {

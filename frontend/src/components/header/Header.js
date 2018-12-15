@@ -8,149 +8,106 @@ import SocialMedia from './SocialMedia';
 import './header.css';
 
 let lastScrollPos = 0;
+const breakPoint = 768;
 
 class Header extends Component {
   state = {
     menuIsOpen: false, //Menu bugs out if set to true initial on push mode
     scrollDirection: 'unset',
-    menuLinks: [
-      {
-        path: '/',
-        title: 'Fine art nude',
-      },
-      {
-        path: '/portrait',
-        title: 'Portrait',
-      },
-      {
-        path: '/architecture',
-        title: 'Architecture',
-      },
-      {
-        path: '/contact',
-        title: 'Contact',
-      },
-    ],
+    largeDevice: $(window).width() > breakPoint,
+    isLandingPageHidden: false,
   };
 
   componentDidMount = () => {
-    window.addEventListener('scroll', this.toggleHeader, false);
-    if (
-      $(window).width() > 768 &&
-      this.props.history.location.pathname !== '/admin'
-    ) {
+    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('resize', this.onResize);
+    if (this.state.largeDevice) {
       this.setState({ menuIsOpen: true });
     }
-    window.addEventListener('resize', this.updateDimensions);
     $('.hamburger').on('click', () => {
-      this.setState({ menuIsOpen: !this.state.menuIsOpen });
+      this.setState(prevState => ({ menuIsOpen: !prevState.menuIsOpen }));
     });
     $('.menu-item').on('click', () => {
-      if ($(window).width() < 768) {
+      if (!this.state.largeDevice) {
         this.setState({ menuIsOpen: false });
       }
     });
   };
-  componentWillReceiveProps = nextProps => {
-    $('.mini-navbar').removeClass('gone');
-    $('.hamburger').removeClass('gone');
-    if ($(window).width() < 768) {
-      this.setState({ menuIsOpen: false });
-    }
-
-    if (
-      window.localStorage.safeMode === 'true' &&
-      this.props.history.location.pathname === '/unsafe'
-    ) {
-      window.localStorage.safeMode = 'false';
-      this.props.history.push('/');
-    }
-    if (window.localStorage.safeMode === 'true') {
-      let safeLinkList = this.state.menuLinks.slice(1);
-      this.setState({ menuLinks: safeLinkList });
-    }
-  };
-
-  componentWillUpdate = (nextProps, nextState) => {
-    if (
-      nextProps.history.location.pathname === '/' &&
-      window.localStorage.safeMode === 'true'
-    ) {
-      this.props.history.push('/portrait');
-    }
-    if ($(window).width() < 768) {
-      if (this.state.scrollDirection === 'up') {
-        $('.mini-navbar').removeClass('gone');
-        $('.hamburger').removeClass('gone');
-      } else {
-        $('.mini-navbar').addClass('gone');
-        $('.hamburger').addClass('gone');
-      }
-      if (this.state.menuIsOpen !== nextState.menuIsOpen) {
-        $('.hamburger').toggleClass('is-active');
-      }
-    } else {
-      $('.mini-navbar').addClass('gone');
-      $('.hamburger').addClass('gone');
-    }
+  componentWillReceiveProps = (nextProps, nextState) => {
+    this.state.largeDevice
+      ? this.setState({ menuIsOpen: true })
+      : this.setState({ menuIsOpen: false });
   };
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.updateDimensions);
-    window.removeEventListener('scroll', this.toggleHeader, false);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
   };
 
-  updateDimensions = () => {
-    if (this.props.history.location.pathname !== '/admin') {
-      if ($(window).width() < 768) {
-        this.setState({ menuIsOpen: false });
-        $('.mini-navbar').removeClass('gone');
-        $('.hamburger').removeClass('gone');
-      } else {
-        this.setState({ menuIsOpen: true });
-        $('.mini-navbar').addClass('gone');
-        $('.hamburger').addClass('gone');
-      }
+  onResize = () => {
+    if ($(window).width() < breakPoint) {
+      this.setState({ menuIsOpen: false, largeDevice: false });
+    } else {
+      this.setState({ menuIsOpen: true, largeDevice: true });
     }
   };
 
-  toggleHeader = () => {
-    if (
-      window.scrollY > $('.mini-navbar').height() + window.innerHeight &&
-      this.props.history.location.pathname !== '/admin'
-    ) {
-      if (window.scrollY > lastScrollPos) {
-        this.setState({ scrollDirection: 'down' });
-      } else {
-        this.setState({ scrollDirection: 'up' });
-      }
-    }
+  onScroll = () => {
+    window.scrollY > lastScrollPos
+      ? this.setState({ scrollDirection: 'down' })
+      : this.setState({ scrollDirection: 'up' });
+
+    window.scrollY > window.innerHeight - $('.mini-navbar').height()
+      ? this.setState({ isLandingPageHidden: true })
+      : this.setState({ isLandingPageHidden: false });
+
     lastScrollPos = window.scrollY;
   };
 
+  goToHomePage = safeMode => {
+    safeMode
+      ? this.props.history.push('/portrait')
+      : this.props.history.push('/');
+  };
+
   render() {
-    const { menuLinks } = this.state;
+    const { menuLinks, safeMode } = this.props;
+    const {
+      menuIsOpen,
+      scrollDirection,
+      largeDevice,
+      isLandingPageHidden,
+    } = this.state;
     return (
       <div>
-        <button className="hamburger hamburger--spin" type="button">
+        <button
+          className={
+            'hamburger hamburger--spin ' +
+            (menuIsOpen ? 'is-active ' : null) +
+            (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : null)
+          }
+          type="button"
+        >
           <span className="hamburger-box">
             <span className="hamburger-inner" />
           </span>
         </button>
-        <div className="mini-navbar">
+        <div
+          className={
+            'mini-navbar ' +
+            (largeDevice ? 'gone ' : null) +
+            (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : null)
+          }
+        >
           <div
             className="mini-navbar__home-banner"
-            onClick={e => {
-              this.props.history.push('/');
-            }}
+            onClick={e => this.goToHomePage(safeMode)}
           />
         </div>
-        <Menu isOpen={this.state.menuIsOpen} noOverlay disableOverlayClick>
+        <Menu isOpen={menuIsOpen} noOverlay disableOverlayClick>
           <div
             className="navbar-logo"
-            onClick={e => {
-              this.props.history.push('/');
-            }}
+            onClick={e => this.goToHomePage(safeMode)}
           />
           <ul className="menu-list">
             {menuLinks.map((menuItem, key) => (
@@ -161,20 +118,20 @@ class Header extends Component {
           </ul>
           <SocialMedia />
 
-          <a
+          {/* <a
             href="//www.dmca.com/Protection/Status.aspx?ID=9b98059e-c870-4227-a6b0-13ea302f8127"
             title="DMCA.com Protection Status"
             className="dmca-badge"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <div className="copyright">
-              Copyright © All rights <br /> reserved.
-            </div>
-          </a>
+          > */}
+          <div className="copyright">
+            Copyright © All rights <br /> reserved.
+          </div>
+          {/* </a>
           <script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js">
             {' '}
-          </script>
+          </script> */}
         </Menu>
       </div>
     );

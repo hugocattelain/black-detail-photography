@@ -13,9 +13,6 @@ import './styles/content.css';
 class Router extends Component {
   componentDidMount = () => {
     $(window).on('keyup', function(e) {
-      if (e.keyCode == 44) {
-        copyToClipboard();
-      }
       if (e.keyCode === 44) {
         copyToClipboard();
       }
@@ -23,6 +20,7 @@ class Router extends Component {
   };
 
   render() {
+    const { safeMode } = this.props;
     return (
       <HttpsRedirect>
         <Switch>
@@ -35,8 +33,12 @@ class Router extends Component {
             path="/notifications/:email/:subscriptionType"
             component={NotificationPreferences}
           />
-          <Route path="/:category&:id" component={Masonry} />
-          <Route path="/:category" component={Masonry} />
+          <Route
+            path="/:category&:id"
+            component={Masonry}
+            safeMode={safeMode}
+          />
+          <Route path="/:category" component={Masonry} safeMode={safeMode} />
         </Switch>
       </HttpsRedirect>
     );

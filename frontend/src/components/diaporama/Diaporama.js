@@ -11,13 +11,9 @@ const fadeProperties = {
 };
 
 class Diaporama extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fadeImages: [],
-    };
-  }
+  state = {
+    fadeImages: [],
+  };
 
   componentDidMount() {
     let images = this.shuffle(this.props.images);

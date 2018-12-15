@@ -6,11 +6,12 @@
     height: 100vh;
     background-color: #fff;
     text-align: center;
-    padding: 80px 40px 0 310px;
+    padding: 1px 40px 0 27.5%;
     margin: 0;
+    cursor: pointer;
 
     @media #{$s} {
-      padding: 80px 0 0 0;
+      padding: 1px 0 0 0;
     }
   }
 
@@ -20,10 +21,10 @@
     color: #000;
     text-transform: capitalize;
     text-align: center;
-    margin-top: 12rem;
+    margin-top: calc(50vh - 100px);
 
     @media #{$xs} {
-      margin-top: 7rem;
+      //margin-top: 7rem;
       font-size: 3rem;
     }
 
@@ -39,7 +40,6 @@
     font-size: 3rem;
     color: #242424;
     text-align: center;
-    font-family: serif;
     opacity: 0.9;
     width: 45%;
     margin: 0 auto;
@@ -55,10 +55,9 @@
     transform: rotateZ(90deg);
     animation: blinker 2.5s linear infinite;
     text-align: center;
-    width: 100%;
-    font-size: 4em !important;
-    cursor: pointer;
-    margin-top: 10rem;
+    font-size: 4rem !important;
+    position: absolute;
+    bottom: 4rem;
   }
 
   @keyframes blinker {

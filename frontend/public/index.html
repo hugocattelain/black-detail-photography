@@ -1,54 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
     <!--
       manifest.json provides metadata used when your web app is added to the
+
+
+
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
+
+
+
       It will be replaced with the URL of the `public` folder during the build.
+
+
+
       Only files inside the `public` folder can be referenced from the HTML.
 
+
+
+
       Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+
+
+
       work correctly both with client-side routing and a non-root public URL.
+
+
+
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Black Detail</title>
     <!-- Search Engine -->
-    <meta name="description" content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.">
-    <meta name="image" content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg">
+    <meta
+      name="description"
+      content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture."
+    />
+    <meta
+      name="image"
+      content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+    />
+    <meta
+      name="keywords"
+      content="photo, photography, image, images, nude, fine, fine-art, fine-art nude, naked, erotic, portrait, portraiture, woman, women, woman portrait, sexy, hot, swimwear, swimsuit, underware, lingerie, body, lines, curves, architecture, urban, black, black detail, blackdetail, black-detail, black and white, bnw, city, landscape, boudoir, contrast"
+    />
     <!-- Schema.org for Google -->
-    <meta itemprop="name" content="Black Detail">
-    <meta itemprop="description" content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.">
-    <meta itemprop="image" content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg">
+    <meta itemprop="name" content="Black Detail" />
+    <meta
+      itemprop="description"
+      content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture."
+    />
+    <meta
+      itemprop="image"
+      content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+    />
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Black Detail">
-    <meta name="twitter:description" content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.">
-    <meta name="twitter:image:src" content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Black Detail" />
+    <meta
+      name="twitter:description"
+      content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture."
+    />
+    <meta
+      name="twitter:image:src"
+      content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+    />
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="Black Detail">
-    <meta name="og:description" content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture.">
-    <meta name="og:image" content="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg">
-    <meta name="og:url" content="https://www.black-detail.com">
-    <meta name="og:site_name" content="Black Detail">
-    <meta name="fb:admins" content="1022677919">
-    <meta name="fb:app_id" content="1796831383926552">
-    <meta name="og:type" content="website">
+    <meta name="og:title" content="Black Detail" />
+    <meta
+      name="og:description"
+      content="Photography portfolio. Fine-art Nude, Portrait, Fashion, Architecture."
+    />
+    <meta
+      name="og:image"
+      content="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg"
+    />
+    <meta name="og:url" content="https://www.black-detail.com" />
+    <meta name="og:site_name" content="Black Detail" />
+    <meta name="fb:admins" content="1022677919" />
+    <meta name="fb:app_id" content="1796831383926552" />
+    <meta name="og:type" content="website" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121228792-1"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-121228792-1"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
 
       gtag('config', 'UA-121228792-1');
@@ -56,14 +116,17 @@
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TTQFPGJ"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TTQFPGJ"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
 
     <div id="root"></div>
-
   </body>
 </html>

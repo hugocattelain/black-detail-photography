@@ -47,12 +47,10 @@ const LandingPage = ({ category }) => {
   };
 
   return (
-    <div className="landing-page__container">
+    <div className="landing-page__container" onClick={scroll}>
       <div className="landing-page__title">{getTitle(category)}</div>
       <div className="landing-page__subtitle">"{getSubtitle(category)}"</div>
-      <i className="material-icons landing-page__icon" onClick={scroll}>
-        arrow_forward_ios
-      </i>
+      <i className="material-icons landing-page__icon">arrow_forward_ios</i>
     </div>
   );
 };

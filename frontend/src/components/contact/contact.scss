@@ -1,13 +1,28 @@
 @import '../../styles/constant.scss';
 
 .contact {
-  padding: 0 15px !important;
+  &__container {
+    padding: 80px 0 0 27.5%;
 
+    @media #{$s} {
+      padding: 80px 0 0 0;
+    }
+  }
   &__wrapper {
     padding: 20px 30px;
     margin: 0 auto;
     text-align: center;
-    max-width: 600px;
+    max-width: 75%;
+    margin-top: calc(50vh - 80px);
+    transform: translateY(-50%);
+
+    @media #{$s} {
+      margin-top: 10px;
+      transform: none;
+      padding: 20px 5px;
+      max-width: 85vw;
+      min-width: 245px;
+    }
   }
 
   &__title {
@@ -23,14 +38,7 @@
   &__input {
     display: block;
     &-email,
-    &-subject {
-      width: calc(50% - 20px);
-      margin: 0 5px;
-
-      @media #{$xs} {
-        width: calc(100% - 30px) !important;
-      }
-    }
+    &-subject,
     &-message {
       width: calc(100% - 30px);
       margin: 10px auto 20px;
