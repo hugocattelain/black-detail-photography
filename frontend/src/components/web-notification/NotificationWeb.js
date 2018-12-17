@@ -6,6 +6,10 @@ import isEqual from 'lodash/isEqual';
 import '../images/BDP_logo.jpg';
 
 class NotificationWeb extends Component {
+  state = {
+    a: 1,
+    b: 'bbb'
+  };
   showNotifications = () => {
     // If the Notifications API is supported by the browser
     // then show the notification
@@ -53,7 +57,7 @@ NotificationWeb.propTypes = {
   body: PropTypes.string.isRequired,
   timeout: PropTypes.number,
   icon: PropTypes.any,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired
 };
 
 NotificationWeb.defaultProps = {
@@ -62,7 +66,7 @@ NotificationWeb.defaultProps = {
   timeout: 0,
   icon:
     'http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg',
-  url: 'http://www.black-detail.com/curves',
+  url: 'http://www.black-detail.com/curves'
 };
 
 export default NotificationWeb;

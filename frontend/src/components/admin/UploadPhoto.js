@@ -73,6 +73,7 @@ class UploadPhoto extends Component {
       tag_2: '',
       tag_3: '',
       is_visible: 1,
+      image_index: this.props.lastIndex + 1 + index,
     });
     this.setState({ data: data });
   }
@@ -106,32 +107,44 @@ class UploadPhoto extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    Client.postImage(this.state.data).then(response => {
-      this.setState({
-        notification_data: response,
-        //showNotification: true,
-        message: 'Success',
-        snackbarIsOpen: true,
-        uploadEnded: false,
-      });
-      if (this.state.sendNewsletter) {
-        Client.getEmails().then(response => {
-          const emails = response;
-          const notifications_data = {
-            emails: emails,
-            images: this.state.data,
-          };
-          Client.postNewsletter(notifications_data)
-            .then(response => {})
-            .catch(err => {
-              this.setState({
-                message: 'Error while sending newsletter: ' + err,
-                snackbarIsOpen: true,
-              });
-            });
+    Client.postImage(this.state.data)
+      .then(response => {
+        this.setState({
+          notification_data: response,
+          //showNotification: true,
+          message: 'Image(s) successfully posted',
+          snackbarIsOpen: true,
+          endUpload: false,
         });
-      }
-    });
+        if (this.state.sendNewsletter) {
+          Client.getEmails().then(response => {
+            const emails = response;
+            const notifications_data = {
+              emails: emails,
+              images: this.state.data,
+            };
+            Client.postNewsletter(notifications_data)
+              .then(() => {
+                this.setState({
+                  message: 'Newsletter successfully sent',
+                  snackbarIsOpen: true,
+                });
+              })
+              .catch(err => {
+                this.setState({
+                  message: 'Error while sending newsletter: ' + err,
+                  snackbarIsOpen: true,
+                });
+              });
+          });
+        }
+      })
+      .catch(err => {
+        this.setState({
+          message: 'Error while posting image(s): ' + err,
+          snackbarIsOpen: true,
+        });
+      });
   };
 
   render() {

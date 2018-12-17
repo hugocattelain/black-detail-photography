@@ -23,8 +23,25 @@ exports.login = body => {
     data: body,
   }).then(response => response.data);
 };
-/* eslint-disable no-undef */
-exports.getAllImages = function(category, cb) {
+
+exports.resetIndex = images => {
+  return axiosInstance({
+    method: 'put',
+    url: 'photos/reset-index',
+    responseType: 'json',
+    data: images,
+  }).then(response => response.data);
+};
+
+exports.getLastIndex = images => {
+  return axiosInstance({
+    method: 'get',
+    url: 'photos/last-photo-index',
+    responseType: 'json',
+  }).then(response => response.data);
+};
+
+exports.getImages = function(category, cb) {
   const url = `photos?category=${category}`;
 
   return axiosInstance({
@@ -36,19 +53,7 @@ exports.getAllImages = function(category, cb) {
     .then(cb);
 };
 
-exports.getImages = function(category, cb) {
-  const url = category === ('home' || 'all') ? '/photos' : `photos/${category}`;
-
-  return axiosInstance({
-    method: 'get',
-    url: url,
-    responseType: 'json',
-  })
-    .then(response => response.data)
-    .then(cb);
-};
-
-exports.postImage = function(data) {
+exports.postImage = data => {
   const url = 'photo';
   return axiosInstance({
     method: 'post',

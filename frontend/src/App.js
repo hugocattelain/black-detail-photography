@@ -30,6 +30,10 @@ const muiBlack = createMuiTheme({
     },
     MuiInput: { root: { fontSize: '1.5rem' } },
     MuiFormLabel: { root: { fontSize: '1.5rem' } },
+    MuiFormControlLabel: {
+      root: { fontSize: '1.7rem' },
+      label: { fontSize: '1.7rem' },
+    },
   },
 });
 
