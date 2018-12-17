@@ -43,7 +43,7 @@ class MasonryWall extends Component {
       this.props.safeMode && category !== ('portrait' || 'architecture')
         ? 'portrait'
         : category;
-    Client.getAllImages(param, images => {
+    Client.getImages(param, images => {
       this.setState({
         images: images,
         loading: false,
@@ -61,7 +61,7 @@ class MasonryWall extends Component {
           ? 'portrait'
           : nextCategory;
       this.setState({ loading: true });
-      Client.getAllImages(param, images => {
+      Client.getImages(param, images => {
         this.setState({
           images: images,
           loading: false,

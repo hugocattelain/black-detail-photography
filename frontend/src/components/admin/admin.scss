@@ -1,9 +1,17 @@
 @import '../../styles/constant.scss';
+
+.container {
+  padding: 0 0 0 27.5%;
+
+  @media #{$s} {
+    padding: 80px 0 0 0;
+  }
+}
 .admin {
   text-align: center;
 
   &__container {
-    padding: 80px 0 0 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,6 +77,27 @@
         }
       }
     }
+
+    &__actions {
+      display: flex;
+      text-align: left;
+      padding: 15px;
+      flex-direction: row;
+      margin: 15px;
+      border: 1px solid black;
+
+      .icon {
+        margin-right: 10px;
+      }
+
+      @media #{$s} {
+        flex-direction: column;
+      }
+    }
+
+    &__grid {
+      padding: 0 15px 15px 15px;
+    }
   }
 }
 
@@ -92,7 +121,7 @@
   background-color: lightgrey;
 }
 
-.edit-icon {
+.action-icon {
   color: white;
 }
 

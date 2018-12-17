@@ -14,6 +14,7 @@ const categories = [
   { name: 'Portrait', tag: 'portrait' },
   { name: 'Nude', tag: 'nsfw' },
 ];
+const param = 'all';
 
 class Admin extends Component {
   state = {
@@ -22,6 +23,7 @@ class Admin extends Component {
     isAdmin: false,
     snackbarIsOpen: false,
     message: '',
+    lastIndex: 0,
   };
 
   componentWillUnmount = () => {
@@ -40,8 +42,15 @@ class Admin extends Component {
     Client.login(data)
       .then(response => {
         sessionStorage.setItem('bearer', response.token);
-        this.setState({
-          isAdmin: true,
+        Client.getImages(param, images => {
+          images.forEach(image => {
+            image.edit = false;
+          });
+          this.setState({
+            images: images,
+            isAdmin: true,
+            lastIndex: this.getLastIndex(images),
+          });
         });
       })
       .catch(err => {
@@ -50,6 +59,16 @@ class Admin extends Component {
           message: 'Wrong password',
         });
       });
+  };
+
+  getLastIndex = images => {
+    const index = Math.max.apply(
+      Math,
+      images.map(function(o) {
+        return o.image_index;
+      })
+    );
+    return index;
   };
 
   handleTabChange = (event, tab) => {
@@ -61,9 +80,9 @@ class Admin extends Component {
   };
 
   render() {
-    const { tab, isAdmin } = this.state;
+    const { tab, isAdmin, images, lastIndex } = this.state;
     return (
-      <div className="admin">
+      <div className="container">
         {isAdmin ? (
           <div className="admin__container admin__container--top">
             <AppBar position="static">
@@ -75,12 +94,12 @@ class Admin extends Component {
 
             {tab === 0 && (
               <Typography component="div" className="admin__section">
-                <UploadPhoto categories={categories} />
+                <UploadPhoto categories={categories} lastIndex={lastIndex} />
               </Typography>
             )}
             {tab === 1 && (
               <Typography component="div" className="admin__section">
-                <ManagePhoto categories={categories} />
+                <ManagePhoto categories={categories} images={images} />
               </Typography>
             )}
           </div>

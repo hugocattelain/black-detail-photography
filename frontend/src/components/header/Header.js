@@ -83,8 +83,8 @@ class Header extends Component {
         <button
           className={
             'hamburger hamburger--spin ' +
-            (menuIsOpen ? 'is-active ' : null) +
-            (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : null)
+            (menuIsOpen ? 'is-active ' : '') +
+            (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : '')
           }
           type="button"
         >
@@ -95,8 +95,8 @@ class Header extends Component {
         <div
           className={
             'mini-navbar ' +
-            (largeDevice ? 'gone ' : null) +
-            (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : null)
+            (largeDevice ? 'gone ' : '') +
+            (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : '')
           }
         >
           <div

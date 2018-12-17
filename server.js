@@ -82,13 +82,12 @@ const pool = mysql.createPool({
 });
 
 // Server caching middelware
-var cache = duration => {
+const cache = duration => {
   return (req, res, next) => {
-    let key = '__express__' + req.originalUrl || req.url;
-    let cachedBody = mcache.get(key);
+    const key = '__express__' + req.originalUrl || req.url;
+    const cachedBody = mcache.get(key);
     if (cachedBody) {
       res.send(cachedBody);
-      return;
     } else {
       res.sendResponse = res.send;
       res.send = body => {
@@ -99,8 +98,44 @@ var cache = duration => {
     }
   };
 };
+/* ----------------- TO BE REMOVED --------------------*/
+app.put('/api/photos/reset-index', (req, res) => {
+  const images = req.body;
+  const instructions = [];
+  const errs = [];
+  for (let i = 0; i < images.length; i++) {
+    const index = i + 1;
+    instructions.push(
+      'UPDATE photos SET image_index = ' +
+        index +
+        ' WHERE id = ' +
+        images[i].id +
+        ';'
+    );
+  }
 
-app.get('/api/photos', cache(6000), (req, res, next) => {
+  pool.getConnection((err, connection) => {
+    if (err) {
+      connection.release();
+      res.json({ code: 100, status: 'Error in connection database' });
+      return;
+    }
+    for (let i = 0; i < images.length; i++) {
+      connection.query(instructions[i], (err, result) => {
+        if (err) {
+          errs.push(err);
+        }
+      });
+    }
+    connection.release();
+    if (errs.length > 0) {
+      res.status(500).json(errs);
+    }
+    res.json('Success');
+  });
+});
+
+app.get('/api/photos', cache(1), (req, res, next) => {
   const param = req.query.category || 'portrait';
   const exception = 'nsfw';
   let values = [];
@@ -108,9 +143,9 @@ app.get('/api/photos', cache(6000), (req, res, next) => {
   switch (param) {
     case 'home':
       instruction = `
-        select * from photos
-        where is_visible=1
-        and (tag_1 like ?
+      select * from photos
+      where is_visible=1
+      and (tag_1 like ?
         or tag_2 like ?
         or tag_3 like ?)
         order by image_index DESC`;
@@ -124,52 +159,25 @@ app.get('/api/photos', cache(6000), (req, res, next) => {
       instruction = `
         select * from photos
         where (tag_1 like ?
-        or tag_2 like ?
-        or tag_3 like ?)
-        and is_visible=1
+          or tag_2 like ?
+          or tag_3 like ?)
+          and is_visible=1
         order by image_index DESC`;
       values = [param, param, param];
       break;
   }
 
-  pool.getConnection(function(err, connection) {
+  pool.getConnection((err, connection) => {
     if (err) {
       connection.release();
       res.json({ code: 100, status: 'Error in connection database' });
       return;
     }
 
-    connection.query(instruction, values, function(err, rows) {
+    connection.query(instruction, values, (err, rows) => {
       connection.release();
       if (!err) {
         res.status(200).json(rows);
-      }
-    });
-  });
-});
-
-app.get('/api/photos/:category', cache(6000), (req, res, next) => {
-  const category = req.params.category;
-  const instruction = `select * from photos
-  where tag_1 like ?
-  or tag_2 like ?
-  or tag_3 like ?
-  and is_visible=1
-  order by image_index DESC
-  `;
-  const values = [category, category, category];
-
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      res.json({ code: 100, status: 'Error in connection database' });
-      return;
-    }
-
-    connection.query(instruction, values, function(err, result) {
-      connection.release();
-      if (!err) {
-        res.status(200).json(result);
       }
     });
   });
@@ -187,10 +195,11 @@ app.post(
     tag_2,
     tag_3,
     created_at,
-    is_visible
+    is_visible,
+    image_index
   ) VALUES ?`;
 
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       if (err) {
         connection.release();
         res.json({ code: 100, status: 'Error in connection database' });
@@ -198,7 +207,13 @@ app.post(
       }
 
       const values = data.map(item => {
-        if (!item.src || !item.tag_1 || !item.title || !item.is_visible) {
+        if (
+          !item.src ||
+          !item.tag_1 ||
+          !item.title ||
+          !item.is_visible ||
+          !item.image_index
+        ) {
           res.status(422).json({ error: 'Missing required field(s)' });
         } else {
           return [
@@ -209,11 +224,11 @@ app.post(
             item.tag_3,
             moment().format('YYYY-MM-DD HH:mm:ss'),
             item.is_visible,
+            item.image_index,
           ];
         }
       });
-
-      connection.query(instruction, [values], function(err, result) {
+      connection.query(instruction, [values], (err, result) => {
         connection.release();
         if (!err) {
           res.status(201).json(values);
@@ -236,7 +251,8 @@ app.put(
     tag_2 = ?,
     tag_3 = ?,
     created_at = ?,
-    is_visible = ?
+    is_visible = ?,
+    image_index = ?
     WHERE id = ?;
     `;
     const values = [
@@ -245,17 +261,18 @@ app.put(
       data.tag_3,
       data.created_at,
       data.is_visible,
+      data.image_index,
       id,
     ];
 
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       if (err) {
         connection.release();
         res.json({ code: 100, status: 'Error in connection database' });
         return;
       }
 
-      connection.query(instruction, values, function(err, result) {
+      connection.query(instruction, values, (err, result) => {
         connection.release();
         if (!err) {
           res.status(201).json('Success');
@@ -279,14 +296,14 @@ app.put(
     `;
     const values = [visibility, id];
 
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       if (err) {
         connection.release();
         res.json({ code: 100, status: 'Error in connection database' });
         return;
       }
 
-      connection.query(instruction, values, function(err, result) {
+      connection.query(instruction, values, (err, result) => {
         connection.release();
         if (!err) {
           res.status(201).json('Success');
@@ -298,7 +315,7 @@ app.put(
   }
 );
 
-app.post('/api/contact', function(req, res) {
+app.post('/api/contact', (req, res) => {
   const data = req.body;
 
   let transporter = nodemailer.createTransport({
@@ -344,7 +361,7 @@ app.post('/api/contact', function(req, res) {
 app.post(
   '/api/newsletter',
   passport.authenticate('bearer', { session: false }),
-  function(req, res, next) {
+  (req, res, next) => {
     const data = req.body;
     const emails = data.emails;
     const images = data.images;
@@ -400,7 +417,7 @@ app.get(
   (req, res, next) => {
     let instruction = 'select * from emails';
 
-    pool.getConnection(function(err, connection) {
+    pool.getConnection((err, connection) => {
       if (err) {
         connection.release();
         res.json({ code: 100, status: 'Error in connection database' });
@@ -421,7 +438,7 @@ app.get('/api/emails/:email', (req, res, next) => {
   let values = req.params.email;
   let instruction = 'select * from emails where email = ?';
 
-  pool.getConnection(function(err, connection) {
+  pool.getConnection((err, connection) => {
     if (err) {
       connection.release();
       res.json({ code: 100, status: 'Error in connection database' });
@@ -445,14 +462,14 @@ app.post('/api/emails', (req, res, next) => {
   };
   const instruction = `INSERT INTO emails SET ?`;
 
-  pool.getConnection(function(err, connection) {
+  pool.getConnection((err, connection) => {
     if (err) {
       connection.release();
       res.json({ code: 100, status: 'Error in connection database' });
       return;
     }
 
-    connection.query(instruction, values, function(err, result) {
+    connection.query(instruction, values, (err, result) => {
       connection.release();
       if (!err) {
         res.status(201).json('Success');
@@ -473,14 +490,14 @@ app.put('/api/emails/:email/:pref', (req, res, next) => {
     `;
   const values = [pref, email];
 
-  pool.getConnection(function(err, connection) {
+  pool.getConnection((err, connection) => {
     if (err) {
       connection.release();
       res.json({ code: 100, status: 'Error in connection database' });
       return;
     }
 
-    connection.query(instruction, values, function(err, result) {
+    connection.query(instruction, values, (err, result) => {
       connection.release();
       if (!err) {
         res.status(201).json('Success');
@@ -492,7 +509,7 @@ app.put('/api/emails/:email/:pref', (req, res, next) => {
 });
 
 // Serving the unknown routes to index.html
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 

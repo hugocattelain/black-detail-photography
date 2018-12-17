@@ -10,11 +10,13 @@ import { InputLabel, FormControl } from '@material-ui/core';
 
 class NewPhoto extends Component {
   state = {
+    src: '',
     title: '',
     tag_1: '',
     tag_2: '',
     tag_3: '',
     is_visible: 1,
+    image_index: 0,
   };
 
   componentDidMount = () => {
