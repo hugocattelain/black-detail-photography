@@ -34,6 +34,10 @@ const muiBlack = createMuiTheme({
       root: { fontSize: '1.7rem' },
       label: { fontSize: '1.7rem' },
     },
+    MuiListItemText: {
+      primary: { fontSize: '1.4rem' },
+      secondary: { fontSize: '0.8rem' },
+    },
   },
 });
 
@@ -50,6 +54,10 @@ const headerLink = [
     path: '/architecture',
     title: 'Architecture',
   },
+  /* {
+    path: '/editorial',
+    title: 'Editorial',
+  }, */
   {
     path: '/contact',
     title: 'Contact',
@@ -82,12 +90,13 @@ class App extends Component {
   };
 
   componentWillReceiveProps = (nextProp, nextState) => {
+    const safeMode = window.localStorage.safeMode === 'true' ? true : false;
     if (
       nextProp.history.location.pathname !==
       this.props.history.location.pathname
     ) {
       this.redirectUser(
-        this.state.safeMode,
+        safeMode,
         this.state.maintenanceMode,
         nextProp.history.location.pathname
       );
