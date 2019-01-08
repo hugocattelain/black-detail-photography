@@ -75,7 +75,7 @@ class MasonryWall extends Component {
       this.props.match.params.category === undefined
         ? 'home'
         : this.props.match.params.category;
-    this.props.history.push(`/${category}&${id}`);
+    this.props.history.push(`/${category}/${id}`);
   };
 
   toggleDiaporama = () => {
@@ -89,7 +89,6 @@ class MasonryWall extends Component {
       this.props.match.params.category === undefined
         ? 'home'
         : this.props.match.params.category;
-
     const childElements = images.map((item, key) => {
       const id = item.id;
       const thumb = item.src.replace('upload', 'upload/t_web_small');
