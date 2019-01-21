@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import $ from 'jquery';
 
 import SocialMedia from './SocialMedia';
-import './header.css';
+import './header.scss';
 
 let lastScrollPos = 0;
 const breakPoint = 768;

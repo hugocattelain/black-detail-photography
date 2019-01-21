@@ -80,7 +80,7 @@ class Lightbox extends Component {
           ? 'home'
           : this.props.match.params.category;
       this.setState({ photoIndex: newIndex });
-      this.props.history.push(`/${category}&${id}`);
+      this.props.history.push(`/${category}/${id}`);
     } else {
       const id = images[images.length - 1].id;
       const category =
@@ -88,7 +88,7 @@ class Lightbox extends Component {
           ? 'home'
           : this.props.match.params.category;
       this.setState({ photoIndex: images.length - 1 });
-      this.props.history.push(`/${category}&${id}`);
+      this.props.history.push(`/${category}/${id}`);
     }
   };
 
@@ -102,7 +102,7 @@ class Lightbox extends Component {
           ? 'home'
           : this.props.match.params.category;
       this.setState({ photoIndex: newIndex });
-      this.props.history.push(`/${category}&${id}`);
+      this.props.history.push(`/${category}/${id}`);
     } else {
       const id = images[0].id;
       const category =
@@ -110,7 +110,7 @@ class Lightbox extends Component {
           ? 'home'
           : this.props.match.params.category;
       this.setState({ photoIndex: 0 });
-      this.props.history.push(`/${category}&${id}`);
+      this.props.history.push(`/${category}/${id}`);
     }
   };
 

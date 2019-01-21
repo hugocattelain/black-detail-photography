@@ -121,21 +121,26 @@ class UploadPhoto extends Component {
             const emails = response;
             const notifications_data = {
               emails: emails,
-              images: this.state.data,
             };
-            Client.postNewsletter(notifications_data)
-              .then(() => {
-                this.setState({
-                  message: 'Newsletter successfully sent',
-                  snackbarIsOpen: true,
+            Client.getImages('last', images => {
+              notifications_data.images = images.slice(
+                0,
+                this.state.data.length
+              );
+              Client.postNewsletter(notifications_data)
+                .then(() => {
+                  this.setState({
+                    message: 'Newsletter successfully sent',
+                    snackbarIsOpen: true,
+                  });
+                })
+                .catch(err => {
+                  this.setState({
+                    message: 'Error while sending newsletter: ' + err,
+                    snackbarIsOpen: true,
+                  });
                 });
-              })
-              .catch(err => {
-                this.setState({
-                  message: 'Error while sending newsletter: ' + err,
-                  snackbarIsOpen: true,
-                });
-              });
+            });
           });
         }
       })

@@ -21,6 +21,10 @@
     &--top {
       justify-content: flex-start;
       height: 100vh;
+
+      @media #{$s} {
+        height: calc(100vh - 80px);
+      }
     }
   }
 
@@ -43,7 +47,11 @@
     &-wrapper {
       > div {
         width: 100% !important;
-        height: calc(100vh - 128px) !important;
+        height: calc(100vh - 48px) !important;
+
+        @media #{$s} {
+          height: calc(100vh - 128px) !important;
+        }
       }
     }
     &__checkbox {
@@ -81,10 +89,9 @@
     &__actions {
       display: flex;
       text-align: left;
-      padding: 15px;
+      padding: 15px 25px;
       flex-direction: row;
       margin: 15px;
-      border: 1px solid black;
 
       .icon {
         margin-right: 10px;

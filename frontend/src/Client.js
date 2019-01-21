@@ -172,3 +172,17 @@ exports.postNewsletter = function(data) {
     data: data,
   }).then(response => response.data);
 };
+
+exports.postCustomNewsletter = function(data) {
+  const url = 'custom-newsletter';
+  return axiosInstance({
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'bearer ' + sessionStorage.getItem('bearer'),
+    },
+    data: data,
+  }).then(response => response.data);
+};

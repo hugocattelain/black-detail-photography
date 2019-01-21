@@ -12,7 +12,7 @@ import lazysizes from 'lazysizes';
 
 import { getCategoryName } from '../../Utils';
 
-import './masonry.css';
+import './masonry.scss';
 
 class MasonryWall extends Component {
   state = {

@@ -29,6 +29,8 @@ exports.getCategoryName = function(alias) {
       return 'portrait';
     case 'architecture':
       return 'architecture';
+    case 'editorial':
+      return 'editorial';
     default:
       return 'home';
   }
