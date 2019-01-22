@@ -53,11 +53,10 @@
 
   &__icon {
     transform: rotateZ(90deg);
-    animation: blinker 2.5s linear infinite;
-    text-align: center;
+    animation: blinker 1.7s linear infinite;
     font-size: 4rem !important;
-    position: absolute;
-    bottom: 4rem;
+    position: relative;
+    top: 3rem;
   }
 
   @keyframes blinker {

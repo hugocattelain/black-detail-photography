@@ -23,16 +23,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
-  );
-  next();
-});
+app.use(require('prerender-node'));
 
 // Express only serves static assets in production
 app.use(express.static(path.join(__dirname, 'frontend/build')));
@@ -148,11 +139,15 @@ app.get('/api/photos', cache(1), (req, res, next) => {
       and (tag_1 like ?
         or tag_2 like ?
         or tag_3 like ?)
-        order by image_index DESC`;
+        order by image_index DESC;`;
       values = [exception, exception, exception];
       break;
     case 'all':
-      instruction = `select * from photos order by image_index DESC`;
+      instruction = `select * from photos order by image_index DESC;`;
+      values = '';
+      break;
+    case 'last':
+      instruction = `select * from photos order by id DESC;`;
       values = '';
       break;
     default:
@@ -162,7 +157,7 @@ app.get('/api/photos', cache(1), (req, res, next) => {
           or tag_2 like ?
           or tag_3 like ?)
           and is_visible=1
-        order by image_index DESC`;
+        order by image_index DESC;`;
       values = [param, param, param];
       break;
   }
@@ -306,7 +301,7 @@ app.put(
       connection.query(instruction, values, (err, result) => {
         connection.release();
         if (!err) {
-          res.status(201).json('Success');
+          res.status(201).json(result);
         } else {
           res.status(500).json(err);
         }
@@ -381,6 +376,51 @@ app.post(
     res.status(200).json('Success');
   }
 );
+
+app.post(
+  '/api/custom-newsletter',
+  passport.authenticate('bearer', { session: false }),
+  (req, res, next) => {
+    const data = req.body;
+    const emails = data.emails;
+    const content = {
+      subject: data.subject,
+      title: data.title,
+      subtitle: data.subtitle,
+      body: data.body,
+      link_ref: data.link_ref,
+      link_text: data.link_text,
+    };
+
+    let transporter = nodemailer.createTransport({
+      host: process.env.MAILER_SERVER,
+      port: process.env.MAILER_PORT,
+      secure: false,
+      auth: {
+        user: process.env.MAILER_NAME,
+        pass: process.env.MAILER_PASSWORD,
+      },
+    });
+    sendCustomEmails(transporter, emails, content);
+
+    transporter.close();
+    res.status(200).json('Success');
+  }
+);
+
+async function sendCustomEmails(transporter, emails, content) {
+  for (const email of emails) {
+    if (email.subscription_type > 0) {
+      const message = {
+        from: process.env.MAILER_NAME,
+        to: email.email,
+        subject: content.subject,
+        html: mjmlToHtml.fillCustomNewsLetter(email, content),
+      };
+      await sendEmail(transporter, message);
+    }
+  }
+}
 
 async function sendEmails(transporter, emails, images) {
   for (const email of emails) {
@@ -500,7 +540,7 @@ app.put('/api/emails/:email/:pref', (req, res, next) => {
     connection.query(instruction, values, (err, result) => {
       connection.release();
       if (!err) {
-        res.status(201).json('Success');
+        res.status(201).json(result);
       } else {
         res.status(500).json(err);
       }

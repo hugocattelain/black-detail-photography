@@ -155,7 +155,14 @@ class ManagePhoto extends Component {
   };
 
   render() {
-    const { images, colCount, filter, showDeleted } = this.state;
+    const {
+      images,
+      colCount,
+      filter,
+      showDeleted,
+      snackbarIsOpen,
+      message,
+    } = this.state;
     const categories = this.props.categories;
     let filteredImages =
       filter === 'All'
@@ -197,7 +204,7 @@ class ManagePhoto extends Component {
           <FormControlLabel
             control={
               <Checkbox
-                checked={this.state.showDeleted}
+                checked={showDeleted}
                 onChange={this.handleCheckboxChange}
                 value="showDeleted"
               />
@@ -337,8 +344,8 @@ class ManagePhoto extends Component {
         </div>
 
         <Snackbar
-          open={this.state.snackbarIsOpen}
-          message={this.state.message}
+          open={snackbarIsOpen}
+          message={message}
           autoHideDuration={4000}
           onClose={this.handleSnackbarClose}
         />

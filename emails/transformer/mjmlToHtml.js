@@ -26,7 +26,7 @@ exports.fillNewsLetter = (email, images) => {
     let url =
       'https://www.black-detail.com/' + Utils.getCategoryAlias(image.tag_1);
     if (image.id && image.id !== undefined) {
-      url = url + '&' + image.id;
+      url = url + '/' + image.id;
     }
     let singleImage = mjmlImage.replace('{{ image_src }}', image.src);
     singleImage = singleImage.replace('{{ image_url }}', url);
@@ -36,6 +36,35 @@ exports.fillNewsLetter = (email, images) => {
   const newsletterHtml = mjml2html(
     newsletterMjml.replace('{{ image_list }}', imageList.join(' '))
   );
+  return newsletterHtml.html;
+};
+
+exports.fillCustomNewsLetter = (email, content) => {
+  let newsletterMjml = fs.readFileSync(
+    path.join(__dirname, '../templates/template.mjml'),
+    'utf8'
+  );
+  const notificationsUrl =
+    'https://www.black-detail.com/notifications/' +
+    email.email +
+    '/' +
+    email.subscription_type;
+  newsletterMjml = newsletterMjml.replace(
+    '{{ notifications_url }}',
+    notificationsUrl
+  );
+
+  newsletterMjml = newsletterMjml.replace('{{ title }}', content.title);
+
+  newsletterMjml = newsletterMjml.replace('{{ subtitle }}', content.subtitle);
+
+  newsletterMjml = newsletterMjml.replace('{{ body }}', content.body);
+
+  newsletterMjml = newsletterMjml.replace('{{ link_ref }}', content.link_ref);
+
+  newsletterMjml = newsletterMjml.replace('{{ link_text }}', content.link_text);
+
+  const newsletterHtml = mjml2html(newsletterMjml);
   return newsletterHtml.html;
 };
 

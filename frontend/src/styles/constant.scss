@@ -37,13 +37,8 @@ a {
     transform: translateY(-50%);
   }
   &__progress-bar {
-    margin-top: 50vh;
-    transform: translateY(-50%);
-
-    @media #{$s} {
-      margin-top: 20vh;
-      transform: translateY(-20%);
-    }
+    position: absolute;
+    top: 50vh;
   }
 
   &__button {

@@ -85,11 +85,11 @@
       }
 
       .italic {
-        font-mj-style: italic;
+        font-style: italic;
       }
 
       .underline {
-        font-mj-style: underline;
+        font-style: underline;
       }
 
       .bold {

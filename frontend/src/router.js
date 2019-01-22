@@ -28,13 +28,14 @@ class Router extends Component {
           <Route exact path="/" component={Masonry} />
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/contact" component={Contact} />
+          <Route exact path="/editorial" component={Masonry} />
           <Route
             exact
             path="/notifications/:email/:subscriptionType"
             component={NotificationPreferences}
           />
           <Route
-            path="/:category&:id"
+            path="/:category/:id"
             component={Masonry}
             safeMode={safeMode}
           />

@@ -22,6 +22,8 @@ const LandingPage = ({ category }) => {
         return 'portraits';
       case 'architecture':
         return 'architecture';
+      case 'editorial':
+        return 'editorial';
       default:
         return 'fine art nude';
     }
@@ -50,7 +52,9 @@ const LandingPage = ({ category }) => {
     <div className="landing-page__container" onClick={scroll}>
       <div className="landing-page__title">{getTitle(category)}</div>
       <div className="landing-page__subtitle">"{getSubtitle(category)}"</div>
-      <i className="material-icons landing-page__icon">arrow_forward_ios</i>
+      <div>
+        <i className="material-icons landing-page__icon">arrow_forward_ios</i>
+      </div>
     </div>
   );
 };
