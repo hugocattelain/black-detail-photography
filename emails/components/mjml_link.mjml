@@ -1,0 +1,5 @@
+<mj-text>
+  <p class="center"><a class="link center" href="{{ link_ref }}" style="color:#000;">
+      {{ link_text }}
+    </a></p>
+</mj-text>

@@ -1,13 +1,19 @@
 <mjml>
   <mj-head>
-    <mj-title>Black Detail - New photo is online, go check this out !</mj-title>
+    <mj-title>Black Detail - Message received</mj-title>
     <mj-attributes>
       <mj-section background-color="#FFFFFF" background-repeat="no-repeat" text-align="center" vertical-align="top" />
       <mj-all font-family="Arial" padding-top="0" padding-bottom="0" />
     </mj-attributes>
     <mj-style inline="inline">
+      @font-face {
+        font-family: brandon;
+        src: url(../../frontend/src/assets/fonts/brandon-grotesque-light.otf);
+      }
+
       a {
         text-decoration: none;
+        text-align: center !important;
       }
 
       .header-link {
@@ -17,7 +23,7 @@
         text-align: center;
         font-size: 16px;
         color: #000000 !important;
-        font-family: 'Times New Roman', Helvetica, Arial, sans-serif;
+        font-family: brandon, 'Times New Roman', Helvetica, Arial, sans-serif;
       }
 
       .header-banner {
@@ -28,6 +34,10 @@
       .link {
         color: #000000 !important;
         text-decoration: underline !important;
+      }
+
+      .link__shy {
+        color: #000000;
       }
 
       h1 {
@@ -142,14 +152,15 @@
       </mj-section>
       <mj-section>
         <mj-column>
-          {{ image_list }}
+          <mj-image align="center" border="none" padding-top="10px" padding-bottom="0px" padding-left="0px" padding-right="0px" src="https://res.cloudinary.com/blackdetail/image/upload/v1538954836/Util/mail_banner.jpg" title="Header Banner Black Detail" width="780px"></mj-image>
         </mj-column>
       </mj-section>
       <mj-section>
         <mj-column>
-          <mj-text align="center" padding-bottom="5px" padding-top="10px">
-            <p class="text center">(Click the image to see it online)</p>
-          </mj-text>
+          {{ mjml_title }}
+          {{ mjml_subtitle }}
+          {{ mjml_body }}
+          {{ mjml_link }}
         </mj-column>
       </mj-section>
       <mj-section padding-bottom="0px" padding-top="20px">
@@ -171,15 +182,15 @@
       <mj-section background-color="#f8f8f8" padding-top="0">
         <mj-column>
           <mj-text align="center" padding-top="20px" padding-bottom="15px">
-            <a class="center" href="https://www.instagram.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/blackdetail/image/upload/v1538427524/Util/instagram-logo.png" /></a>
+            <a class="center" href="https://www.instagram.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589598/instagram-logo_ninrnz.png" /></a>
             <span>&nbsp; &nbsp;</span>
-            <a class="center" href="https://www.facebook.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/blackdetail/image/upload/v1538427524/Util/fb-logo.png" /></a>
+            <a class="center" href="https://www.facebook.com/blck.dtl/"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521589593/fb-logo_o5b5kd.png" /></a>
             <span>&nbsp; &nbsp;</span>
-            <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="https://res.cloudinary.com/blackdetail/image/upload/v1538427525/Util/eyeem-logo-black.png" /></a>
+            <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521648019/eyeem-logo_qzznzc.png" /></a>
           </mj-text>
           <mj-text padding-left="25" padding-right="25" padding-bottom="15">
-            <p class="conditions center">© Black Detail 2019. Berlin - Paris.<br>Visit <a class="link" href="https://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
-              <br>You received this message because you subscribed to the newsletter. <a class="link" href="{{ notifications_url }}">Unsubscribe</a></p>
+            <p class="conditions center">© Black Detail 2019. Berlin - Paris.<br>Visit <a class="link" href="http://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
+              <br>You received this message because you subscribed to the newsletter. <a class="link__shy" href="{{ notifications_url }}">Unsubscribe</a></p>
           </mj-text>
         </mj-column>
       </mj-section>

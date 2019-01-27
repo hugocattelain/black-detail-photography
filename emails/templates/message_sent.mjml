@@ -188,7 +188,7 @@
             <a class="center" href="https://www.eyeem.com/u/blck_dtl"><img class="social-icon" src="https://res.cloudinary.com/dmdkvle30/image/upload/v1521648019/eyeem-logo_qzznzc.png" /></a>
           </mj-text>
           <mj-text padding-left="25" padding-right="25" padding-bottom="15">
-            <p class="conditions center">© Black Detail 2018. Berlin - Paris.<br>Visit <a class="link" href="http://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
+            <p class="conditions center">© Black Detail 2019. Berlin - Paris.<br>Visit <a class="link" href="http://www.black-detail.com">www.black-detail.com</a> for more visual poetry.
               <br>By sending a message, you have been automatically added to the mailing list. You will get notified about new posts and products available on Black Detail. <a class="link" href="{{ notifications_url }}">Unsubscribe</a></p>
           </mj-text>
         </mj-column>

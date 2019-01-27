@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LB from 'lightbox-react';
 import findIndex from 'lodash/findIndex';
+import { Helmet } from 'react-helmet';
 import $ from 'jquery';
 
 import './lightbox.css';
@@ -116,6 +117,8 @@ class Lightbox extends Component {
 
   render() {
     const { images, photoIndex, isOpen } = this.state;
+    const category = this.props.match.params.category;
+    const id = this.props.match.params.id;
     if (images.length < 1) {
       return null;
     }
@@ -123,18 +126,30 @@ class Lightbox extends Component {
     return (
       <div>
         {isOpen && (
-          <LB
-            mainSrc={src}
-            nextSrc={images[(photoIndex + 1) % images.length].src}
-            prevSrc={
-              images[(photoIndex + images.length - 1) % images.length].src
-            }
-            onCloseRequest={this.closeLightbox}
-            onMovePrevRequest={this.prevPhoto}
-            onMoveNextRequest={this.nextPhoto}
-            discourageDownloads={true}
-            enableZoom={false}
-          />
+          <div>
+            <Helmet>
+              <meta name="image" content={src} />
+              <meta itemprop="image" content={src} />
+              <meta name="twitter:image" content={src} />
+              <meta name="og:image" content={src} />
+              <meta
+                name="og:url"
+                content={`https://www.black-detail.com/${category}/${id}`}
+              />
+            </Helmet>
+            <LB
+              mainSrc={src}
+              nextSrc={images[(photoIndex + 1) % images.length].src}
+              prevSrc={
+                images[(photoIndex + images.length - 1) % images.length].src
+              }
+              onCloseRequest={this.closeLightbox}
+              onMovePrevRequest={this.prevPhoto}
+              onMoveNextRequest={this.nextPhoto}
+              discourageDownloads={true}
+              enableZoom={false}
+            />
+          </div>
         )}
       </div>
     );

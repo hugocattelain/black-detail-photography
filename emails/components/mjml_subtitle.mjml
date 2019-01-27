@@ -1,0 +1,3 @@
+<mj-text padding-left="20px" padding-right="20px">
+  <h2 class="center">{{ subtitle }}</h2>
+</mj-text>
