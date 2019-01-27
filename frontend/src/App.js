@@ -4,10 +4,12 @@ import Header from './components/header/Header';
 import Router from './router';
 import CookieConsent from './components/cookie-consent/CookieConsent';
 import Maintenance from './components/maintenance/Maintenance';
+
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { Helmet } from 'react-helmet';
+import { withRouter } from 'react-router-dom';
 
 import './styles/app.css';
-import { withRouter } from 'react-router-dom';
 
 const muiBlack = createMuiTheme({
   palette: {
@@ -126,18 +128,41 @@ class App extends Component {
     let { maintenanceMode, safeMode } = this.state;
     const menuLinks = safeMode ? headerLink.slice(1) : headerLink;
 
-    return maintenanceMode ? (
-      <div className="App">
-        <Maintenance safeMode={safeMode} />
+    return (
+      <div>
+        <Helmet>
+          <meta
+            name="image"
+            content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+          />
+          <meta
+            itemprop="image"
+            content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+          />
+          <meta
+            name="twitter:image"
+            content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+          />
+          <meta
+            name="og:image"
+            content="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg"
+          />
+          <meta name="og:url" content="https://www.black-detail.com" />
+        </Helmet>
+        {maintenanceMode ? (
+          <div className="App">
+            <Maintenance safeMode={safeMode} />
+          </div>
+        ) : (
+          <MuiThemeProvider theme={muiBlack}>
+            <div className="App">
+              <Header menuLinks={menuLinks} safeMode={safeMode} />
+              <Router safeMode={safeMode} />
+              <CookieConsent />
+            </div>
+          </MuiThemeProvider>
+        )}
       </div>
-    ) : (
-      <MuiThemeProvider theme={muiBlack}>
-        <div className="App">
-          <Header menuLinks={menuLinks} safeMode={safeMode} />
-          <Router safeMode={safeMode} />
-          <CookieConsent />
-        </div>
-      </MuiThemeProvider>
     );
   }
 }
