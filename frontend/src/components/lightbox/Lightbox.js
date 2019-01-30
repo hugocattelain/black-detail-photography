@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import $ from 'jquery';
 
 import './lightbox.css';
+import SocialMediaShare from '../social-media-share/SocialMediaShare';
 
 class Lightbox extends Component {
   state = {
@@ -116,9 +117,11 @@ class Lightbox extends Component {
   };
 
   render() {
-    const { images, photoIndex, isOpen } = this.state;
+    const { images, photoIndex, isOpen, anchorEl, popoverIsOpen } = this.state;
     const category = this.props.match.params.category;
     const id = this.props.match.params.id;
+    const url = `https://www.black-detail.com/${category}/${id}`;
+
     if (images.length < 1) {
       return null;
     }
@@ -131,11 +134,8 @@ class Lightbox extends Component {
               <meta name="image" content={src} />
               <meta itemprop="image" content={src} />
               <meta name="twitter:image" content={src} />
-              <meta name="og:image" content={src} />
-              <meta
-                name="og:url"
-                content={`https://www.black-detail.com/${category}/${id}`}
-              />
+              <meta property="og:image" content={src} />
+              <meta property="og:url" content={url} />
             </Helmet>
             <LB
               mainSrc={src}
@@ -149,6 +149,7 @@ class Lightbox extends Component {
               discourageDownloads={true}
               enableZoom={false}
             />
+            <SocialMediaShare url={url} media={src} />
           </div>
         )}
       </div>

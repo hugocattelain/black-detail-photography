@@ -7,12 +7,15 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import './admin.css';
 import { AppBar, Tabs, Tab, Typography, Button } from '@material-ui/core';
+import ManageEmail from './ManageEmail';
+import Newsletter from './Newsletter';
 
 const categories = [
   { name: '', tag: '' },
   { name: 'Architecture', tag: 'architecture' },
   { name: 'Portrait', tag: 'portrait' },
   { name: 'Nude', tag: 'nsfw' },
+  /* { name: 'Editorial', tag: 'editorial' }, */
 ];
 const param = 'all';
 
@@ -89,6 +92,8 @@ class Admin extends Component {
               <Tabs value={tab} onChange={this.handleTabChange}>
                 <Tab label="Upload" />
                 <Tab label="Manage" />
+                <Tab label="Mailing list" />
+                <Tab label="New Email" />
               </Tabs>
             </AppBar>
 
@@ -100,6 +105,16 @@ class Admin extends Component {
             {tab === 1 && (
               <Typography component="div" className="admin__section">
                 <ManagePhoto categories={categories} images={images} />
+              </Typography>
+            )}
+            {tab === 2 && (
+              <Typography component="div" className="admin__section">
+                <ManageEmail />
+              </Typography>
+            )}
+            {tab === 3 && (
+              <Typography component="div" className="admin__section">
+                <Newsletter />
               </Typography>
             )}
           </div>

@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-//import WebNotifications from './NotificationWeb';
-
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-//import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import Snackbar from '@material-ui/core/Snackbar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-//import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   FacebookShareButton,
   TwitterShareButton,
   PinterestShareButton,
-  TumblrShareButton,
 } from 'react-share';
 
 import Client from '../../Client';
@@ -209,26 +204,12 @@ class SocialMedia extends Component {
               </MenuItem>
               <Divider />
               <MenuItem
-                className="share__button-tumblr"
-                onClick={this.handleClosePopover}
-              >
-                <TumblrShareButton
-                  url={url}
-                  title={title}
-                  tags={hashtags}
-                  caption={description}
-                >
-                  Post on Tumblr
-                </TumblrShareButton>
-              </MenuItem>
-              <Divider />
-              <MenuItem
                 className="share__button-pinterest"
                 onClick={this.handleClosePopover}
               >
                 <PinterestShareButton
                   url={url}
-                  description={title}
+                  description={description}
                   media={media}
                 >
                   Pin on Pinterest
@@ -284,14 +265,6 @@ class SocialMedia extends Component {
                     />
                   </div>
                 )}
-
-                {/*  {subscriptionProgress === 'progress' && (
-                      <CircularProgress
-                        className="global__progress-bar"
-                        size={30}
-                        thickness={2}
-                      />
-                  )} */}
 
                 {subscriptionProgress === 'done' && (
                   <div className="social__modal__success">
