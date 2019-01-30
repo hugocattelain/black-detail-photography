@@ -7,8 +7,8 @@ import { Helmet } from 'react-helmet';
 import $ from 'jquery';
 
 import './lightbox.css';
-import SocialMediaShare from '../social-media-share/SocialMediaShare';
-
+/* import SocialMediaShare from '../social-media-share/SocialMediaShare';
+ */
 class Lightbox extends Component {
   state = {
     photoIndex: 0,
@@ -149,7 +149,7 @@ class Lightbox extends Component {
               discourageDownloads={true}
               enableZoom={false}
             />
-            <SocialMediaShare url={url} media={src} />
+            {/* <SocialMediaShare url={url} media={src} /> */}
           </div>
         )}
       </div>
