@@ -1,4 +1,5 @@
 require('dotenv').config();
+/* const firebase = require('firebase'); */
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');

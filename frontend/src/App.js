@@ -59,6 +59,10 @@ const headerLink = [
   /* {
     path: '/editorial',
     title: 'Editorial',
+  },
+  {
+    path: '/shop',
+    title: 'Shop',
   }, */
   {
     path: '/contact',
@@ -144,10 +148,10 @@ class App extends Component {
             content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
           />
           <meta
-            name="og:image"
+            property="og:image"
             content="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg"
           />
-          <meta name="og:url" content="https://www.black-detail.com" />
+          <meta property="og:url" content="https://www.black-detail.com" />
         </Helmet>
         {maintenanceMode ? (
           <div className="App">
