@@ -13,22 +13,20 @@ exports.fillNewsLetter = (email, images) => {
     'utf8'
   );
   const imageList = [];
-  const notificationsUrl =
-    'https://www.black-detail.com/notifications/' +
-    email.email +
-    '/' +
-    email.subscription_type;
+  const notificationsUrl = `https://www.black-detail.com/notifications/${
+    email.email
+  }/${email.subscription_type}`;
   newsletterMjml = newsletterMjml.replace(
     '{{ notifications_url }}',
     notificationsUrl
   );
   for (const image of images) {
-    let url = `https://www.black-detail.com/'${Utils.getCategoryAlias(
+    let url = `https://www.black-detail.com/${Utils.getCategoryAlias(
       image.tag_1
     )}`;
-    if (image.id && image.id !== undefined) {
+    /* if (image.id && image.id !== undefined) {
       url = `${url}/${image.id}`;
-    }
+    } */
     let singleImage = mjmlImage.replace('{{ image_src }}', image.src);
     singleImage = singleImage.replace('{{ image_url }}', url);
     imageList.push(singleImage);
@@ -43,10 +41,6 @@ exports.fillNewsLetter = (email, images) => {
 exports.fillCustomNewsLetter = (email, content) => {
   let newsletterMjml = fs.readFileSync(
     path.join(__dirname, '../templates/template.mjml'),
-    'utf8'
-  );
-  let mjmlImage = fs.readFileSync(
-    path.join(__dirname, '../components/mjml_image.mjml'),
     'utf8'
   );
   let mjmlTitle = fs.readFileSync(
@@ -96,11 +90,6 @@ exports.fillCustomNewsLetter = (email, content) => {
       .replace('{{ link_text }}', content.link_text);
     newsletterMjml = newsletterMjml.replace('{{ mjml_link }}', mjmlLink);
   }
-  /* newsletterMjml = newsletterMjml.replace('{{ title }}', content.title);
-  newsletterMjml = newsletterMjml.replace('{{ subtitle }}', content.subtitle);
-  newsletterMjml = newsletterMjml.replace('{{ body }}', content.body);
-  newsletterMjml = newsletterMjml.replace('{{ link_ref }}', content.link_ref);
-  newsletterMjml = newsletterMjml.replace('{{ link_text }}', content.link_text); */
   newsletterMjml = newsletterMjml.replace(
     '{{ notifications_url }}',
     notificationsUrl
