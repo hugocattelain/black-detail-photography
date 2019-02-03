@@ -52,7 +52,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  z-index: 9999;
+  z-index: 999999;
   transition: opacity 1s ease;
 }
 
