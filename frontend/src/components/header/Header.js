@@ -116,7 +116,8 @@ class Header extends Component {
               </li>
             ))}
           </ul>
-          <SocialMedia />
+
+          <SocialMedia pathname={this.props.history.location.pathname} />
 
           {/* <a
             href="//www.dmca.com/Protection/Status.aspx?ID=9b98059e-c870-4227-a6b0-13ea302f8127"

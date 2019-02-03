@@ -7,8 +7,8 @@ import { Helmet } from 'react-helmet';
 import $ from 'jquery';
 
 import './lightbox.css';
-/* import SocialMediaShare from '../social-media-share/SocialMediaShare';
- */
+import ShareButton from '../ShareButton/ShareButton';
+
 class Lightbox extends Component {
   state = {
     photoIndex: 0,
@@ -117,7 +117,7 @@ class Lightbox extends Component {
   };
 
   render() {
-    const { images, photoIndex, isOpen, anchorEl, popoverIsOpen } = this.state;
+    const { images, photoIndex, isOpen } = this.state;
     const category = this.props.match.params.category;
     const id = this.props.match.params.id;
     const url = `https://www.black-detail.com/${category}/${id}`;
@@ -149,7 +149,15 @@ class Lightbox extends Component {
               discourageDownloads={true}
               enableZoom={false}
             />
-            {/* <SocialMediaShare url={url} media={src} /> */}
+            <ShareButton
+              url={url}
+              media={src}
+              parent="lightbox__"
+              anchorHorizontal="left"
+              anchorVertical="top"
+              transformHorizontal="right"
+              transformVertical="top"
+            />
           </div>
         )}
       </div>

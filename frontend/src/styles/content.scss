@@ -22,18 +22,3 @@
     padding: 0 10px 0 10px;
   }
 }
-
-.github-link__logo {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  background: url(../images/github.png) 50% 50% / contain;
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-
-  @media screen and (min-width: $break-small) {
-    width: 20px;
-    height: 20px;
-  }
-}
