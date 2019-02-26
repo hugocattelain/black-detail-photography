@@ -148,6 +148,7 @@ class Lightbox extends Component {
               onMoveNextRequest={this.nextPhoto}
               discourageDownloads={true}
               enableZoom={false}
+              handleSwipe={true}
             />
             <ShareButton
               url={url}
