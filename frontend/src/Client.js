@@ -2,12 +2,15 @@ const axios = require('axios');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-const PORT = process.env.PORT || 3000;
-var baseUrl = 'http://localhost:' + PORT + '/api/';
+var baseUrl = 'https://www.black-detail.com/api/';
 
-if (process.env.NODE_ENV === 'production') {
-  baseUrl = 'https://www.black-detail.com/api/';
+if (process.env.NODE_ENV === 'development') {
+  const PORT = process.env.PORT || 3000;
+  baseUrl = 'http://localhost:' + PORT + '/api/';
+} else if (process.env.NODE_ENV === 'staging') {
+  baseUrl = 'https://black-detail-test.herokuapp.com/api/';
 }
+
 const axiosInstance = axios.create({
   baseURL: baseUrl,
 });
