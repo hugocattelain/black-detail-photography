@@ -39,11 +39,13 @@ exports.getCategoryName = function(alias) {
 exports.getCategoryAlias = function(category) {
   switch (category) {
     case 'nsfw':
-      return 'fine-art-nude';
+      return '';
     case 'portrait':
       return 'portrait';
     case 'architecture':
       return 'architecture';
+    case 'editorial':
+      return 'editorial';
     default:
       return 'home';
   }
