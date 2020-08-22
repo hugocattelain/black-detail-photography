@@ -35,6 +35,7 @@
     "passport-local": "^1.0.0",
     "prerender-node": "^3.2.1",
     "react-router": "^4.2.0",
+    "request": "^2.88.0",
     "sql.js": "0.3.2"
   },
   "scripts": {
@@ -42,7 +43,7 @@
     "server": "node server.js",
     "heroku-postbuild": "cd frontend && npm install && npm run build",
     "client": "node start-client.js",
-    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
+    "dev": "nodemon server.js",
     "lint": "eslint .",
     "test": "cd frontend && npm test"
   },
@@ -52,6 +53,7 @@
     "eslint-config-airbnb": "14.1.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.9.0"
+    "eslint-plugin-react": "6.9.0",
+    "nodemon": "^1.19.2"
   }
 }

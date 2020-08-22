@@ -10,28 +10,29 @@ const Maintenance = ({ safeMode }) => {
   const gif = gifList[index];
   return (
     <div className="maintenance__container">
-      <h1 className="maintenance__title">Website in maintenance</h1>
-      <h2>Stay tuned on social medias</h2>
+      <h1 className="maintenance__title">Website under maintenance</h1>
+      <h2 className="maintenance__subtitle">Stay tuned on social medias</h2>
+
       <a
         href="https://www.instagram.com/blck.dtl/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="social__item instagram" />
+        <div className="maintenance__icon maintenance__icon-instagram" />
       </a>
       <a
         href="https://www.facebook.com/blck.dtl/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="social__item facebook" />
+        <div className="maintenance__icon maintenance__icon-facebook" />
       </a>
       <a
         href="https://www.eyeem.com/u/blck_dtl"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="social__item eyeem" />
+        <div className="maintenance__icon maintenance__icon-eyeem" />
       </a>
       {safeMode ? (
         <img
@@ -39,9 +40,18 @@ const Maintenance = ({ safeMode }) => {
           alt="Maintenance Background"
         />
       ) : (
-        <video loop autoPlay muted src={gif} type="video/mp4">
-          Your browser does not support video
-        </video>
+        <div className="maintenance__video-wrapper">
+          <video
+            loop
+            autoPlay
+            muted
+            src={gif}
+            type="video/mp4"
+            className="maintenance__video-media"
+          >
+            Your browser does not support video
+          </video>
+        </div>
       )}
     </div>
   );

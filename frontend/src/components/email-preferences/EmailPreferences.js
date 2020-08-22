@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Client from '../../Client';
 
+import { withRouter } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
 import Paper from '@material-ui/core/Paper';
-import Client from '../../Client';
-import { withRouter } from 'react-router-dom';
-
-import '../../styles/content.css';
 import { FormControlLabel } from '@material-ui/core';
+
+import './email-preferences.css';
 
 class EmailPreferences extends Component {
   state = {
@@ -46,20 +45,16 @@ class EmailPreferences extends Component {
   render() {
     const { subscriptionType, status, loading } = this.state;
     return (
-      <div className="container preferences">
+      <div className="preferences__container ">
         {status === 'todo' ? (
-          <Paper elevation={3} className="preferences__wrapper global__center">
+          <Paper elevation={3} className="preferences__wrapper">
             <div>
               <div className="row">
-                <div className="col-xs-3">
-                  <hr className="global__divider" />
-                </div>
-                <div className="col-xs-6">
+                <div className="col-xs-1" />
+                <div className="col-xs-10 preferences__title-wrapper">
                   <h1 className="preferences__title">Notifications</h1>
                 </div>
-                <div className="col-xs-3">
-                  <hr className="global__divider" />
-                </div>
+                <div className="col-xs-1" />
               </div>
               <h2 className="preferences__subtitle">
                 I want to get notified :

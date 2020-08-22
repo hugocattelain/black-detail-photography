@@ -10,8 +10,15 @@
   column-gap: 0;
   padding: 0;
 
-  @media #{$s} {
+  @media #{$xl} {
+    column-count: 4;
+  }
+  @media #{$m} {
     column-count: 2;
+  }
+
+  @media #{$s} {
+    column-count: 1;
   }
 }
 .masonry-layout__panel {

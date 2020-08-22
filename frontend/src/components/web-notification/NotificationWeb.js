@@ -30,8 +30,8 @@ class NotificationWeb extends Component {
     // window.focus() OR
     // window.open("http://www.google.com")
 
-    // Lastly, Close the notification
     window.open(this.props.url);
+    // Lastly, Close the notification
     this.n.close(event.target.tag);
   };
 
@@ -45,6 +45,7 @@ class NotificationWeb extends Component {
           icon={this.props.icon}
           timeout={this.props.timeout}
           tag="abcdef"
+          interaction={true}
           onClick={event => this.handleClick(event)}
         />
       </div>
@@ -66,7 +67,7 @@ NotificationWeb.defaultProps = {
   timeout: 0,
   icon:
     'http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg',
-  url: 'http://www.black-detail.com/curves'
+  url: 'https://www.black-detail.com/'
 };
 
 export default NotificationWeb;

@@ -3,7 +3,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import $ from 'jquery';
-
+import Utils from '../../Utils';
 import SocialMedia from './SocialMedia';
 import './header.css';
 
@@ -16,9 +16,13 @@ class Header extends Component {
     scrollDirection: 'unset',
     largeDevice: $(window).width() > breakPoint,
     isLandingPageHidden: false,
+    headerLinks: [],
   };
 
   componentDidMount = () => {
+    const menuLinks = Utils.getHeaderLinks(this.props.safeMode);
+    console.log(menuLinks);
+    this.setState({ menuLinks: menuLinks });
     window.addEventListener('scroll', this.onScroll);
     window.addEventListener('resize', this.onResize);
     if (this.state.largeDevice) {
@@ -37,6 +41,12 @@ class Header extends Component {
     this.state.largeDevice
       ? this.setState({ menuIsOpen: true })
       : this.setState({ menuIsOpen: false });
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.safeMode !== this.props.safeMode) {
+      this.setState({ menuLinks: Utils.getHeaderLinks(this.props.safeMode) });
+    }
   };
 
   componentWillUnmount = () => {
@@ -64,19 +74,19 @@ class Header extends Component {
     lastScrollPos = window.scrollY;
   };
 
-  goToHomePage = safeMode => {
-    safeMode
+  goToHomePage = () => {
+    this.props.safeMode
       ? this.props.history.push('/portrait')
       : this.props.history.push('/');
   };
 
   render() {
-    const { menuLinks, safeMode } = this.props;
     const {
       menuIsOpen,
       scrollDirection,
       largeDevice,
       isLandingPageHidden,
+      menuLinks,
     } = this.state;
     return (
       <div>
@@ -86,10 +96,10 @@ class Header extends Component {
             (menuIsOpen ? 'is-active ' : '') +
             (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : '')
           }
-          type="button"
+          type='button'
         >
-          <span className="hamburger-box">
-            <span className="hamburger-inner" />
+          <span className='hamburger-box'>
+            <span className='hamburger-inner' />
           </span>
         </button>
         <div
@@ -100,21 +110,19 @@ class Header extends Component {
           }
         >
           <div
-            className="mini-navbar__home-banner"
-            onClick={e => this.goToHomePage(safeMode)}
+            className='mini-navbar__home-banner'
+            onClick={this.goToHomePage}
           />
         </div>
         <Menu isOpen={menuIsOpen} noOverlay disableOverlayClick>
-          <div
-            className="navbar-logo"
-            onClick={e => this.goToHomePage(safeMode)}
-          />
-          <ul className="menu-list">
-            {menuLinks.map((menuItem, key) => (
-              <li key={key} className="menu-item">
-                <Link to={menuItem.path}>{menuItem.title}</Link>
-              </li>
-            ))}
+          <div className='navbar-logo' onClick={this.goToHomePage} />
+          <ul className='menu-list'>
+            {menuLinks &&
+              menuLinks.map((menuItem, key) => (
+                <li key={key} className='menu-item'>
+                  <Link to={menuItem.path}>{menuItem.title}</Link>
+                </li>
+              ))}
           </ul>
 
           <SocialMedia pathname={this.props.history.location.pathname} />
@@ -126,7 +134,7 @@ class Header extends Component {
             target="_blank"
             rel="noopener noreferrer"
           > */}
-          <div className="copyright">
+          <div className='copyright'>
             Copyright © All rights <br /> reserved.
           </div>
           {/* </a>

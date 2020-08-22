@@ -1,13 +1,18 @@
 @import '../../styles/constant.scss';
 .preferences {
-  padding: 0 15px !important;
+  &__container {
+    padding: 80px 0 0 27.5%;
+    margin: 0 auto;
+    max-width: 650px;
+
+    @media #{$s} {
+      padding: 90px 0 0 0;
+      max-width: 85%;
+    }
+  }
 
   &__wrapper {
-    // width:60% !important;
     padding: 20px 30px;
-    margin: 0 auto;
-    //text-align: center;
-    max-width: 650px;
     @media #{$xs} {
       padding: 20px 0;
     }
@@ -15,11 +20,18 @@
 
   &__title {
     font-size: 35px;
-    line-height: 0px;
+    line-height: 35px;
     text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
     @media #{$xs} {
-      font-size: 25px;
+      font-size: 4rem;
+      line-height: 4rem;
     }
+  }
+
+  &__title-wrapper {
+    border-bottom: 1px solid black;
   }
 
   &__subtitle {
@@ -29,8 +41,9 @@
   }
 
   &__button {
+    display: block !important;
     width: 175px !important;
-    margin: 25px auto 10px auto;
+    margin: 25px auto 10px auto !important;
   }
 
   &__radio-group {

@@ -13,6 +13,7 @@ const path = require('path');
 const morgan = require('morgan');
 const jwt = require('jwt-simple');
 const mcache = require('memory-cache');
+const request = require('request');
 
 const app = express();
 
@@ -90,6 +91,24 @@ const cache = duration => {
     }
   };
 };
+
+const options = {
+  method: 'POST',
+  url: 'https://sandbox.pwinty.com/v3.0/orders',
+  headers: {
+    'X-Pwinty-Sandbox-MerchantId': '33c7334f-891c-46d9-88d7-90dfeca67d78',
+    'X-Pwinty-SANDBOX-REST-API-Key':
+      'test_0d89c176-9c22-42b0-9f2d-d5a9677600bc',
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+};
+
+app.post('/api/test', (req, res) => {
+  request(options, (error, response, body) => {
+    console.log(response.statusCode, JSON.parse(body));
+  });
+});
 /* ----------------- TO BE REMOVED --------------------*/
 app.put('/api/photos/reset-index', (req, res) => {
   const images = req.body;
@@ -128,11 +147,11 @@ app.put('/api/photos/reset-index', (req, res) => {
 });
 
 app.get('/api/photos', cache(1), (req, res, next) => {
-  const param = req.query.category || 'portrait';
+  const category = req.query.category || 'portrait';
   const exception = 'nsfw';
   let values = [];
   let instruction = '';
-  switch (param) {
+  switch (category) {
     case 'home':
       instruction = `
       select * from photos
@@ -159,7 +178,7 @@ app.get('/api/photos', cache(1), (req, res, next) => {
           or tag_3 like ?)
           and is_visible=1
         order by image_index DESC;`;
-      values = [param, param, param];
+      values = [category, category, category];
       break;
   }
 
@@ -348,7 +367,7 @@ app.post('/api/contact', (req, res) => {
         res.status(500).json(error);
       }
     });
-    res.status(200).json('Success');
+    res.status(200);
   });
 
   transporter.close();
@@ -362,7 +381,7 @@ app.post(
     const emails = data.emails;
     const images = data.images;
 
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       host: process.env.MAILER_SERVER,
       port: process.env.MAILER_PORT,
       secure: false,
@@ -371,6 +390,8 @@ app.post(
         pass: process.env.MAILER_PASSWORD,
       },
     });
+
+    console.log(transporter);
     sendEmails(transporter, emails, images);
 
     transporter.close();
@@ -425,7 +446,7 @@ async function sendCustomEmails(transporter, emails, content) {
 
 async function sendEmails(transporter, emails, images) {
   for (const email of emails) {
-    if (email.subscription_type > 0) {
+    if (email.subscription_type > 0 && email.subscription_type < 4) {
       let message = {
         from: process.env.MAILER_NAME,
         to: email.email,

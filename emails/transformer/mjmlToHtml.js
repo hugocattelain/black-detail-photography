@@ -13,9 +13,7 @@ exports.fillNewsLetter = (email, images) => {
     'utf8'
   );
   const imageList = [];
-  const notificationsUrl = `https://www.black-detail.com/notifications/${
-    email.email
-  }/${email.subscription_type}`;
+  const notificationsUrl = `https://www.black-detail.com/notifications/${email.email}/${email.subscription_type}`;
   newsletterMjml = newsletterMjml.replace(
     '{{ notifications_url }}',
     notificationsUrl
@@ -59,9 +57,7 @@ exports.fillCustomNewsLetter = (email, content) => {
     path.join(__dirname, '../components/mjml_link.mjml'),
     'utf8'
   );
-  const notificationsUrl = `https://www.black-detail.com/notifications/${
-    email.email
-  }/${email.subscription_type}`;
+  const notificationsUrl = `https://www.black-detail.com/notifications/${email.email}/${email.subscription_type}`;
 
   mjmlTitle = mjmlTitle.replace('{{ title }}', content.title);
   newsletterMjml = newsletterMjml.replace('{{ mjml_title }}', mjmlTitle);
@@ -104,9 +100,7 @@ exports.fillMessageSent = data => {
     path.join(__dirname, '/../templates/message_sent.mjml'),
     'utf8'
   );
-  const notificationsUrl = `https://www.black-detail.com/notifications/${
-    data.from
-  }/1`;
+  const notificationsUrl = `https://www.black-detail.com/notifications/${data.from}/1`;
   messageSentMjml = messageSentMjml.replace('{{ message }}', data.text);
   messageSentMjml = messageSentMjml.replace(
     '{{ notifications_url }}',

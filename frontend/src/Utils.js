@@ -21,49 +21,44 @@ exports.getElementByImageIndex = function(image_index, array) {
   }); */
 };
 
-exports.getCategoryName = function(alias) {
-  switch (alias) {
-    case 'fine-art-nude':
-      return 'nsfw';
-    case 'portrait':
-      return 'portrait';
-    case 'architecture':
-      return 'architecture';
-    case 'editorial':
-      return 'editorial';
-    default:
-      return 'home';
-  }
-};
+exports.getHeaderLinks = function(safeMode) {
+  let headerLinks = [
+    {
+      path: '/',
+      title: 'Fine art nude',
+    },
+    {
+      path: '/portrait',
+      title: 'Portrait',
+    },
+    {
+      path: '/architecture',
+      title: 'Architecture',
+    },
+    /* {
+      path: '/published-work',
+      title: 'Editorial',
+    },
+    {
+      path: '/shop',
+      title: 'Shop',
+    }, */
+    {
+      path: '/contact',
+      title: 'Contact',
+    },
+  ];
 
-exports.getCategoryAlias = function(category) {
-  switch (category) {
-    case 'nsfw':
-      return '';
-    case 'portrait':
-      return 'portrait';
-    case 'architecture':
-      return 'architecture';
-    case 'editorial':
-      return 'editorial';
-    default:
-      return 'home';
-  }
-};
-
-// Prevent from keyboard screenshot
-exports.copyToClipboard = function() {
-  // Create a "hidden" input
-  var aux = document.createElement('input');
-  // Assign it the value of the specified element
-  aux.setAttribute('value', 'No Screenshot');
-  // Append it to the body
-  document.body.appendChild(aux);
-  // Highlight its content
-  aux.select();
-  // Copy the highlighted text
-  document.execCommand('copy');
-  // Remove it from the body
-  document.body.removeChild(aux);
-  alert('No Screenshot');
+  if (process.env.NODE_ENV === 'development')
+    headerLinks.push(
+      {
+        path: '/photography',
+        title: 'Safe',
+      },
+      {
+        path: '/unsafe',
+        title: 'Unsafe',
+      }
+    );
+  return safeMode ? headerLinks.slice(1) : headerLinks;
 };

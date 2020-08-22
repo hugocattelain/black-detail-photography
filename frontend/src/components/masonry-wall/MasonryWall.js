@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import MasonryBrick from './MasonryBrick';
 import Diaporama from '../diaporama/Diaporama';
 import LandingPage from '../landing-page/LandingPage';
 import Lightbox from '../lightbox/Lightbox';
@@ -10,7 +11,7 @@ import $ from 'jquery';
 // eslint-disable-next-line
 import lazysizes from 'lazysizes';
 
-import { getCategoryName } from '../../Utils';
+import ImageService from '../../services/image.service';
 
 import './masonry.css';
 
@@ -38,9 +39,12 @@ class MasonryWall extends Component {
     window.scrollTo(0, 0);
     $('.landing-page__title').addClass('faded');
     this.setState({ loading: true });
-    const category = getCategoryName(this.props.match.params.category);
+    const category = ImageService.getCategoryName(
+      this.props.match.params.category
+    );
     const param =
-      this.props.safeMode && category !== ('portrait' || 'architecture')
+      this.props.safeMode &&
+      category !== ('portrait' || 'architecture' || 'admin' || 'contact')
         ? 'portrait'
         : category;
     Client.getImages(param, images => {
@@ -51,17 +55,27 @@ class MasonryWall extends Component {
     });
   };
 
-  componentWillReceiveProps = nextProps => {
-    const nextCategory = getCategoryName(nextProps.match.params.category);
-    const currentCategory = getCategoryName(this.props.match.params.category);
+  componentWillUpdate = (nextProps, nextState) => {
+    let nextCategory = ImageService.getCategoryName(
+      nextProps.match.params.category
+    );
+    const currentCategory = ImageService.getCategoryName(
+      this.props.match.params.category
+    );
+
+    nextCategory =
+      this.props.safeMode && nextCategory === 'nsfw'
+        ? 'portrait'
+        : nextCategory;
+    /* const param =
+      this.props.safeMode && nextCategory === 'nsfw'
+        ? 'portrait'
+        : nextCategory; */
+    console.log('Categories: ', currentCategory, nextCategory);
     if (nextCategory !== currentCategory) {
       window.scrollTo(0, 0);
-      const param =
-        this.props.safeMode && nextCategory !== ('portrait' || 'architecture')
-          ? 'portrait'
-          : nextCategory;
       this.setState({ loading: true });
-      Client.getImages(param, images => {
+      Client.getImages(nextCategory, images => {
         this.setState({
           images: images,
           loading: false,
@@ -89,23 +103,13 @@ class MasonryWall extends Component {
       this.props.match.params.category === undefined
         ? 'home'
         : this.props.match.params.category;
-    const childElements = images.map((item, key) => {
-      const id = item.id;
-      const thumb = item.src.replace('upload', 'upload/t_web_small');
+    const childElements = images.map(item => {
       return (
-        <li
-          key={key}
-          className="masonry-layout__panel"
-          onClick={() => this.openLightbox(id)}
-        >
-          <img
-            src={thumb}
-            data-expand="600"
-            data-src={item.src.replace('upload', 'upload/t_web_large')}
-            alt={item.title || 'Black Detail Photography'}
-            className="masonry-layout__panel-content lazyload"
-          />
-        </li>
+        <MasonryBrick
+          item={item}
+          key={item.id}
+          openLightbox={this.openLightbox}
+        />
       );
     });
 
@@ -115,14 +119,20 @@ class MasonryWall extends Component {
         <div
           className={'container ' + (diaporamaIsPlaying ? 'no-overflow' : null)}
         >
-          {!this.state.loading ? (
-            <ul className="masonry-layout">{childElements}</ul>
-          ) : (
+          {this.state.loading ? (
             <CircularProgress
-              className="global__progress-bar"
+              className='global__progress-bar'
               size={30}
               thickness={2}
             />
+          ) : (
+            <div>
+              <div>
+                {category}
+                {images.length}
+              </div>
+              <ul className='masonry-layout'>{childElements}</ul>
+            </div>
           )}
           <i
             className={

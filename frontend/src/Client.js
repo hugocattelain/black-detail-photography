@@ -45,6 +45,7 @@ exports.getLastIndex = images => {
 };
 
 exports.getImages = function(category, cb) {
+  console.log('fetch');
   const url = `photos?category=${category}`;
 
   return axiosInstance({
@@ -113,13 +114,12 @@ exports.sendMessage = function(data, cb) {
   return axiosInstance({
     method: 'post',
     url: url,
-    responseType: 'json',
     headers: {
       Accept: 'application/json',
     },
     data: data,
   })
-    .then(response => response.data)
+    .then(response => console.log(response))
     .then(cb);
 };
 

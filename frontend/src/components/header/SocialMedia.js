@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import email from '../../images/email.png';
-import '../../styles/content.css';
 
 class SocialMedia extends Component {
   state = {

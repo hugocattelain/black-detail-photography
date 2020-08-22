@@ -1,7 +1,48 @@
-.maintenance{
-    &__image{
-        margin: 0 auto;
-        display: block;
-        height: 80vh;
+.maintenance {
+  &__title,
+  &__subtitle {
+    position: relative;
+    color: white;
+    text-align: center;
+    z-index: 5;
+  }
+  &__image {
+    margin: 0 auto;
+    display: block;
+    height: 80vh;
+  }
+
+  &__video {
+    &-wrapper {
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
     }
+
+    &-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &-facebook {
+      background-image: url('../../images/fb-logo.png');
+    }
+    &-instagram {
+      background-image: url('../../images/instagram-logo.png');
+    }
+    &-eyeem {
+      background-image: url('../../images/eyeem-logo.png');
+    }
+  }
 }

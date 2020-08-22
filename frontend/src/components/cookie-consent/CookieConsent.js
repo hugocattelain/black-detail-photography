@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import '../../styles/content.css';
-
 class CookieConsent extends Component {
   state = {
     cookies: false,
