@@ -1,6 +1,5 @@
+// Libraries
 import React, { Component } from 'react';
-
-import '../../styles/content.css';
 
 class CookieConsent extends Component {
   state = {
@@ -28,10 +27,10 @@ class CookieConsent extends Component {
     const { cookies } = this.state;
     return (
       <div className={'cookie-consent__container ' + (cookies ? 'ninja' : '')}>
-        <div className="cookie-consent__text">
+        <div className='cookie-consent__text'>
           This website uses cookies to ensure you get the best experience.
         </div>
-        <button className="cookie-consent__button" onClick={this.accept}>
+        <button className='cookie-consent__button' onClick={this.accept}>
           OK
         </button>
       </div>

@@ -1,13 +1,16 @@
+// Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Divider from '@material-ui/core/Divider';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import {
   FacebookShareButton,
   TwitterShareButton,
   PinterestShareButton,
 } from 'react-share';
+
+// UI Components
+import Divider from '@material-ui/core/Divider';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const hashtags = ['fineart', 'photography', 'portrait', 'blackandwhite', 'bnw'];
 
@@ -92,7 +95,7 @@ class SocialMediaShare extends Component {
 
         <Menu
           style={{ zIndex: 999999999 }}
-          className="share__menu"
+          className='share__menu'
           anchorEl={anchorEl}
           getContentAnchorEl={null}
           open={popoverIsOpen}
@@ -107,7 +110,7 @@ class SocialMediaShare extends Component {
           onClose={this.handleClosePopover}
         >
           <MenuItem
-            className="share__button-facebook"
+            className='share__button-facebook'
             onClick={this.handleClosePopover}
           >
             <FacebookShareButton url={url} quote={description}>
@@ -116,7 +119,7 @@ class SocialMediaShare extends Component {
           </MenuItem>
           <Divider />
           <MenuItem
-            className="share__button-twitter"
+            className='share__button-twitter'
             onClick={this.handleClosePopover}
           >
             <TwitterShareButton url={url} title={title} hashtags={hashtags}>
@@ -125,7 +128,7 @@ class SocialMediaShare extends Component {
           </MenuItem>
           <Divider />
           <MenuItem
-            className="share__button-pinterest"
+            className='share__button-pinterest'
             onClick={this.handleClosePopover}
           >
             <PinterestShareButton

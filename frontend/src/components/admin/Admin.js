@@ -1,14 +1,20 @@
+// Libraries
 import React, { Component } from 'react';
 import UploadPhoto from './UploadPhoto';
 import ManagePhoto from './ManagePhoto';
-import Client from '../../Client';
 
-import TextField from '@material-ui/core/TextField';
-import Snackbar from '@material-ui/core/Snackbar';
-import './admin.css';
-import { AppBar, Tabs, Tab, Typography, Button } from '@material-ui/core';
+// Components
+import Client from '../../Client';
 import ManageEmail from './ManageEmail';
 import Newsletter from './Newsletter';
+
+// UI Components
+import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
+import { AppBar, Tabs, Tab, Typography, Button } from '@material-ui/core';
+
+// Styles
+import './admin.scss';
 
 const categories = [
   { name: '', tag: '' },
@@ -85,53 +91,53 @@ class Admin extends Component {
   render() {
     const { tab, isAdmin, images, lastIndex } = this.state;
     return (
-      <div className="container">
+      <div className='container'>
         {isAdmin ? (
-          <div className="admin__container admin__container--top">
-            <AppBar position="static">
+          <div className='admin__container admin__container--top'>
+            <AppBar position='static'>
               <Tabs value={tab} onChange={this.handleTabChange}>
-                <Tab label="Upload" />
-                <Tab label="Manage" />
-                <Tab label="Mailing list" />
-                <Tab label="New Email" />
+                <Tab label='Upload' />
+                <Tab label='Manage' />
+                <Tab label='Mailing list' />
+                <Tab label='New Email' />
               </Tabs>
             </AppBar>
 
             {tab === 0 && (
-              <Typography component="div" className="admin__section">
+              <Typography component='div' className='admin__section'>
                 <UploadPhoto categories={categories} lastIndex={lastIndex} />
               </Typography>
             )}
             {tab === 1 && (
-              <Typography component="div" className="admin__section">
+              <Typography component='div' className='admin__section'>
                 <ManagePhoto categories={categories} images={images} />
               </Typography>
             )}
             {tab === 2 && (
-              <Typography component="div" className="admin__section">
+              <Typography component='div' className='admin__section'>
                 <ManageEmail />
               </Typography>
             )}
             {tab === 3 && (
-              <Typography component="div" className="admin__section">
+              <Typography component='div' className='admin__section'>
                 <Newsletter />
               </Typography>
             )}
           </div>
         ) : (
-          <div className="admin__container">
+          <div className='admin__container'>
             <TextField
-              className="admin__login-input"
-              label="Password"
-              type="password"
+              className='admin__login-input'
+              label='Password'
+              type='password'
               required={true}
               value={this.state.adminPassword}
               onChange={this.setInputState('password')}
             />
             <Button
-              className="admin__login-button"
-              variant="contained"
-              color="primary"
+              className='admin__login-button'
+              variant='contained'
+              color='primary'
               onClick={this.login}
             >
               Login

@@ -1,14 +1,20 @@
+// Libraries
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import $ from 'jquery';
 import HttpsRedirect from 'react-https-redirect';
 
+// Components
 import NotificationPreferences from './components/email-preferences/EmailPreferences';
 import Admin from './components/admin/Admin';
 import Masonry from './components/masonry-wall/MasonryWall';
 import Contact from './components/contact/Contact';
+
+// Utils
 import { copyToClipboard } from './Utils';
-import './styles/content.css';
+
+// Styles
+import './styles/content.scss';
 
 class Router extends Component {
   componentDidMount = () => {
@@ -24,22 +30,22 @@ class Router extends Component {
     return (
       <HttpsRedirect>
         <Switch>
-          <Route exact path="/photography" component={Masonry} />
-          <Route exact path="/" component={Masonry} />
-          <Route exact path="/admin" component={Admin} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/editorial" component={Masonry} />
+          <Route exact path='/photography' component={Masonry} />
+          <Route exact path='/' component={Masonry} />
+          <Route exact path='/admin' component={Admin} />
+          <Route exact path='/contact' component={Contact} />
+          <Route exact path='/editorial' component={Masonry} />
           <Route
             exact
-            path="/notifications/:email/:subscriptionType"
+            path='/notifications/:email/:subscriptionType'
             component={NotificationPreferences}
           />
           <Route
-            path="/:category/:id"
+            path='/:category/:id'
             component={Masonry}
             safeMode={safeMode}
           />
-          <Route path="/:category" component={Masonry} safeMode={safeMode} />
+          <Route path='/:category' component={Masonry} safeMode={safeMode} />
         </Switch>
       </HttpsRedirect>
     );

@@ -1,11 +1,17 @@
+// Libraries
 import React, { Component } from 'react';
-import { slide as Menu } from 'react-burger-menu';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import $ from 'jquery';
 
+// Components
 import SocialMedia from './SocialMedia';
-import './header.css';
+
+// UI Components
+import { slide as Menu } from 'react-burger-menu';
+
+// Styles
+import './header.scss';
 
 let lastScrollPos = 0;
 const breakPoint = 768;
@@ -86,10 +92,10 @@ class Header extends Component {
             (menuIsOpen ? 'is-active ' : '') +
             (isLandingPageHidden && scrollDirection === 'down' ? ' gone' : '')
           }
-          type="button"
+          type='button'
         >
-          <span className="hamburger-box">
-            <span className="hamburger-inner" />
+          <span className='hamburger-box'>
+            <span className='hamburger-inner' />
           </span>
         </button>
         <div
@@ -100,18 +106,18 @@ class Header extends Component {
           }
         >
           <div
-            className="mini-navbar__home-banner"
+            className='mini-navbar__home-banner'
             onClick={e => this.goToHomePage(safeMode)}
           />
         </div>
         <Menu isOpen={menuIsOpen} noOverlay disableOverlayClick>
           <div
-            className="navbar-logo"
+            className='navbar-logo'
             onClick={e => this.goToHomePage(safeMode)}
           />
-          <ul className="menu-list">
+          <ul className='menu-list'>
             {menuLinks.map((menuItem, key) => (
-              <li key={key} className="menu-item">
+              <li key={key} className='menu-item'>
                 <Link to={menuItem.path}>{menuItem.title}</Link>
               </li>
             ))}
@@ -126,7 +132,7 @@ class Header extends Component {
             target="_blank"
             rel="noopener noreferrer"
           > */}
-          <div className="copyright">
+          <div className='copyright'>
             Copyright © All rights <br /> reserved.
           </div>
           {/* </a>

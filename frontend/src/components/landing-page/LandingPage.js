@@ -1,8 +1,12 @@
+// Libraries
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
-import './landing-page.css';
+// Styles
+import './landing-page.scss';
+
+// Assets
 import quotes from '../../ressources/quotes.json';
 
 const LandingPage = ({ category }) => {
@@ -49,11 +53,11 @@ const LandingPage = ({ category }) => {
   };
 
   return (
-    <div className="landing-page__container" onClick={scroll}>
-      <div className="landing-page__title">{getTitle(category)}</div>
-      <div className="landing-page__subtitle">"{getSubtitle(category)}"</div>
+    <div className='landing-page__container' onClick={scroll}>
+      <div className='landing-page__title'>{getTitle(category)}</div>
+      <div className='landing-page__subtitle'>"{getSubtitle(category)}"</div>
       <div>
-        <i className="material-icons landing-page__icon">arrow_forward_ios</i>
+        <i className='material-icons landing-page__icon'>arrow_forward_ios</i>
       </div>
     </div>
   );

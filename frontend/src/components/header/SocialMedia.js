@@ -1,13 +1,16 @@
+// Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Client from '../../Client';
-import ShareButton from '../ShareButton/ShareButton';
 
+// Components
+import Client from '../../Client';
+
+// UI Components
+import ShareButton from '../ShareButton/ShareButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import Snackbar from '@material-ui/core/Snackbar';
-
 import {
   DialogTitle,
   DialogContent,
@@ -15,8 +18,9 @@ import {
   DialogActions,
   Typography,
 } from '@material-ui/core';
+
+// Assets
 import email from '../../images/email.png';
-import '../../styles/content.css';
 
 class SocialMedia extends Component {
   state = {
@@ -106,40 +110,40 @@ class SocialMedia extends Component {
 
     return (
       <div>
-        <div className="social__wrapper">
+        <div className='social__wrapper'>
           <a
-            href="https://www.instagram.com/blck.dtl/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://www.instagram.com/blck.dtl/'
+            target='_blank'
+            rel='noopener noreferrer'
           >
-            <div className="social__item instagram" />
+            <div className='social__item instagram' />
           </a>
           <a
-            href="https://www.facebook.com/blck.dtl/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://www.facebook.com/blck.dtl/'
+            target='_blank'
+            rel='noopener noreferrer'
           >
-            <div className="social__item facebook" />
+            <div className='social__item facebook' />
           </a>
           <a
-            href="https://www.eyeem.com/u/blck_dtl"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://www.eyeem.com/u/blck_dtl'
+            target='_blank'
+            rel='noopener noreferrer'
           >
-            <div className="social__item eyeem" />
+            <div className='social__item eyeem' />
           </a>
 
           <ShareButton
             url={url}
-            parent="header__"
-            anchorHorizontal="right"
-            anchorVertical="center"
-            transformHorizontal="left"
-            transformVertical="center"
+            parent='header__'
+            anchorHorizontal='right'
+            anchorVertical='center'
+            transformHorizontal='left'
+            transformVertical='center'
           />
 
           <i
-            className="social__notifications-button shake shake-rorate material-icons"
+            className='social__notifications-button shake shake-rorate material-icons'
             onClick={this.handleOpenModal}
           >
             notifications
@@ -150,21 +154,21 @@ class SocialMedia extends Component {
             maxWidth={'sm'}
             open={modalIsOpen}
             onClose={this.handleCloseModal}
-            aria-labelledby="social__modal__title"
-            className="social__modal"
+            aria-labelledby='social__modal__title'
+            className='social__modal'
           >
             <form onSubmit={e => this.handleEmailNotifications(e)}>
-              <DialogTitle className="social__modal__title">
+              <DialogTitle className='social__modal__title'>
                 {'Notifications'}
               </DialogTitle>
               <DialogContent>
                 <img
-                  className="social__modal-icon"
+                  className='social__modal-icon'
                   src={email}
-                  alt="Newsletter_Icon"
+                  alt='Newsletter_Icon'
                 />
                 {subscriptionProgress !== 'done' && (
-                  <DialogContentText className="social__modal-text">
+                  <DialogContentText className='social__modal-text'>
                     <Typography>
                       Subscribe to the newsletter to receive the latest updates.
                       <br />
@@ -173,13 +177,13 @@ class SocialMedia extends Component {
                   </DialogContentText>
                 )}
                 {this.state.subscriptionProgress === 'todo' && (
-                  <div className="social__modal__actions col-xs-12">
+                  <div className='social__modal__actions col-xs-12'>
                     <TextField
-                      label="Email"
-                      placeholder="Email address"
-                      className="social__modal__input"
+                      label='Email'
+                      placeholder='Email address'
+                      className='social__modal__input'
                       required={true}
-                      type="email"
+                      type='email'
                       value={this.state.userEmail}
                       onChange={e => this.setInputState(e, 'userEmail')}
                     />
@@ -187,7 +191,7 @@ class SocialMedia extends Component {
                 )}
 
                 {subscriptionProgress === 'done' && (
-                  <div className="social__modal__success">
+                  <div className='social__modal__success'>
                     Congratulations ! You subscribed to the newsletter.{' '}
                   </div>
                 )}
@@ -195,16 +199,16 @@ class SocialMedia extends Component {
               <DialogActions>
                 {subscriptionProgress !== 'done' && (
                   <Button
-                    variant="contained"
-                    className="social__modal__actions__button"
-                    color="primary"
-                    type="submit"
+                    variant='contained'
+                    className='social__modal__actions__button'
+                    color='primary'
+                    type='submit'
                     disabled={subscriptionProgress === 'progress'}
                   >
                     OK
                   </Button>
                 )}
-                <Button onClick={this.handleCloseModal} variant="text">
+                <Button onClick={this.handleCloseModal} variant='text'>
                   {subscriptionProgress === 'done' ? 'Close' : 'No, thank you'}
                 </Button>
               </DialogActions>
