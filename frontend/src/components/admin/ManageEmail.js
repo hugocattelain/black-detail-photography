@@ -1,10 +1,11 @@
+// Libraries
 import React, { Component } from 'react';
+import Client from '../../Client';
 
+// UI Components
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
-
-import Client from '../../Client';
 import {
   InputLabel,
   FormControl,
@@ -105,16 +106,16 @@ class ManageEmail extends Component {
 
     return (
       <div>
-        <div className="admin__manage__actions">
+        <div className='admin__manage__actions'>
           <FormControlLabel
             control={
               <Checkbox
                 checked={allChecked}
                 onChange={this.handleCheckAll}
-                value="allChecked"
+                value='allChecked'
               />
             }
-            label="Select all"
+            label='Select all'
           />
 
           <FormControl
@@ -125,18 +126,18 @@ class ManageEmail extends Component {
               maxWidth: '250px',
             }}
           >
-            <InputLabel htmlFor="subscription-type">
+            <InputLabel htmlFor='subscription-type'>
               Subscription type
             </InputLabel>
             <Select
-              value=""
+              value=''
               onChange={this.handleGroupChange}
               inputProps={{
                 name: 'subscription-type',
                 id: 'subscription-type',
               }}
             >
-              <MenuItem value="" />
+              <MenuItem value='' />
               <MenuItem value={0}>No</MenuItem>
               <MenuItem value={1}>Subscribed</MenuItem>
             </Select>
@@ -162,7 +163,7 @@ class ManageEmail extends Component {
               />
               <ListItemSecondaryAction>
                 <FormControl style={{ minWidth: '200px' }}>
-                  <InputLabel htmlFor="subscription-type">
+                  <InputLabel htmlFor='subscription-type'>
                     Subscription type
                   </InputLabel>
                   <Select

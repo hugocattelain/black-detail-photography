@@ -4,10 +4,10 @@ import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 
 // Components
-import Header from './components/header/Header';
 import Router from './router';
-import CookieConsent from './components/cookie-consent/CookieConsent';
-import Maintenance from './components/maintenance/Maintenance';
+import Header from '@components/header/Header';
+import CookieConsent from '@components/cookie-consent/CookieConsent';
+import Maintenance from '@components/maintenance/Maintenance';
 
 // UI Components
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';

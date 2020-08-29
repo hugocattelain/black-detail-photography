@@ -1,9 +1,11 @@
+// Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import Client from '../../Client';
 
+// UI Components
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -178,17 +180,17 @@ class UploadPhoto extends Component {
         {endUpload ? (
           <div>
             <form onSubmit={this.handleSubmit}>
-              <FormLabel component="legend">Send newsletter</FormLabel>
+              <FormLabel component='legend'>Send newsletter</FormLabel>
               <Checkbox
                 checked={this.state.sendNewsletter}
                 onChange={this.handleCheckboxChange('sendNewsletter')}
-                className="admin__upload__checkbox"
-                value="sendNewsletter"
+                className='admin__upload__checkbox'
+                value='sendNewsletter'
               />
               {newPhotos}
-              <div className="row">
-                <div className="col-xs-12">
-                  <Button variant="contained" type="submit" color="primary">
+              <div className='row'>
+                <div className='col-xs-12'>
+                  <Button variant='contained' type='submit' color='primary'>
                     Submit
                   </Button>
                 </div>
@@ -196,10 +198,10 @@ class UploadPhoto extends Component {
             </form>
           </div>
         ) : (
-          <div className="admin__upload-wrapper">
+          <div className='admin__upload-wrapper'>
             <Dropzone
               multiple
-              accept="image/*"
+              accept='image/*'
               onDrop={this.onImageDrop.bind(this)}
             >
               <h1>Upload</h1>
@@ -212,7 +214,7 @@ class UploadPhoto extends Component {
               <CircularProgress
                 size={30}
                 thickness={2}
-                mode="determinate"
+                mode='determinate'
                 value={this.state.progress}
               />
             ) : (

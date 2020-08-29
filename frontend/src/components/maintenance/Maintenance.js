@@ -5,9 +5,9 @@ import React from 'react';
 import './maintenance.scss';
 
 // Assets
-import gif_1 from '../../assets/videos/maintenance_1.mp4';
-import gif_2 from '../../assets/videos/maintenance_2.mp4';
-import gif_3 from '../../assets/videos/maintenance_3.mp4';
+import gif_1 from '@assets/videos/maintenance_1.mp4';
+import gif_2 from '@assets/videos/maintenance_2.mp4';
+import gif_3 from '@assets/videos/maintenance_3.mp4';
 
 const Maintenance = ({ safeMode }) => {
   const gifList = [gif_1, gif_2, gif_3];
