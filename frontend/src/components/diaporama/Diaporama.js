@@ -1,7 +1,10 @@
+// Libraries
 import React, { Component } from 'react';
 import $ from 'jquery';
 import { Fade } from 'react-slideshow-image';
-import './diaporama.css';
+
+// Styles
+import './diaporama.scss';
 
 const fadeProperties = {
   duration: 5000,
@@ -64,13 +67,13 @@ class Diaporama extends Component {
     }
 
     return (
-      <div className="diaporama__container">
+      <div className='diaporama__container'>
         <Fade {...fadeProperties}>
           {fadeImages.map(image => (
-            <div className="each-fade">
-              <div className="image-container">
+            <div className='each-fade'>
+              <div className='image-container'>
                 <div
-                  className="image-item"
+                  className='image-item'
                   style={{ backgroundImage: `url(${image})` }}
                 />
               </div>

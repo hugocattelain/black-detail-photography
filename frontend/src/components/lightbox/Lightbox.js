@@ -1,3 +1,4 @@
+// Libraries
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -6,8 +7,11 @@ import findIndex from 'lodash/findIndex';
 import { Helmet } from 'react-helmet';
 import $ from 'jquery';
 
-import './lightbox.css';
+// UI Components
 import ShareButton from '../ShareButton/ShareButton';
+
+// Styles
+import './lightbox.scss';
 
 class Lightbox extends Component {
   state = {
@@ -131,11 +135,11 @@ class Lightbox extends Component {
         {isOpen && (
           <div>
             <Helmet>
-              <meta name="image" content={src} />
-              <meta itemprop="image" content={src} />
-              <meta name="twitter:image" content={src} />
-              <meta property="og:image" content={src} />
-              <meta property="og:url" content={url} />
+              <meta name='image' content={src} />
+              <meta itemprop='image' content={src} />
+              <meta name='twitter:image' content={src} />
+              <meta property='og:image' content={src} />
+              <meta property='og:url' content={url} />
             </Helmet>
             <LB
               mainSrc={src}
@@ -153,11 +157,11 @@ class Lightbox extends Component {
             <ShareButton
               url={url}
               media={src}
-              parent="lightbox__"
-              anchorHorizontal="left"
-              anchorVertical="top"
-              transformHorizontal="right"
-              transformVertical="top"
+              parent='lightbox__'
+              anchorHorizontal='left'
+              anchorVertical='top'
+              transformHorizontal='right'
+              transformVertical='top'
             />
           </div>
         )}

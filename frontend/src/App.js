@@ -1,15 +1,20 @@
+// Libraries
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
+import { withRouter } from 'react-router-dom';
 
+// Components
 import Header from './components/header/Header';
 import Router from './router';
 import CookieConsent from './components/cookie-consent/CookieConsent';
 import Maintenance from './components/maintenance/Maintenance';
 
+// UI Components
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import { Helmet } from 'react-helmet';
-import { withRouter } from 'react-router-dom';
 
-import './styles/app.css';
+// Styles
+import './styles/app.scss';
+import './styles/content.scss';
 
 const muiBlack = createMuiTheme({
   palette: {
@@ -136,30 +141,30 @@ class App extends Component {
       <div>
         <Helmet>
           <meta
-            name="image"
-            content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+            name='image'
+            content='https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg'
           />
           <meta
-            itemprop="image"
-            content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+            itemprop='image'
+            content='https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg'
           />
           <meta
-            name="twitter:image"
-            content="https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg"
+            name='twitter:image'
+            content='https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg'
           />
           <meta
-            property="og:image"
-            content="https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg"
+            property='og:image'
+            content='https://res.cloudinary.com/blackdetail/image/upload/v1533369369/Util/20180204_030923_2.jpg'
           />
-          <meta property="og:url" content="https://www.black-detail.com" />
+          <meta property='og:url' content='https://www.black-detail.com' />
         </Helmet>
         {maintenanceMode ? (
-          <div className="App">
+          <div className='App'>
             <Maintenance safeMode={safeMode} />
           </div>
         ) : (
           <MuiThemeProvider theme={muiBlack}>
-            <div className="App">
+            <div className='App'>
               <Header menuLinks={menuLinks} safeMode={safeMode} />
               <Router safeMode={safeMode} />
               <CookieConsent />
