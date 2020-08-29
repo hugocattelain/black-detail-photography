@@ -7,7 +7,7 @@ import ReactNotifications from 'react-browser-notifications';
 import isEqual from 'lodash/isEqual';
 
 // Assets
-import '../images/BDP_logo.jpg';
+import '@images/BDP_logo.jpg';
 
 class NotificationWeb extends Component {
   state = {

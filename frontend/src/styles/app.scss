@@ -2,13 +2,15 @@
   font-family: 'brandon-grotesque';
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/brandon-grotesque.otf"); }
+  src: url('~@fonts/brandon-grotesque.otf');
+}
 
 @font-face {
   font-family: 'brandon-grotesque-light';
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/brandon-grotesque-light.otf"); }
+  src: url('~@fonts/brandon-grotesque-light.otf');
+}
 
 .material-icons {
   font-family: 'Material Icons';
@@ -30,23 +32,30 @@
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
-  font-feature-settings: 'liga'; }
+  font-feature-settings: 'liga';
+}
 
 .container {
   text-align: center;
   padding: 0 50px 0 27.5%;
   margin: 0;
   width: 100%;
-  height: 100%; }
-  .container .row {
-    margin: 0;
-    padding: 0; }
-  @media only screen and (max-width: 768px) {
-    .container {
-      padding: 0 20px 0 20px; } }
-  @media only screen and (max-width: 576px) {
-    .container {
-      padding: 0 10px 0 10px; } }
+  height: 100%;
+}
+.container .row {
+  margin: 0;
+  padding: 0;
+}
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 0 20px 0 20px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .container {
+    padding: 0 10px 0 10px;
+  }
+}
 
 .cookie-consent__container {
   left: 0;
@@ -68,18 +77,21 @@
   justify-content: center;
   flex-wrap: nowrap;
   z-index: 999999;
-  transition: opacity 1s ease; }
+  transition: opacity 1s ease;
+}
 
 .cookie-consent__container.ninja {
   opacity: 0;
   z-index: 0;
-  display: none; }
+  display: none;
+}
 
 .cookie-consent__text {
   display: block;
   flex: 1 1 auto;
   max-width: 100%;
-  margin-right: 1em; }
+  margin-right: 1em;
+}
 
 .cookie-consent__button {
   color: #000;
@@ -92,13 +104,16 @@
   border-style: solid;
   text-align: center;
   white-space: nowrap;
-  margin: auto; }
+  margin: auto;
+}
 
 body {
-  font-family: 'brandon-grotesque-light'; }
+  font-family: 'brandon-grotesque-light';
+}
 
 *:focus {
-  outline: none; }
+  outline: none;
+}
 
 h1,
 h2,
@@ -107,25 +122,33 @@ h4,
 h5,
 h6,
 a {
-  color: #242424; }
+  color: #242424;
+}
 
 .global__center {
   margin-top: 50vh;
-  transform: translateY(-50%); }
+  transform: translateY(-50%);
+}
 
 .global__progress-bar {
   position: absolute;
-  top: 50vh; }
+  top: 50vh;
+}
 
 .global__button {
-  margin: 15px 20px; }
+  margin: 15px 20px;
+}
 
 .global__divider {
-  border-color: #242424; }
-  @media only screen and (max-width: 576px) {
-    .global__divider {
-      margin-left: 5px;
-      margin-left: 5px; } }
+  border-color: #242424;
+}
+@media only screen and (max-width: 576px) {
+  .global__divider {
+    margin-left: 5px;
+    margin-left: 5px;
+  }
+}
 
 .no-overflow {
-  overflow: hidden; }
+  overflow: hidden;
+}

@@ -1,5 +1,7 @@
+// Libraries
 import React, { Component } from 'react';
 
+// UI Components
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
@@ -29,19 +31,19 @@ class NewPhoto extends Component {
       return null;
     }
     return (
-      <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div className='col-xs-12 col-sm-6 col-md-6 col-lg-4'>
         <Card>
-          <CardMedia className="image__thumbnail" image={src} />
+          <CardMedia className='image__thumbnail' image={src} />
           <CardContent>
             <TextField
-              label="Title"
+              label='Title'
               required
               value={data.title}
               onChange={this.props.setInputState('title', index)}
             />
 
             <FormControl style={{ display: 'flex' }}>
-              <InputLabel htmlFor="category_1">Category 1</InputLabel>
+              <InputLabel htmlFor='category_1'>Category 1</InputLabel>
               <Select
                 value={data.tag_1}
                 onChange={this.props.setSelectState.bind(this, index)}
@@ -60,7 +62,7 @@ class NewPhoto extends Component {
               </Select>
             </FormControl>
             <FormControl style={{ display: 'flex' }}>
-              <InputLabel htmlFor="category_2">Category 2</InputLabel>
+              <InputLabel htmlFor='category_2'>Category 2</InputLabel>
               <Select
                 value={data.tag_2}
                 onChange={this.props.setSelectState.bind(this, index)}
@@ -79,7 +81,7 @@ class NewPhoto extends Component {
               </Select>
             </FormControl>
             <FormControl style={{ display: 'flex' }}>
-              <InputLabel htmlFor="category_3">Category 3</InputLabel>
+              <InputLabel htmlFor='category_3'>Category 3</InputLabel>
               <Select
                 value={data.tag_3}
                 onChange={this.props.setSelectState.bind(this, index)}

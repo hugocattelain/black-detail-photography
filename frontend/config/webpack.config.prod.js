@@ -91,7 +91,12 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-
+      '@components': path.resolve('src', 'components'),
+      '@styles': path.resolve('src', 'styles'),
+      '@config': path.resolve('src', 'config'),
+      '@assets': path.resolve('src', 'assets'),
+      '@images': path.resolve('src', 'images'),
+      '@fonts': path.resolve('src', 'assets/fonts'),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -122,7 +127,6 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -167,7 +171,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.css$/,
+            test: /\.(s*)css$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
