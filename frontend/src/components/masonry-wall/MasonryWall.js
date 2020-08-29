@@ -1,18 +1,24 @@
+// Libraries
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import Diaporama from '../diaporama/Diaporama';
-import LandingPage from '../landing-page/LandingPage';
-import Lightbox from '../lightbox/Lightbox';
-import Client from '../../Client';
-
-import CircularProgress from '@material-ui/core/CircularProgress';
 import $ from 'jquery';
 // eslint-disable-next-line
 import lazysizes from 'lazysizes';
 
+// Components
+import Client from '../../Client';
+import Diaporama from '../diaporama/Diaporama';
+import LandingPage from '../landing-page/LandingPage';
+import Lightbox from '../lightbox/Lightbox';
+
+// UI Components
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+// Utils
 import { getCategoryName } from '../../Utils';
 
-import './masonry.css';
+// Styles
+import './masonry.scss';
 
 class MasonryWall extends Component {
   state = {
@@ -95,15 +101,15 @@ class MasonryWall extends Component {
       return (
         <li
           key={key}
-          className="masonry-layout__panel"
+          className='masonry-layout__panel'
           onClick={() => this.openLightbox(id)}
         >
           <img
             src={thumb}
-            data-expand="600"
+            data-expand='600'
             data-src={item.src.replace('upload', 'upload/t_web_large')}
             alt={item.title || 'Black Detail Photography'}
-            className="masonry-layout__panel-content lazyload"
+            className='masonry-layout__panel-content lazyload'
           />
         </li>
       );
@@ -116,10 +122,10 @@ class MasonryWall extends Component {
           className={'container ' + (diaporamaIsPlaying ? 'no-overflow' : null)}
         >
           {!this.state.loading ? (
-            <ul className="masonry-layout">{childElements}</ul>
+            <ul className='masonry-layout'>{childElements}</ul>
           ) : (
             <CircularProgress
-              className="global__progress-bar"
+              className='global__progress-bar'
               size={30}
               thickness={2}
             />

@@ -1,14 +1,18 @@
+// Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactNotifications from 'react-browser-notifications';
+
+// Utils
 import isEqual from 'lodash/isEqual';
 
+// Assets
 import '../images/BDP_logo.jpg';
 
 class NotificationWeb extends Component {
   state = {
     a: 1,
-    b: 'bbb'
+    b: 'bbb',
   };
   showNotifications = () => {
     // If the Notifications API is supported by the browser
@@ -44,7 +48,7 @@ class NotificationWeb extends Component {
           body={this.props.body}
           icon={this.props.icon}
           timeout={this.props.timeout}
-          tag="abcdef"
+          tag='abcdef'
           onClick={event => this.handleClick(event)}
         />
       </div>
@@ -57,7 +61,7 @@ NotificationWeb.propTypes = {
   body: PropTypes.string.isRequired,
   timeout: PropTypes.number,
   icon: PropTypes.any,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
 };
 
 NotificationWeb.defaultProps = {
@@ -66,7 +70,7 @@ NotificationWeb.defaultProps = {
   timeout: 0,
   icon:
     'http://res.cloudinary.com/dmdkvle30/image/upload/v1522340826/BDP_logo_fvxjfb.jpg',
-  url: 'http://www.black-detail.com/curves'
+  url: 'http://www.black-detail.com/curves',
 };
 
 export default NotificationWeb;
