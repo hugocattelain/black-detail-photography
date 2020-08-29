@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es5",
+    "module": "commonjs",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@styles/*": ["src/styles/*"],
+      "@config/*": ["src/config/*"],
+      "@assets/*": ["src/assets/*"],
+      "@images/*": ["src/images/*"],
+      "@fonts/*": ["src/assets/fonts/*"]
+    }
+  },
+  "exclude": ["build", "node_modules"]
+}

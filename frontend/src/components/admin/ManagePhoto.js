@@ -1,6 +1,11 @@
+// Libraries
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import Client from '../../Client';
+import findIndex from 'lodash/findIndex';
+import $ from 'jquery';
 
+// UI Components
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,11 +13,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-
-import findIndex from 'lodash/findIndex';
-import $ from 'jquery';
-
-import Client from '../../Client';
 import {
   InputLabel,
   FormControl,
@@ -179,11 +179,11 @@ class ManagePhoto extends Component {
 
     return (
       <div>
-        <div className="admin__manage__actions">
+        <div className='admin__manage__actions'>
           <FormControl
             style={{ display: 'flex', minWidth: '170px', marginRight: '15px' }}
           >
-            <InputLabel htmlFor="filter">Filter category</InputLabel>
+            <InputLabel htmlFor='filter'>Filter category</InputLabel>
             <Select
               value={filter}
               onChange={this.updateFilter}
@@ -206,18 +206,18 @@ class ManagePhoto extends Component {
               <Checkbox
                 checked={showDeleted}
                 onChange={this.handleCheckboxChange}
-                value="showDeleted"
+                value='showDeleted'
               />
             }
-            label="Show deleted images"
+            label='Show deleted images'
           />
 
-          <Button onClick={this.resetIndex} variant="contained">
-            <i className="material-icons icon">settings_backup_restore</i>
+          <Button onClick={this.resetIndex} variant='contained'>
+            <i className='material-icons icon'>settings_backup_restore</i>
             Reset Index
           </Button>
         </div>
-        <div className="admin__manage__grid">
+        <div className='admin__manage__grid'>
           <GridList cellHeight={180} cols={colCount}>
             {filteredImages.map((image, key) => (
               <GridListTile key={key}>
@@ -238,9 +238,9 @@ class ManagePhoto extends Component {
                     <GridListTileBar
                       actionIcon={
                         <div>
-                          <IconButton className="icon">
+                          <IconButton className='icon'>
                             <i
-                              className="material-icons action-icon"
+                              className='material-icons action-icon'
                               onClick={this.toggleDetailView(image)}
                             >
                               edit
@@ -251,7 +251,7 @@ class ManagePhoto extends Component {
                               this.sendNotification(image);
                             }}
                           >
-                            <i className="shake shake-rorate material-icons action-icon">
+                            <i className='shake shake-rorate material-icons action-icon'>
                               notifications
                             </i>
                           </IconButton>
@@ -260,7 +260,7 @@ class ManagePhoto extends Component {
                               this.deleteOrRestore(image.id, image.is_visible);
                             }}
                           >
-                            <i className="material-icons action-icon">
+                            <i className='material-icons action-icon'>
                               {image.is_visible === 0 ? 'restore' : 'delete'}
                             </i>
                           </IconButton>
@@ -271,13 +271,13 @@ class ManagePhoto extends Component {
                 ) : (
                   <div>
                     <i
-                      className="material-icons close-icon"
+                      className='material-icons close-icon'
                       onClick={this.toggleDetailView(false)}
                     >
                       clear
                     </i>
                     <FormControl style={{ display: 'flex', marginTop: '30px' }}>
-                      <InputLabel htmlFor="category_1">Category 1</InputLabel>
+                      <InputLabel htmlFor='category_1'>Category 1</InputLabel>
                       <Select
                         value={image.tag_1}
                         onChange={this.updateCategory(image)}
@@ -297,7 +297,7 @@ class ManagePhoto extends Component {
                       </Select>
                     </FormControl>
                     <FormControl style={{ display: 'flex' }}>
-                      <InputLabel htmlFor="category_2">Category 2</InputLabel>
+                      <InputLabel htmlFor='category_2'>Category 2</InputLabel>
                       <Select
                         value={image.tag_2}
                         onChange={this.updateCategory(image)}
@@ -317,7 +317,7 @@ class ManagePhoto extends Component {
                       </Select>
                     </FormControl>
                     <FormControl style={{ display: 'flex' }}>
-                      <InputLabel htmlFor="category_3">Category 3</InputLabel>
+                      <InputLabel htmlFor='category_3'>Category 3</InputLabel>
                       <Select
                         value={image.tag_3}
                         onChange={this.updateCategory(image)}

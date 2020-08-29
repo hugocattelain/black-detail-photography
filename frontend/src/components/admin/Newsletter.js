@@ -1,8 +1,9 @@
+// Libraries
 import React, { Component } from 'react';
-
-import Snackbar from '@material-ui/core/Snackbar';
-
 import Client from '../../Client';
+
+// UI Components
+import Snackbar from '@material-ui/core/Snackbar';
 import {
   TextField,
   Button,
@@ -105,52 +106,52 @@ class Newsletter extends Component {
       <div>
         <form onSubmit={this.sendNewsletter}>
           <Card className={classes.card}>
-            <CardHeader title="Newsletter" className={classes.title} />
+            <CardHeader title='Newsletter' className={classes.title} />
             <CardContent>
               <TextField
-                id="subject"
-                label="Subject"
+                id='subject'
+                label='Subject'
                 value={subject}
                 fullWidth
                 required
                 onChange={this.setInputState('subject')}
               />
               <TextField
-                id="title"
-                label="Title"
+                id='title'
+                label='Title'
                 value={title}
                 fullWidth
                 required
                 onChange={this.setInputState('title')}
               />
               <TextField
-                id="subtitle"
-                label="Subtitle"
+                id='subtitle'
+                label='Subtitle'
                 value={subtitle}
                 fullWidth
                 onChange={this.setInputState('subtitle')}
               />
               <TextField
-                id="body"
-                label="Body"
+                id='body'
+                label='Body'
                 value={body}
                 fullWidth
                 required
                 onChange={this.setInputState('body')}
                 multiline
-                rows="5"
-                rowsMax="10"
+                rows='5'
+                rowsMax='10'
               />
               <TextField
-                id="link_text"
-                label="Link text"
+                id='link_text'
+                label='Link text'
                 value={link_text}
                 fullWidth
                 onChange={this.setInputState('link_text')}
               />
               <TextField
-                id="link_ref"
-                label="Link address"
+                id='link_ref'
+                label='Link address'
                 value={link_ref}
                 fullWidth
                 onChange={this.setInputState('link_ref')}
@@ -159,9 +160,9 @@ class Newsletter extends Component {
             <CardActions>
               <Button
                 className={classes.button}
-                variant="contained"
-                type="submit"
-                color="primary"
+                variant='contained'
+                type='submit'
+                color='primary'
               >
                 Send
               </Button>

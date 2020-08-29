@@ -5,10 +5,10 @@ import $ from 'jquery';
 import HttpsRedirect from 'react-https-redirect';
 
 // Components
-import NotificationPreferences from './components/email-preferences/EmailPreferences';
-import Admin from './components/admin/Admin';
-import Masonry from './components/masonry-wall/MasonryWall';
-import Contact from './components/contact/Contact';
+import NotificationPreferences from '@components/email-preferences/EmailPreferences';
+import Admin from '@components/admin/Admin';
+import Masonry from '@components/masonry-wall/MasonryWall';
+import Contact from '@components/contact/Contact';
 
 // Utils
 import { copyToClipboard } from './Utils';

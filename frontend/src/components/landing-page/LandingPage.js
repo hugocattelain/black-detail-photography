@@ -7,7 +7,7 @@ import $ from 'jquery';
 import './landing-page.scss';
 
 // Assets
-import quotes from '../../ressources/quotes.json';
+import quotes from '@assets/quotes.json';
 
 const LandingPage = ({ category }) => {
   LandingPage.propTypes = {

@@ -20,7 +20,7 @@ import {
 } from '@material-ui/core';
 
 // Assets
-import email from '../../images/email.png';
+import email from '@images/email.png';
 
 class SocialMedia extends Component {
   state = {
