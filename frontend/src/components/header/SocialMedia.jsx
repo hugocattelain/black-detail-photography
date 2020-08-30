@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Client from '../../Client';
 
 // UI Components
-import ShareButton from '../ShareButton/ShareButton';
+import ShareButton from '../share-buttons/ShareButtons';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';

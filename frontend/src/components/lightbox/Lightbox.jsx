@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet';
 import $ from 'jquery';
 
 // UI Components
-import ShareButton from '../ShareButton/ShareButton';
+import ShareButton from '../share-buttons/ShareButtons';
 
 // Styles
 import './lightbox.scss';
