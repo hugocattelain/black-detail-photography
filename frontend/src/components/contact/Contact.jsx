@@ -1,7 +1,6 @@
 // Libraries
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import $ from 'jquery';
 import Client from '../../Client';
 
 // UI Components
@@ -17,16 +16,6 @@ class Contact extends Component {
     subject: '',
     message: '',
     messageSent: 'no',
-  };
-
-  componentDidMount = () => {
-    $('body').addClass('no-overflow');
-    $('.hamburger').removeClass('gone');
-    $('.mini-navbar').removeClass('gone');
-  };
-
-  componentWillUnmount = () => {
-    $('body').removeClass('no-overflow');
   };
 
   contactUs = event => {
