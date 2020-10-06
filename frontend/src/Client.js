@@ -70,7 +70,7 @@ exports.postImage = data => {
   }).then(response => response.data);
 };
 
-exports.deleteImage = function(id, visibility, cb) {
+exports.deleteImage = function(id, visibility) {
   const url = `/photos/${id}/${visibility}`;
   return axiosInstance({
     method: 'put',
@@ -79,12 +79,10 @@ exports.deleteImage = function(id, visibility, cb) {
     headers: {
       Authorization: 'bearer ' + sessionStorage.getItem('bearer'),
     },
-  })
-    .then(response => response.data)
-    .then(cb);
+  }).then(response => response.data);
 };
 
-exports.updateImage = function(image, cb) {
+exports.updateImage = function(image) {
   const id = image.id;
   const data = {
     tag_1: image.tag_1,
@@ -103,24 +101,38 @@ exports.updateImage = function(image, cb) {
       Authorization: 'bearer ' + sessionStorage.getItem('bearer'),
     },
     data: data,
-  })
-    .then(response => response.data)
-    .then(cb);
+  }).then(response => response.data);
 };
 
 exports.sendMessage = function(data, cb) {
   const url = '/contact';
-  return axiosInstance({
-    method: 'post',
-    url: url,
+
+  axiosInstance({
+    method: 'get',
+    url: `/emails/${data.from}`,
     responseType: 'json',
     headers: {
       Accept: 'application/json',
     },
-    data: data,
   })
-    .then(response => response.data)
-    .then(cb);
+    .then(response => {
+      let user = response.data.length > 0 ? response.data[0] : null;
+      if (!user) {
+        this.postEmail({ email: data.from, subscription_type: 1 });
+      }
+      return axiosInstance({
+        method: 'post',
+        url: url,
+        responseType: 'json',
+        headers: {
+          Accept: 'application/json',
+        },
+        data: { user: user, ...data },
+      })
+        .then(response => response.data)
+        .then(cb);
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getEmails = function() {
@@ -136,9 +148,8 @@ exports.getEmails = function() {
   }).then(response => response.data);
 };
 
-exports.postEmail = function(data, cb) {
+exports.postEmail = function(data) {
   const url = 'emails';
-
   return axiosInstance({
     method: 'post',
     url: url,
@@ -147,9 +158,7 @@ exports.postEmail = function(data, cb) {
       Accept: 'application/json',
     },
     data: data,
-  })
-    .then(response => response.data)
-    .then(cb);
+  }).then(response => response.data);
 };
 
 exports.updateEmail = function(email, pref) {

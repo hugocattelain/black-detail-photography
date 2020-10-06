@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
@@ -11,30 +11,26 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import Snackbar from '@material-ui/core/Snackbar';
 import NewPhoto from './NewPhoto';
-// import WebNotifications from './NotificationWeb';
 import { FormLabel } from '@material-ui/core';
 
-class UploadPhoto extends Component {
-  state = {
-    uploadedFilesUrl: [],
-    endUpload: false,
-    loading: false,
-    progress: 0,
-    data: [],
-    sendNewsletter: false,
-    snackbarIsOpen: false,
-    message: '',
+const UploadPhoto = ({ categories, lastIndex }) => {
+  const [uploadedFilesUrl, setUploadedFilesUrl] = useState([]);
+  const [endUpload, setEndUpload] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [snackbarIsOpen, setSnackbarIsOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [data, setData] = useState([]);
+  const [sendNewsletter, setSendNewsletter] = useState(false);
+  const [message, setMessage] = useState('');
+  const [uploadedFile, setUploadedFile] = useState();
+
+  const onImageDrop = files => {
+    setUploadedFile(files);
+    setLoading(true);
+    handleImageUpload(files);
   };
 
-  onImageDrop = files => {
-    this.setState({
-      uploadedFile: files,
-      loading: true,
-    });
-    this.handleImageUpload(files);
-  };
-
-  handleImageUpload = files => {
+  const handleImageUpload = files => {
     const filesURL = [];
     const uploaders = files.map(file => {
       const formData = new FormData();
@@ -51,197 +47,154 @@ class UploadPhoto extends Component {
           const data = response.data;
           const fileURL = data.secure_url;
           filesURL.push(fileURL);
-          this.setState({ progress: (filesURL.length / files.length) * 100 });
+          setProgress((filesURL.length / files.length) * 100);
         });
     });
     axios.all(uploaders).then(() => {
-      this.setState({
-        uploadedFilesUrl: filesURL,
-        loading: false,
-        endUpload: true,
-        progress: 100,
-        notification_data: {},
-        showNotification: false,
-      });
+      setUploadedFilesUrl(filesURL);
+      filesURL.forEach((url, index) => initState(url, index));
+      setLoading(false);
+      setEndUpload(true);
+      setProgress(100);
     });
   };
 
-  initState(src, index) {
-    const data = this.state.data;
-    data.push({
+  const initState = (src, index) => {
+    const newItem = {
       src: src,
       title: 'Black Detail Photography',
       tag_1: '',
       tag_2: '',
       tag_3: '',
       is_visible: 1,
-      image_index: this.props.lastIndex + 1 + index,
+      image_index: lastIndex + 1 + index,
+    };
+    setData(data => [...data, newItem]);
+  };
+
+  const setInputState = (event, index) => {
+    let updatedItem = {};
+    const newList = data.map((item, i) => {
+      if (i === index) {
+        updatedItem = {
+          ...item,
+          [event.target.name]: event.target.value,
+        };
+        return updatedItem;
+      }
+      return item;
     });
-    this.setState({ data: data });
-  }
-
-  setInputState = (name, index) => event => {
-    const data = this.state.data;
-    const input = data[index];
-    input[name] = event.target.value;
-    data.slice(index, 0, input);
-    this.setState({ data: data });
+    setData(newList);
   };
 
-  setSelectState = (index, event) => {
-    const data = this.state.data;
-    const input = data[index];
-    input[event.target.name] = event.target.value;
-    data.slice(index, 0, input);
-    this.setState({ data: data });
+  const handleSnackbarClose = () => {
+    setMessage('');
+    setSnackbarIsOpen(false);
   };
 
-  handleSnackbarClose = () => {
-    this.setState({
-      message: '',
-      snackbarIsOpen: false,
-    });
-  };
-
-  handleCheckboxChange = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    Client.postImage(this.state.data)
+    Client.postImage(data)
       .then(response => {
-        this.setState({
-          notification_data: response,
-          //showNotification: true,
-          message: 'Image(s) successfully posted',
-          snackbarIsOpen: true,
-          endUpload: false,
-        });
-        if (this.state.sendNewsletter) {
+        setMessage('Image(s) successfully posted');
+        setSnackbarIsOpen(true);
+        setEndUpload(false);
+        if (sendNewsletter) {
           Client.getEmails().then(response => {
             const emails = response;
             const notifications_data = {
               emails: emails,
             };
             Client.getImages('last', images => {
-              notifications_data.images = images.slice(
-                0,
-                this.state.data.length
-              );
+              notifications_data.images = images.slice(0, data.length);
               Client.postNewsletter(notifications_data)
                 .then(() => {
-                  this.setState({
-                    message: 'Newsletter successfully sent',
-                    snackbarIsOpen: true,
-                  });
+                  setMessage('Newsletter successfully sent');
+                  setSnackbarIsOpen(true);
                 })
                 .catch(err => {
-                  this.setState({
-                    message: 'Error while sending newsletter: ' + err,
-                    snackbarIsOpen: true,
-                  });
+                  setMessage(`Error while sending newsletter: ${err}`);
+                  setSnackbarIsOpen(true);
                 });
             });
           });
         }
       })
       .catch(err => {
-        this.setState({
-          message: 'Error while posting image(s): ' + err,
-          snackbarIsOpen: true,
-        });
+        setMessage(`Error while sending newsletter: ${err}`);
+        setSnackbarIsOpen(true);
       });
   };
 
-  render() {
-    const { uploadedFilesUrl, endUpload, loading, data } = this.state;
-    const { categories } = this.props;
-
-    const newPhotos = uploadedFilesUrl.map((url, key) => {
-      const index = key;
-
-      return (
-        <NewPhoto
-          key={index}
-          src={url}
-          index={index}
-          data={data[index]}
-          setInputState={this.setInputState.bind(this)}
-          setSelectState={this.setSelectState.bind(this)}
-          initState={this.initState.bind(this)}
-          categories={categories}
-        />
-      );
-    });
-
+  const newPhotos = uploadedFilesUrl.map((url, key) => {
+    const index = key;
     return (
-      <div>
-        {endUpload ? (
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <FormLabel component='legend'>Send newsletter</FormLabel>
-              <Checkbox
-                checked={this.state.sendNewsletter}
-                onChange={this.handleCheckboxChange('sendNewsletter')}
-                className='admin__upload__checkbox'
-                value='sendNewsletter'
-              />
-              {newPhotos}
-              <div className='row'>
-                <div className='col-xs-12'>
-                  <Button variant='contained' type='submit' color='primary'>
-                    Submit
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </div>
-        ) : (
-          <div className='admin__upload-wrapper'>
-            <Dropzone
-              multiple
-              accept='image/*'
-              onDrop={this.onImageDrop.bind(this)}
-            >
-              <h1>Upload</h1>
-            </Dropzone>
-          </div>
-        )}
-        {loading && (
-          <div>
-            {this.state.uploadedFile.lenght > 1 ? (
-              <CircularProgress
-                size={30}
-                thickness={2}
-                mode='determinate'
-                value={this.state.progress}
-              />
-            ) : (
-              <CircularProgress size={30} thickness={2} />
-            )}
-          </div>
-        )}
-        {/*
-
-          <WebNotifications
-            title="New photo on Black Detail"
-            body="Come check this out !"
-            timeout={4000}
-            url={"http://www.black-detail.com/" + getCategoryAlias(this.state.notification_data.tag_1)}/>
-
-
-        */}
-        <Snackbar
-          open={this.state.snackbarIsOpen}
-          message={this.state.message}
-          autoHideDuration={4000}
-          onClose={this.handleSnackbarClose}
-        />
-      </div>
+      <NewPhoto
+        key={index}
+        src={url}
+        index={index}
+        data={data[index]}
+        setInputState={setInputState}
+        categories={categories}
+      />
     );
-  }
-}
+  });
+
+  return (
+    <div>
+      {endUpload && (
+        <div>
+          <form onSubmit={e => handleSubmit(e)}>
+            <FormLabel component='legend'>Send newsletter</FormLabel>
+            <Checkbox
+              checked={sendNewsletter}
+              onChange={e => setSendNewsletter(!sendNewsletter)}
+              className='admin__upload__checkbox'
+              inputProps={{
+                name: 'sendNewsletter',
+              }}
+            />
+            <div className='row'>{newPhotos}</div>
+            <div className='row'>
+              <div className='col-xs-12'>
+                <Button variant='contained' type='submit' color='primary'>
+                  Submit
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+      {!endUpload && !loading && (
+        <div className='admin__upload-wrapper'>
+          <Dropzone multiple accept='image/*' onDrop={onImageDrop}>
+            <h1>Upload</h1>
+          </Dropzone>
+        </div>
+      )}
+      {loading && (
+        <div>
+          {uploadedFile.lenght > 1 ? (
+            <CircularProgress
+              size={30}
+              thickness={2}
+              mode='determinate'
+              value={progress}
+            />
+          ) : (
+            <CircularProgress size={30} thickness={2} />
+          )}
+        </div>
+      )}
+      <Snackbar
+        open={snackbarIsOpen}
+        message={message}
+        autoHideDuration={4000}
+        onClose={handleSnackbarClose}
+      />
+    </div>
+  );
+};
 
 UploadPhoto.propTypes = {
   newPhotos: PropTypes.element,

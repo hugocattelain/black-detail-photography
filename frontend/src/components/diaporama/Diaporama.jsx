@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
 import { Fade } from 'react-slideshow-image';
 
@@ -13,23 +13,19 @@ const fadeProperties = {
   indicators: false,
 };
 
-class Diaporama extends Component {
-  state = {
-    fadeImages: [],
-  };
+const Diaporama = ({ images }) => {
+  const [fadeImages, setFadeImages] = useState([]);
 
-  componentDidMount() {
-    let images = this.shuffle(this.props.images);
-    images = images.map(img => img.src);
-    this.setState({ fadeImages: images });
-    this.openFullscreen();
-  }
+  useEffect(() => {
+    setFadeImages(shuffle(images).map(img => img.src));
+    openFullscreen();
 
-  componentWillUnmount = () => {
-    $('body').removeClass('no-overflow');
-  };
+    return () => {
+      $('body').removeClass('no-overflow');
+    };
+  }, []);
 
-  openFullscreen = () => {
+  const openFullscreen = () => {
     const elem = document.documentElement;
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
@@ -46,7 +42,7 @@ class Diaporama extends Component {
     $('body').addClass('no-overflow');
   };
 
-  shuffle(array) {
+  const shuffle = array => {
     var currentIndex = array.length,
       temporaryValue,
       randomIndex;
@@ -58,31 +54,28 @@ class Diaporama extends Component {
       array[randomIndex] = temporaryValue;
     }
     return array;
+  };
+
+  if (!fadeImages[0]) {
+    return null;
   }
 
-  render() {
-    const { fadeImages } = this.state;
-    if (!fadeImages[0]) {
-      return null;
-    }
-
-    return (
-      <div className='diaporama__container'>
-        <Fade {...fadeProperties}>
-          {fadeImages.map(image => (
-            <div className='each-fade'>
-              <div className='image-container'>
-                <div
-                  className='image-item'
-                  style={{ backgroundImage: `url(${image})` }}
-                />
-              </div>
+  return (
+    <div className='diaporama__container'>
+      <Fade {...fadeProperties}>
+        {fadeImages.map((image, index) => (
+          <div className='each-fade' key={index}>
+            <div className='image-container'>
+              <div
+                className='image-item'
+                style={{ backgroundImage: `url(${image})` }}
+              />
             </div>
-          ))}
-        </Fade>
-      </div>
-    );
-  }
-}
+          </div>
+        ))}
+      </Fade>
+    </div>
+  );
+};
 
 export default Diaporama;
