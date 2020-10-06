@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Client from '../../Client';
 
 // UI Components
@@ -18,37 +18,37 @@ import {
   Divider,
 } from '@material-ui/core';
 
-class ManageEmail extends Component {
-  state = {
-    emails: [],
-    snackbarIsOpen: false,
-    message: '',
-    checked: [],
-    allChecked: false,
-  };
+const ManageEmail = () => {
+  const [emails, setEmails] = useState([]);
+  const [snackbarIsOpen, setSnackbarIsOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [checked, setChecked] = useState([]);
+  const [allChecked, setAllChecked] = useState(false);
 
-  componentDidMount = () => {
+  useEffect(() => {
     Client.getEmails().then(emails => {
-      this.setState({
-        emails: emails,
-      });
+      setEmails(emails);
     });
-  };
+    return () => {};
+  }, []);
 
-  handleCheckAll = () => {
-    const { allChecked, emails } = this.state;
-
+  const handleCheckAll = () => {
     if (allChecked) {
-      this.setState({ allChecked: false, checked: [] });
+      setAllChecked(false);
+      setChecked([]);
     } else {
       const newChecked = [];
-      for (var i = 0; i < emails.length; i++) newChecked.push(i);
-      this.setState({ allChecked: true, checked: newChecked });
+      for (var i = 0; i < emails.length; i++) {
+        newChecked.push(i);
+      }
+      setAllChecked(true);
+      setChecked(newChecked);
+      setAllChecked(false);
+      setChecked([]);
     }
   };
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
+  const handleToggle = value => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -57,26 +57,22 @@ class ManageEmail extends Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
-    this.setState({
-      checked: newChecked,
-    });
+    setChecked(newChecked);
   };
 
-  handleChange = email => event => {
-    const { emails } = this.state;
+  const handleChange = (event, email) => {
     const index = emails.indexOf(email);
     const newEmails = [...emails];
     email.subscription_type = event.target.value;
     newEmails.slice(index, email);
     Client.updateEmail(email.email, email.subscription_type);
-    this.setState({
-      emails: newEmails,
-    });
+
+    setEmails(newEmails);
+    setMessage(`Updated 1 email`);
+    setSnackbarIsOpen(true);
   };
 
-  handleGroupChange = event => {
-    const { emails, checked } = this.state;
+  const handleGroupChange = event => {
     const value = event.target.value;
     const newEmails = [...emails];
     for (let i = 0; i < checked.length; i++) {
@@ -85,113 +81,102 @@ class ManageEmail extends Component {
       Client.updateEmail(editedEmail.email, editedEmail.subscription_type);
       newEmails.slice(checked[i], editedEmail);
     }
-    this.setState({
-      emails: newEmails,
-      snackbarIsOpen: true,
-      message: 'Updated ' + checked.length + ' email(s).',
-    });
+    setEmails(newEmails);
+    setMessage(`Updated ${checked.length} emails`);
+    setSnackbarIsOpen(true);
   };
 
-  handleSnackbarClose = () => {
-    this.setState({ snackbarIsOpen: false });
-  };
-
-  getDate = date => {
+  const getDate = date => {
     const formatedDate = new Date(date);
     return String(formatedDate);
   };
 
-  render() {
-    const { emails, snackbarIsOpen, message, checked, allChecked } = this.state;
+  return (
+    <div>
+      <div className='admin__manage__actions'>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={allChecked}
+              onClick={e => handleCheckAll()}
+              value='allChecked'
+            />
+          }
+          label='Select all'
+        />
 
-    return (
-      <div>
-        <div className='admin__manage__actions'>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={allChecked}
-                onChange={this.handleCheckAll}
-                value='allChecked'
-              />
-            }
-            label='Select all'
-          />
-
-          <FormControl
-            style={{
-              minWidth: '200px',
-              display: 'flex',
-              marginLeft: '40px',
-              maxWidth: '250px',
+        <FormControl
+          style={{
+            minWidth: '200px',
+            display: 'flex',
+            marginLeft: '40px',
+            maxWidth: '250px',
+          }}
+        >
+          <InputLabel htmlFor='subscription-type'>Subscription type</InputLabel>
+          <Select
+            value=''
+            onChange={e => handleGroupChange(e)}
+            inputProps={{
+              name: 'subscription-type',
+              id: 'subscription-type',
             }}
           >
-            <InputLabel htmlFor='subscription-type'>
-              Subscription type
-            </InputLabel>
-            <Select
-              value=''
-              onChange={this.handleGroupChange}
-              inputProps={{
-                name: 'subscription-type',
-                id: 'subscription-type',
-              }}
-            >
-              <MenuItem value='' />
-              <MenuItem value={0}>No</MenuItem>
-              <MenuItem value={1}>Subscribed</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <Divider />
-        <List>
-          {emails.map((email, index) => (
-            <ListItem
-              key={index}
-              role={undefined}
-              button
-              onClick={this.handleToggle(index)}
-            >
-              <Checkbox
-                checked={checked.indexOf(index) !== -1}
-                tabIndex={-1}
-                disableRipple
-              />
-              <ListItemText
-                primary={email.email}
-                secondary={this.getDate(email.reg_date)}
-              />
-              <ListItemSecondaryAction>
-                <FormControl style={{ minWidth: '200px' }}>
-                  <InputLabel htmlFor='subscription-type'>
-                    Subscription type
-                  </InputLabel>
-                  <Select
-                    value={email.subscription_type}
-                    onChange={this.handleChange(email)}
-                    inputProps={{
-                      name: 'subscription-type',
-                      id: 'subscription-type',
-                    }}
-                  >
-                    <MenuItem value={0}>No</MenuItem>
-                    <MenuItem value={1}>Subscribed</MenuItem>
-                  </Select>
-                </FormControl>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-
-        <Snackbar
-          open={snackbarIsOpen}
-          message={message}
-          autoHideDuration={4000}
-          onClose={this.handleSnackbarClose}
-        />
+            <MenuItem value={0}>None</MenuItem>
+            <MenuItem value={1}>Partial</MenuItem>
+            <MenuItem value={2}>All</MenuItem>
+          </Select>
+        </FormControl>
       </div>
-    );
-  }
-}
+      <Divider />
+      <List>
+        {emails.map((email, index) => (
+          <ListItem
+            key={index}
+            role={undefined}
+            button
+            onClick={e => handleToggle(index)}
+          >
+            <Checkbox
+              checked={checked.indexOf(index) !== -1}
+              tabIndex={-1}
+              disableRipple
+            />
+            <ListItemText
+              primary={email.email}
+              secondary={getDate(email.reg_date)}
+            />
+            <ListItemSecondaryAction>
+              <FormControl style={{ minWidth: '200px' }}>
+                <InputLabel htmlFor='subscription-type'>
+                  Subscription type
+                </InputLabel>
+                <Select
+                  value={email.subscription_type}
+                  onChange={e => handleChange(e, email)}
+                  inputProps={{
+                    name: 'subscription-type',
+                    id: 'subscription-type',
+                  }}
+                >
+                  <MenuItem value={0}>None</MenuItem>
+                  <MenuItem value={1}>Partial</MenuItem>
+                  <MenuItem value={2}>All</MenuItem>
+                </Select>
+              </FormControl>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+
+      <Snackbar
+        open={snackbarIsOpen}
+        message={message}
+        autoHideDuration={4000}
+        onClose={e => setSnackbarIsOpen(false)}
+      />
+    </div>
+  );
+};
 
 export default ManageEmail;

@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   FacebookShareButton,
@@ -14,135 +14,109 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const hashtags = ['fineart', 'photography', 'portrait', 'blackandwhite', 'bnw'];
 
-class SocialMediaShare extends Component {
-  state = {
-    anchorEl: null,
-    popoverIsOpen: false,
-  };
+const SocialMediaShare = ({
+  url,
+  title,
+  description,
+  media,
+  label,
+  ...props
+}) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [popoverIsOpen, setPopoverIsOpen] = useState(false);
 
-  static propTypes = {
-    url: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    media: PropTypes.string,
-    label: PropTypes.string,
-    parent: PropTypes.string,
-    anchorHorizontal: PropTypes.string,
-    anchorVertical: PropTypes.string,
-    transformHorizontal: PropTypes.string,
-    transformVertical: PropTypes.string,
-  };
-
-  static defaultProps = {
-    url: 'https://www.black-detail.com',
-    title: 'Black Detail - Portfolio',
-    description:
-      'Black Detail Photography portfolio. Portrait, Fashion, Architecture.',
-    media:
-      'https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg',
-    label: 'share',
-    parent: '',
-    anchorHorizontal: 'left',
-    anchorVertical: 'top',
-    transformHorizontal: 'right',
-    transformVertical: 'top',
-  };
-
-  handleClickShare = event => {
+  const handleClickShare = event => {
     event.preventDefault();
-
-    this.setState({
-      popoverIsOpen: true,
-      anchorEl: event.currentTarget,
-    });
+    setPopoverIsOpen(true);
+    setAnchorEl(event.currentTarget);
   };
 
-  handleClosePopover = () => {
-    this.setState({
-      popoverIsOpen: false,
-    });
-  };
+  return (
+    <div className={`${props.parent}share-container`}>
+      <i
+        className={`material-icons ${props.parent}share-button`}
+        onClick={e => handleClickShare(e)}
+      >
+        {label}
+      </i>
 
-  handleClosePopover = () => {
-    this.setState({
-      popoverIsOpen: false,
-    });
-  };
-
-  render() {
-    const {
-      url,
-      title,
-      description,
-      media,
-      label,
-      parent,
-      anchorHorizontal,
-      anchorVertical,
-      transformHorizontal,
-      transformVertical,
-    } = this.props;
-    const { anchorEl, popoverIsOpen } = this.state;
-
-    return (
-      <div className={parent + 'share-container'}>
-        <i
-          className={'material-icons ' + parent + 'share-button'}
-          onClick={this.handleClickShare}
+      <Menu
+        style={{ zIndex: 999999999 }}
+        className='share__menu'
+        anchorEl={anchorEl}
+        getContentAnchorEl={null}
+        open={popoverIsOpen}
+        anchorOrigin={{
+          horizontal: props.anchorHorizontal,
+          vertical: props.anchorVertical,
+        }}
+        transformOrigin={{
+          horizontal: props.transformHorizontal,
+          vertical: props.transformVertical,
+        }}
+        onClose={e => setPopoverIsOpen(false)}
+      >
+        <MenuItem
+          className='share__button-facebook'
+          onClick={e => setPopoverIsOpen(false)}
         >
-          {label}
-        </i>
-
-        <Menu
-          style={{ zIndex: 999999999 }}
-          className='share__menu'
-          anchorEl={anchorEl}
-          getContentAnchorEl={null}
-          open={popoverIsOpen}
-          anchorOrigin={{
-            horizontal: anchorHorizontal,
-            vertical: anchorVertical,
-          }}
-          transformOrigin={{
-            horizontal: transformHorizontal,
-            vertical: transformVertical,
-          }}
-          onClose={this.handleClosePopover}
+          <FacebookShareButton url={url} quote={description}>
+            Share on Facebook
+          </FacebookShareButton>
+        </MenuItem>
+        <Divider />
+        <MenuItem
+          className='share__button-twitter'
+          onClick={e => setPopoverIsOpen(false)}
         >
-          <MenuItem
-            className='share__button-facebook'
-            onClick={this.handleClosePopover}
+          <TwitterShareButton url={url} title={title} hashtags={hashtags}>
+            Share on Twitter
+          </TwitterShareButton>
+        </MenuItem>
+        <Divider />
+        <MenuItem
+          className='share__button-pinterest'
+          onClick={e => setPopoverIsOpen(false)}
+        >
+          <PinterestShareButton
+            url={url}
+            description={description}
+            media={media}
           >
-            <FacebookShareButton url={url} quote={description}>
-              Share on Facebook
-            </FacebookShareButton>
-          </MenuItem>
-          <Divider />
-          <MenuItem
-            className='share__button-twitter'
-            onClick={this.handleClosePopover}
-          >
-            <TwitterShareButton url={url} title={title} hashtags={hashtags}>
-              Share on Twitter
-            </TwitterShareButton>
-          </MenuItem>
-          <Divider />
-          <MenuItem
-            className='share__button-pinterest'
-            onClick={this.handleClosePopover}
-          >
-            <PinterestShareButton
-              url={url}
-              description={description}
-              media={media}
-            >
-              Pin on Pinterest
-            </PinterestShareButton>
-          </MenuItem>
-        </Menu>
-      </div>
-    );
-  }
-}
+            Pin on Pinterest
+          </PinterestShareButton>
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+};
+
+SocialMediaShare.propTypes = {
+  url: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  media: PropTypes.string,
+  label: PropTypes.string,
+  parent: PropTypes.string,
+  anchorHorizontal: PropTypes.string,
+  anchorVertical: PropTypes.string,
+  transformHorizontal: PropTypes.string,
+  transformVertical: PropTypes.string,
+};
+
+SocialMediaShare.defaultProps = {
+  url: 'https://www.black-detail.com',
+  title: 'Black Detail - Portfolio',
+  description:
+    'Black Detail Photography portfolio. Portrait, Fashion, Architecture.',
+  media:
+    'https://res.cloudinary.com/blackdetail/image/upload/t_web_large/v1533369369/Util/20180204_030923_2.jpg',
+  label: 'share',
+  parent: '',
+  anchorHorizontal: 'left',
+  anchorVertical: 'top',
+  transformHorizontal: 'right',
+  transformVertical: 'top',
+};
 
 export default SocialMediaShare;

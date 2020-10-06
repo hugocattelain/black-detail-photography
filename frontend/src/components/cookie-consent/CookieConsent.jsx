@@ -1,41 +1,36 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-class CookieConsent extends Component {
-  state = {
-    cookies: false,
-  };
+const CookieConsent = () => {
+  const [cookies, setCookies] = useState(false);
 
-  componentDidMount = () => {
+  useEffect(() => {
     if (
       document.cookie.split(';').filter(item => {
         return item.includes('cookie_consent=');
       }).length
     ) {
-      this.setState({ cookies: true });
-    } else {
-      this.setState({ cookies: false });
+      setCookies(true);
     }
-  };
-  accept = () => {
+
+    return () => {};
+  }, []);
+
+  const accept = () => {
     document.cookie = 'cookie_consent=true; max-age=63072000';
-
-    this.setState({ cookies: true });
+    setCookies(true);
   };
 
-  render() {
-    const { cookies } = this.state;
-    return (
-      <div className={'cookie-consent__container ' + (cookies ? 'ninja' : '')}>
-        <div className='cookie-consent__text'>
-          This website uses cookies to ensure you get the best experience.
-        </div>
-        <button className='cookie-consent__button' onClick={this.accept}>
-          OK
-        </button>
+  return (
+    <div className={'cookie-consent__container ' + (cookies ? 'ninja' : '')}>
+      <div className='cookie-consent__text'>
+        This website uses cookies to ensure you get the best experience.
       </div>
-    );
-  }
-}
+      <button className='cookie-consent__button' onClick={accept}>
+        OK
+      </button>
+    </div>
+  );
+};
 
 export default CookieConsent;

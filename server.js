@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(require('prerender-node'));
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
 // Express only serves static assets in production
 app.use(express.static(path.join(__dirname, 'frontend/build')));
@@ -392,6 +392,7 @@ app.post(
       link_ref: data.link_ref,
       link_text: data.link_text,
     };
+    const important = data.important;
 
     let transporter = nodemailer.createTransport({
       host: process.env.MAILER_SERVER,
@@ -402,16 +403,19 @@ app.post(
         pass: process.env.MAILER_PASSWORD,
       },
     });
-    sendCustomEmails(transporter, emails, content);
+    sendCustomEmails(transporter, emails, content, important);
 
     transporter.close();
     res.status(200).json('Success');
   }
 );
 
-async function sendCustomEmails(transporter, emails, content) {
+async function sendCustomEmails(transporter, emails, content, important) {
   for (const email of emails) {
-    if (email.subscription_type > 0) {
+    if (
+      email.subscription_type > 0 &&
+      (important || email.subscription_type > 1)
+    ) {
       const message = {
         from: process.env.MAILER_NAME,
         to: email.email,
@@ -425,7 +429,7 @@ async function sendCustomEmails(transporter, emails, content) {
 
 async function sendEmails(transporter, emails, images) {
   for (const email of emails) {
-    if (email.subscription_type > 0) {
+    if (email.subscription_type > 1) {
       let message = {
         from: process.env.MAILER_NAME,
         to: email.email,
@@ -515,7 +519,6 @@ app.post('/api/emails', (req, res, next) => {
       if (!err) {
         res.status(201).json('Success');
       } else {
-        console.log(err);
         res.status(500).json(err);
       }
     });

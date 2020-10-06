@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import UploadPhoto from './UploadPhoto';
 import ManagePhoto from './ManagePhoto';
 
@@ -25,28 +25,19 @@ const categories = [
 ];
 const param = 'all';
 
-class Admin extends Component {
-  state = {
-    password: '',
-    tab: 1,
-    isAdmin: false,
-    snackbarIsOpen: false,
-    message: '',
-    lastIndex: 0,
-  };
+const Admin = () => {
+  const [password, setPassword] = useState('w');
+  const [tab, setTab] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [snackbarIsOpen, setSnackbarIsOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [lastIndex, setLastIndex] = useState(0);
+  const [images, setImages] = useState([]);
 
-  componentWillUnmount = () => {
-    sessionStorage.removeItem('bearer');
-  };
-
-  setInputState = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
-
-  login = () => {
+  const login = () => {
     const data = {
       username: process.env.REACT_APP_ADMIN_USER,
-      password: this.state.password,
+      password: password,
     };
     Client.login(data)
       .then(response => {
@@ -55,22 +46,18 @@ class Admin extends Component {
           images.forEach(image => {
             image.edit = false;
           });
-          this.setState({
-            images: images,
-            isAdmin: true,
-            lastIndex: this.getLastIndex(images),
-          });
+          setImages(images);
+          setIsAdmin(true);
+          setLastIndex(getLastIndex(images)); // ???
         });
       })
       .catch(err => {
-        this.setState({
-          snackbarIsOpen: true,
-          message: 'Wrong password',
-        });
+        setSnackbarIsOpen(true);
+        setMessage('Wrong password');
       });
   };
 
-  getLastIndex = images => {
+  const getLastIndex = images => {
     const index = Math.max.apply(
       Math,
       images.map(function(o) {
@@ -80,79 +67,68 @@ class Admin extends Component {
     return index;
   };
 
-  handleTabChange = (event, tab) => {
-    this.setState({ tab: tab });
-  };
+  return (
+    <div className='container'>
+      {isAdmin ? (
+        <div className='admin__container admin__container--top'>
+          <AppBar position='static'>
+            <Tabs value={tab} onChange={(e, tab) => setTab(tab)}>
+              <Tab label='Upload' />
+              <Tab label='Manage' />
+              <Tab label='Mailing list' />
+              <Tab label='New Email' />
+            </Tabs>
+          </AppBar>
 
-  handleSnackbarClose = () => {
-    this.setState({ snackbarIsOpen: false });
-  };
-
-  render() {
-    const { tab, isAdmin, images, lastIndex } = this.state;
-    return (
-      <div className='container'>
-        {isAdmin ? (
-          <div className='admin__container admin__container--top'>
-            <AppBar position='static'>
-              <Tabs value={tab} onChange={this.handleTabChange}>
-                <Tab label='Upload' />
-                <Tab label='Manage' />
-                <Tab label='Mailing list' />
-                <Tab label='New Email' />
-              </Tabs>
-            </AppBar>
-
-            {tab === 0 && (
-              <Typography component='div' className='admin__section'>
-                <UploadPhoto categories={categories} lastIndex={lastIndex} />
-              </Typography>
-            )}
-            {tab === 1 && (
-              <Typography component='div' className='admin__section'>
-                <ManagePhoto categories={categories} images={images} />
-              </Typography>
-            )}
-            {tab === 2 && (
-              <Typography component='div' className='admin__section'>
-                <ManageEmail />
-              </Typography>
-            )}
-            {tab === 3 && (
-              <Typography component='div' className='admin__section'>
-                <Newsletter />
-              </Typography>
-            )}
-          </div>
-        ) : (
-          <div className='admin__container'>
-            <TextField
-              className='admin__login-input'
-              label='Password'
-              type='password'
-              required={true}
-              value={this.state.adminPassword}
-              onChange={this.setInputState('password')}
-            />
-            <Button
-              className='admin__login-button'
-              variant='contained'
-              color='primary'
-              onClick={this.login}
-            >
-              Login
-            </Button>
-            <Snackbar
-              open={this.state.snackbarIsOpen}
-              message={this.state.message}
-              autoHideDuration={4000}
-              onClose={this.handleSnackbarClose}
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+          {tab === 0 && (
+            <Typography component='div' className='admin__section'>
+              <UploadPhoto categories={categories} lastIndex={lastIndex} />
+            </Typography>
+          )}
+          {tab === 1 && (
+            <Typography component='div' className='admin__section'>
+              <ManagePhoto categories={categories} images={images} />
+            </Typography>
+          )}
+          {tab === 2 && (
+            <Typography component='div' className='admin__section'>
+              <ManageEmail />
+            </Typography>
+          )}
+          {tab === 3 && (
+            <Typography component='div' className='admin__section'>
+              <Newsletter />
+            </Typography>
+          )}
+        </div>
+      ) : (
+        <div className='admin__container'>
+          <TextField
+            className='admin__login-input'
+            label='Password'
+            type='password'
+            required={true}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Button
+            className='admin__login-button'
+            variant='contained'
+            color='primary'
+            onClick={login}
+          >
+            Login
+          </Button>
+          <Snackbar
+            open={snackbarIsOpen}
+            message={message}
+            autoHideDuration={4000}
+            onClose={e => setSnackbarIsOpen(false)}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Admin;
